@@ -4,18 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Diagnostics;
 using CodeMonkey.Utils;
-public class GridBuildingSystem : MonoBehaviour
+public class GridBuildingSystem  : MonoSingleton<GridBuildingSystem>
 {
-    private GridXZ<GridObject> grid;
+    public GridXZ<GridObject> grid;
     [SerializeField] private Transform gridObjectPrefab;
+    [SerializeField] private Transform originPosition;
     private void Awake()
     {
         int gridWidth = 8;
         int gridHeight = 8;
-        float cellSizeX = 4f;
-        float cellSizeZ = 8f;
+        float cellSizeX = 1.4f;
+        float cellSizeZ = 2.2f;
         //float gridCellSize = 10f;
-        grid = new GridXZ<GridObject>(gridWidth, gridHeight, cellSizeX,cellSizeZ, Vector3.zero, (GridXZ<GridObject> grid, int x, int z) => new GridObject(grid, x, z));
+        grid = new GridXZ<GridObject>(gridWidth, gridHeight, cellSizeX,cellSizeZ, originPosition.position, (GridXZ<GridObject> grid, int x, int z) => new GridObject(grid, x, z));
     }
 
     public class GridObject //encapsulates the grid object
@@ -60,9 +61,31 @@ public class GridBuildingSystem : MonoBehaviour
         {
             return x + "," + z + "\n" + transform;
         }
+        
+        
+        
     }
-
-    private void Update()
+    public void InstantiateGridObjectRandomly(Transform gridObjectPrefab)
+    {   bool end = false;
+        while (!end)
+        {
+            for (int x = 0; x < grid.GetHeight() - (grid.GetHeight()/2) ; x++)
+            {
+                for (int z = 0; z < grid.GetHeight() - (grid.GetHeight()/2); z++)
+                {
+                    if (grid.GetGridObject(x,z).CanBuild())
+                    {
+                        Transform buildTransform = Instantiate(gridObjectPrefab, grid.GetWorldPositionCenterOfGrid(x,z),Quaternion.identity);
+                        grid.GetGridObject(x,z).SetTransform(buildTransform);
+                        end = true;
+                    }
+                    
+                }
+            }
+        }
+        
+    }
+    /*private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {   
@@ -78,28 +101,9 @@ public class GridBuildingSystem : MonoBehaviour
             }
             
         }
-    }
+    }*/
 
-    private void InstantiateGridObjectRandomly(GridXZ<GridObject> gridObject, Transform gridObjectPrefab)
-    {   bool end = false;
-        while (!end)
-        {
-            for (int x = 0; x < gridObject.GetWidth() ; x++)
-            {
-                for (int z = 0; z < gridObject.GetHeight(); z++)
-                {
-                    if (grid.GetGridObject(x,z).CanBuild())
-                    {
-                        Transform buildTransform = Instantiate(gridObjectPrefab, gridObject.GetWorldPositionCenterOfGrid(x,z),Quaternion.identity);
-                        gridObject.GetGridObject(x,z).SetTransform(buildTransform);
-                        end = true;
-                    }
-                    
-                }
-            }
-        }
-        
-    }
+    
     
     
 }

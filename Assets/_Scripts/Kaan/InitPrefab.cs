@@ -26,13 +26,13 @@ public class InitPrefab : MonoBehaviour
     public Button RangeButton;
 
     //buttons
-    public GameObject MeleeLvl1;
+    public Transform MeleeLvl1;
 
     public GameObject MeleeLvl2;
 
     public GameObject MeleeLvl3;
 
-    public GameObject RangeLvl1;
+    public Transform RangeLvl1;
 
     public GameObject RangeLvl2;
 
@@ -46,10 +46,16 @@ public class InitPrefab : MonoBehaviour
     private GameObject tempGameObject;
 
     private Vector3 ObjLastPos;
+    
+
+    
+    
+    
 
     // Start is called before the first frame update
     void Start()
     {
+        
         StartCoroutine(MouseBehv());
     }
 
@@ -79,7 +85,6 @@ public class InitPrefab : MonoBehaviour
                     MergeCheck();
                 }
             }
-
             yield return null;
         }
     }
@@ -245,15 +250,16 @@ public class InitPrefab : MonoBehaviour
     }
 
     private void NoParamaterOnclickMelee()
-    {
+    {   GridBuildingSystem.Instance.InstantiateGridObjectRandomly(MeleeLvl1);
         //Debug.Log("Button clicked with no parameters");
-        Instantiate(MeleeLvl1, transform.position + new Vector3(0, 0.5f, 0), transform.rotation);
+        //Instantiate(MeleeLvl1, transform.position + new Vector3(0, 0.5f, 0), transform.rotation);
     }
+    
 
     private void NoParamaterOnclickRange()
-    {
+    {   GridBuildingSystem.Instance.InstantiateGridObjectRandomly(RangeLvl1);
         //Debug.Log("Button clicked with no parameters");
-        Instantiate(RangeLvl1, transform.position + new Vector3(0, 0.5f, 0), transform.rotation);
+        //Instantiate(RangeLvl1, transform.position + new Vector3(0, 0.5f, 0), transform.rotation);
     }
 
     // private void ParameterOnClick(string test)

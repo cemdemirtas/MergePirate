@@ -12,6 +12,7 @@ TagManager:
   - Melee3
   - Range2
   - Range3
+  - Grid
   layers:
   - Default
   - TransparentFX
