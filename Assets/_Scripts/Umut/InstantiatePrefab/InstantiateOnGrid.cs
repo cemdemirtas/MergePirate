@@ -7,7 +7,7 @@ public class InstantiateOnGrid : MonoBehaviour
 {
     [SerializeField] UnitSO[] units;
     
-    [SerializeField] GridXZ<GridBuildingSystem.GridObject> gridObject;
+    private GridXZ<GridBuildingSystem.GridObject> gridObject;
 
     private void Start()
     {

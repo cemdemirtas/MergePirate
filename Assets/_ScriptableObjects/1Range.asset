@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e57a286236ea1f46999f99e9ff25f5c, type: 3}
   m_Name: 1Range
   m_EditorClassIdentifier: 
-  unitName: 
-  unitType: 
+  unitName: RangeLevel1
+  unitType: Range
   unitID: 0
   unitLevel: 0
   unitHealth: 0

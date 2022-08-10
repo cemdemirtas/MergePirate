@@ -24,8 +24,9 @@ public class GridBuildingSystem  : MonoSingleton<GridBuildingSystem>
         private GridXZ<GridObject> grid;
         private int x;
         private int z;
-        
         private Transform transform;
+        private bool isEmpty;
+        
 
 
         public GridObject(GridXZ<GridObject> grid, int x, int z)
@@ -38,12 +39,14 @@ public class GridBuildingSystem  : MonoSingleton<GridBuildingSystem>
         public void SetTransform(Transform transform)
         {
             this.transform = transform;
+            isEmpty = false;
             grid.TriggerGridObjectChanged(x,z);
         }
         
         public void ClearTransform()
         {
             this.transform = null;
+            isEmpty = true;
             grid.TriggerGridObjectChanged(x,z);
         }
 
@@ -57,14 +60,20 @@ public class GridBuildingSystem  : MonoSingleton<GridBuildingSystem>
             return transform;
         }
         
+        public void MoveTransform(Vector3 position)
+        {
+            transform.position = position;
+            grid.TriggerGridObjectChanged(x,z);
+        }
+        
         public override string ToString()
         {
-            return x + "," + z + "\n" + transform;
+            return x + "," + z + "\n"+ transform;
         }
         
         
-        
     }
+    
     public void InstantiateGridObjectRandomly(Transform gridObjectPrefab)
     {   bool end = false;
         while (!end)
@@ -85,6 +94,8 @@ public class GridBuildingSystem  : MonoSingleton<GridBuildingSystem>
         }
         
     }
+    
+    
     /*private void Update()
     {
         if (Input.GetMouseButtonDown(0))
