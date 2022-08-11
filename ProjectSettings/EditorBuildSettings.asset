@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_Scenes/Kaan.unity
+    guid: 73d001a14723d5d40936cc2b7a33d65f
   m_configObjects: {}
