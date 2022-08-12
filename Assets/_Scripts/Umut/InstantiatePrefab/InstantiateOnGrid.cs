@@ -7,7 +7,7 @@ public class InstantiateOnGrid : MonoBehaviour
 {
     [SerializeField] UnitSO[] units;
     
-    private GridXZ<GridBuildingSystem.GridObject> gridObject;
+    private GridXZ<GridCell> gridObject;
 
     private void Start()
     {
@@ -32,7 +32,7 @@ public class InstantiateOnGrid : MonoBehaviour
         
     }
 
-    private bool checkEnoughPlaceToInstantiate(GridXZ<GridBuildingSystem.GridObject> gridObject)
+    private bool checkEnoughPlaceToInstantiate(GridXZ<GridCell> gridObject)
     {
         bool tempWhileLoop = true;
         bool tempBool = false;
@@ -42,7 +42,7 @@ public class InstantiateOnGrid : MonoBehaviour
             {
                 for (int z = 0; z < gridObject.GetHeight() - (gridObject.GetHeight()/2); z++)
                 {
-                    if (gridObject.GetGridObject(x, z).CanBuild() == true)
+                    if (gridObject.GetGridObject(x, z).isEmpthy() == true)
                     {   
                         tempBool= true;
                         tempWhileLoop = false;
@@ -61,9 +61,9 @@ public class InstantiateOnGrid : MonoBehaviour
         {
             int x = UnityEngine.Random.Range(0, gridObject.GetWidth());
             int z = UnityEngine.Random.Range(0, gridObject.GetHeight()/2);
-            if (gridObject.GetGridObject(x,z).CanBuild() == true)
+            if (gridObject.GetGridObject(x,z).isEmpthy() == true)
             {   
-                Transform buildTransform = Instantiate(unitPrefab, gridObject.GetWorldPositionCenterOfGrid(x,z),Quaternion.identity);
+                Transform buildTransform = Instantiate(unitPrefab, gridObject.GetWorldPositionCenterOfGrid(x,z)  + new Vector3(0,1,0),Quaternion.identity);
                 gridObject.GetGridObject(x,z).SetTransform(buildTransform);
                 end = true;
             }

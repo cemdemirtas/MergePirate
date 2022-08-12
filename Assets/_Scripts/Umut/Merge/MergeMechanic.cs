@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MergeMechanic : MonoBehaviour
 {
-    private GridXZ<GridBuildingSystem.GridObject> gridObject;
+    private GridXZ<GridCell> gridObject;
     [SerializeField] UnitSO[] units;
     
     

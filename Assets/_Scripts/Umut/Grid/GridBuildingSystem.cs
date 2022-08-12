@@ -6,9 +6,10 @@ using UnityEngine.Diagnostics;
 using CodeMonkey.Utils;
 public class GridBuildingSystem  : MonoSingleton<GridBuildingSystem>
 {
-    public GridXZ<GridObject> grid;
+    public GridXZ<GridCell> grid;
     [SerializeField] private Transform gridObjectPrefab;
     [SerializeField] private Transform originPosition;
+    [SerializeField] private GameObject gridGroundPrefab;
     private void Awake()
     {
         int gridWidth = 8;
@@ -16,65 +17,27 @@ public class GridBuildingSystem  : MonoSingleton<GridBuildingSystem>
         float cellSizeX = 1.4f;
         float cellSizeZ = 2.2f;
         //float gridCellSize = 10f;
-        grid = new GridXZ<GridObject>(gridWidth, gridHeight, cellSizeX,cellSizeZ, originPosition.position, (GridXZ<GridObject> grid, int x, int z) => new GridObject(grid, x, z));
+        grid = new GridXZ<GridCell>(gridWidth, gridHeight, cellSizeX,cellSizeZ, originPosition.position, (GridXZ<GridCell> grid, int x, int z) => new GridCell(grid, x, z));
+        
+        GameObject tileContainer = GameObject.Find("TileContainer");
+        if (tileContainer == null)
+            tileContainer = new GameObject("TileContainer");
+
+        for (int i = 0; i < grid.GetWidth(); i++)
+        {
+            for (int j = 0; j < grid.GetHeight(); j++)
+            {
+                GameObject spawnedTile = Instantiate(gridGroundPrefab, grid.GetWorldPositionCenterOfGrid(i, j), Quaternion.identity);
+                spawnedTile.tag = "Grid";
+                spawnedTile.name = $"Tile3D [{i}, {j}]";
+                spawnedTile.transform.SetParent(tileContainer.transform);
+            }
+        }
     }
 
-    public class GridObject //encapsulates the grid object
-    {
-        private GridXZ<GridObject> grid;
-        private int x;
-        private int z;
-        private Transform transform;
-        private bool isEmpty;
-        
-
-
-        public GridObject(GridXZ<GridObject> grid, int x, int z)
-        {   
-            
-            this.grid = grid;
-            this.x = x;
-            this.z = z;
-        }
-        public void SetTransform(Transform transform)
-        {
-            this.transform = transform;
-            isEmpty = false;
-            grid.TriggerGridObjectChanged(x,z);
-        }
-        
-        public void ClearTransform()
-        {
-            this.transform = null;
-            isEmpty = true;
-            grid.TriggerGridObjectChanged(x,z);
-        }
-
-        public bool CanBuild()
-        {
-            return transform == null;
-        }
-        
-        public Transform GetTransform()
-        {
-            return transform;
-        }
-        
-        public void MoveTransform(Vector3 position)
-        {
-            transform.position = position;
-            grid.TriggerGridObjectChanged(x,z);
-        }
-        
-        public override string ToString()
-        {
-            return x + "," + z + "\n"+ transform;
-        }
-        
-        
-    }
     
-    public void InstantiateGridObjectRandomly(Transform gridObjectPrefab)
+    
+    /*public void InstantiateGridObjectRandomly(Transform gridObjectPrefab)
     {   bool end = false;
         while (!end)
         {
@@ -93,7 +56,7 @@ public class GridBuildingSystem  : MonoSingleton<GridBuildingSystem>
             }
         }
         
-    }
+    }*/
     
     
     /*private void Update()
