@@ -7,7 +7,6 @@ using CodeMonkey.Utils;
 public class GridBuildingSystem  : MonoSingleton<GridBuildingSystem>
 {
     public GridXZ<GridCell> grid;
-    [SerializeField] private Transform gridObjectPrefab;
     [SerializeField] private Transform originPosition;
     [SerializeField] private GameObject gridGroundPrefab;
     private void Awake()
@@ -26,8 +25,7 @@ public class GridBuildingSystem  : MonoSingleton<GridBuildingSystem>
         for (int i = 0; i < grid.GetWidth(); i++)
         {
             for (int j = 0; j < grid.GetHeight(); j++)
-            {
-                GameObject spawnedTile = Instantiate(gridGroundPrefab, grid.GetWorldPositionCenterOfGrid(i, j), Quaternion.identity);
+            {   GameObject spawnedTile = Instantiate(gridGroundPrefab, grid.GetWorldPositionCenterOfGrid(i, j), Quaternion.identity);
                 spawnedTile.tag = "Grid";
                 spawnedTile.name = $"Tile3D [{i}, {j}]";
                 spawnedTile.transform.SetParent(tileContainer.transform);

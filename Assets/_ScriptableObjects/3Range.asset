@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e57a286236ea1f46999f99e9ff25f5c, type: 3}
   m_Name: 3Range
   m_EditorClassIdentifier: 
-  unitName: 
+  unitName: RangeLevel3
   unitType: 
-  unitID: 0
+  unitID: 32
   unitLevel: 0
   unitHealth: 0
   unitAttack: 0
@@ -22,3 +22,4 @@ MonoBehaviour:
   unitSpeed: 0
   unitRange: 0
   unitPrefab: {fileID: 1992345795499205388, guid: 559347a0e862ce74e9af5759988dce02, type: 3}
+  placedUnit: {fileID: 1106748231433437754, guid: 559347a0e862ce74e9af5759988dce02, type: 3}

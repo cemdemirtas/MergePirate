@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e57a286236ea1f46999f99e9ff25f5c, type: 3}
   m_Name: 2Melee
   m_EditorClassIdentifier: 
-  unitName: 
+  unitName: MeleeLevel2
   unitType: 
-  unitID: 0
-  unitLevel: 0
-  unitHealth: 0
+  unitID: 21
+  unitLevel: 2
+  unitHealth: 100
   unitAttack: 0
   unitDefense: 0
   unitSpeed: 0
   unitRange: 0
   unitPrefab: {fileID: 2278060506949597095, guid: 4db3818369a6db8468e9516fe94f79ef, type: 3}
+  placedUnit: {fileID: -7165906715135335782, guid: 4db3818369a6db8468e9516fe94f79ef, type: 3}

@@ -19,7 +19,7 @@ public class InstantiateOnGrid : MonoBehaviour
     {   
         if (checkEnoughPlaceToInstantiate(gridObject))
         {   
-            selectWhereToInstantiate(units[0].unitPrefab);
+            selectWhereToInstantiate(units[0].placedUnit);
         }
         
     }
@@ -27,7 +27,7 @@ public class InstantiateOnGrid : MonoBehaviour
     {   
         if (checkEnoughPlaceToInstantiate(gridObject))
         {   
-            selectWhereToInstantiate(units[1].unitPrefab);
+            selectWhereToInstantiate(units[1].placedUnit);
         }
         
     }
@@ -55,16 +55,18 @@ public class InstantiateOnGrid : MonoBehaviour
         return tempBool;
 
     }
-    private void selectWhereToInstantiate(Transform unitPrefab)
+    private void selectWhereToInstantiate(PlacedUnit placedUnit)
     {   bool end = false;
         while (!end)
         {
             int x = UnityEngine.Random.Range(0, gridObject.GetWidth());
             int z = UnityEngine.Random.Range(0, gridObject.GetHeight()/2);
             if (gridObject.GetGridObject(x,z).isEmpthy() == true)
-            {   
-                Transform buildTransform = Instantiate(unitPrefab, gridObject.GetWorldPositionCenterOfGrid(x,z)  + new Vector3(0,1,0),Quaternion.identity);
-                gridObject.GetGridObject(x,z).SetTransform(buildTransform);
+            {
+                PlacedUnit _placedUnit = PlacedUnit.Create(gridObject.GetWorldPositionCenterOfGrid(x, z) + new Vector3(0, 1, 0),new Vector2Int(x,z),
+                    placedUnit.placedUnitSO);
+                //Transform buildTransform = Instantiate(unitPrefab, gridObject.GetWorldPositionCenterOfGrid(x,z)  + new Vector3(0,1,0),Quaternion.identity);
+                gridObject.GetGridObject(x,z).SetPlacedUnit(_placedUnit);
                 end = true;
             }
             else

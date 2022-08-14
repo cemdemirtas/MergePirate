@@ -7,8 +7,8 @@ public class GridCell
     private GridXZ<GridCell> grid;
     public int x;
     public int z;
-    private Transform transform;
-    private UnitSO unit;
+    public PlacedUnit placedUnit;
+    public Transform transform;
     
 
 
@@ -19,50 +19,55 @@ public class GridCell
         this.x = x; 
         this.z = z;
     }
-    public void SetTransform(Transform transform)
+    public void SetPlacedUnit(PlacedUnit placedUnit)
     {
-        this.transform = transform;
+        this.placedUnit = placedUnit;
         
         grid.TriggerGridObjectChanged(x,z);
     }
         
-    public void ClearTransform()
+    public void ClearPlacedUnit()
     {
-        this.transform = null;
+        this.placedUnit = null;
         
         grid.TriggerGridObjectChanged(x,z);
     }
 
     public bool isEmpthy()
     {
-        return transform == null;
+        return placedUnit == null;
     }
         
-    public Transform GetTransform()
+    public PlacedUnit GetPlacedUnit()
     {
-        return transform;
+        return placedUnit;
+    }
+
+    public int GetIDPlacedUnit()
+    {
+        return placedUnit.placedUnitSO.unitID;
     }
         
-    public void MoveTransform(Vector3 position)
+    public void MovePlacedObject(Vector3 position)
     {
-        transform.position = position;
+        placedUnit.transform.position = position;
         grid.TriggerGridObjectChanged(x,z);
     }
     
-    public void ChangeTransform(GridXZ<GridCell> grid,  int oldX, int oldZ, int newX, int newZ, Transform objectTransform)
+    public void ChangeTransform(GridXZ<GridCell> grid,  int oldX, int oldZ, int newX, int newZ, PlacedUnit placedUnit)
     {
         GridCell oldCell = grid.GetGridObject(oldX, oldZ);
-        oldCell.ClearTransform();
+        oldCell.ClearPlacedUnit();
         GridCell newCell = grid.GetGridObject(newX, newZ);
-        newCell.SetTransform(objectTransform);
+        newCell.SetPlacedUnit(placedUnit);
         grid.TriggerGridObjectChanged(oldX, oldZ);
         grid.TriggerGridObjectChanged(newX, newZ);
     }
     
-    public void ChangeTransform(GridXZ<GridCell> grid,  GridCell oldGridCell, GridCell newGridCell, Transform objectTransform)
+    public void ChangeTransform(GridXZ<GridCell> grid,  GridCell oldGridCell, GridCell newGridCell, PlacedUnit placedUnit)
     {
-        oldGridCell.ClearTransform();
-        newGridCell.SetTransform(objectTransform);
+        oldGridCell.ClearPlacedUnit();
+        newGridCell.SetPlacedUnit(placedUnit);
         grid.TriggerGridObjectChanged(oldGridCell.x, oldGridCell.z);
         grid.TriggerGridObjectChanged(newGridCell.x, newGridCell.z);
         
@@ -70,13 +75,13 @@ public class GridCell
 
     public bool canMerge(GridCell oldGridCell, GridCell newGridCell)
     {
-        return oldGridCell.GetTransform() == newGridCell.GetTransform();
+        return oldGridCell.GetPlacedUnit() == newGridCell.GetPlacedUnit();
     }
     
         
     public override string ToString()
     {
-        return x + "," + z + "\n"+ transform;
+        return x + "," + z + "\n"+ transform + "\n" + placedUnit;
     }
     
     

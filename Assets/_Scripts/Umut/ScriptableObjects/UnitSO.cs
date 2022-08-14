@@ -16,6 +16,7 @@ public class UnitSO : ScriptableObject
     public int unitRange;//Range of the unit
 
     public Transform unitPrefab; //Prefab of the unit
+    public PlacedUnit placedUnit; //Placed unit of the unit
     
 
 

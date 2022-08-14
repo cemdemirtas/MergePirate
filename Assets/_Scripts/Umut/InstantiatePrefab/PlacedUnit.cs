@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlacedUnit : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
+{   
+    public static PlacedUnit Create(Vector3 worldPosition, Vector2Int origin, UnitSO placedUnitSo)
     {
+        Transform placedUnitTransform = Instantiate(placedUnitSo.unitPrefab, worldPosition, Quaternion.identity);
+        PlacedUnit placedUnit = placedUnitTransform.GetComponent<PlacedUnit>();
+        placedUnit.origin = origin;
+        placedUnit.placedUnitSO = placedUnitSo;
         
+        return placedUnit;
     }
-
-    // Update is called once per frame
-    void Update()
+    public UnitSO placedUnitSO;
+    private Vector2Int origin;
+    
+    public int GetUnitID()
     {
-        
+        return placedUnitSO.unitID;
     }
 }
