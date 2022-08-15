@@ -17,28 +17,14 @@ public class GridController : MonoBehaviour
 
     void FixedUpdate()
     {
-        //if (Input.touchCount > 0)
-        //{
-        //    CharacterMove();
-        //} 
-        //if (Input.GetMouseButton(0))
-        //{
-        //    CharacterMove();
-        //}
-        //else if (Input.GetMouseButtonUp(0) && Input.GetMouseButtonDown(0))
-        //{
-        //        GridSelector();
-        //    //GridSelector();
-        //} 
-        
         if (Input.GetMouseButton(0))
         {
             CharacterMove();
         }
-        else if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonDown(0))
+        else
         {
-                GridSelector();
-            //GridSelector();
+            GridSelector();
+
         }
     }
 

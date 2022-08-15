@@ -21,9 +21,9 @@ MonoBehaviour:
   enemyLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  AttackTime: 10
-  walkSpeed: 5
+  AttackTime: 2
+  walkSpeed: 1
   characterHealth: 100
-  startGame: 0
+  startGame: 1
   enemyTag: Enemy
   characterTag: Character
