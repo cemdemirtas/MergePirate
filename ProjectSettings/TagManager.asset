@@ -12,6 +12,11 @@ TagManager:
   - Melee3
   - Range2
   - Range3
+  - Grid
+  - Character
+  - Enemy
+  - Bullet
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX
@@ -19,9 +24,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Grid
+  - Character
+  - Enemy
   - 
   - 
   - 

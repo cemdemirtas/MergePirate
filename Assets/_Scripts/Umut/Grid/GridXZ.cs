@@ -43,8 +43,8 @@ public class GridXZ <TGridObject> // Generic class to create grid in XZ axis
 
             for (int x = 0; x < gridArray.GetLength(0); x++) {
                 for (int z = 0; z < gridArray.GetLength(1); z++) {
-                    debugTextArray[x, z] = UtilsClass.CreateWorldText(gridArray[x, z]?.ToString(), null, GetWorldPosition(x, z) + new Vector3(cellSizeX, 0, cellSizeZ) * .5f, 20, Color.white, TextAnchor.MiddleCenter, TextAlignment.Center);
-                    Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x, z + 1), Color.white, 100f);
+                    debugTextArray[x, z] = UtilsClass.CreateWorldText(gridArray[x, z]?.ToString(), null, GetWorldPosition(x, z) + new Vector3(cellSizeX, 0.2f, cellSizeZ) * .5f, 4, Color.white, TextAnchor.MiddleCenter, TextAlignment.Center);
+                    Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x, z + 1), Color.white, 100f)  ;
                     Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x + 1, z), Color.white, 100f);
                 }
             }
@@ -56,6 +56,7 @@ public class GridXZ <TGridObject> // Generic class to create grid in XZ axis
             };
         }
     }
+    public static List<TGridObject> GridObjects { get; set; }
     public int GetWidth() {
         return width;
     }
@@ -98,7 +99,7 @@ public class GridXZ <TGridObject> // Generic class to create grid in XZ axis
     public void TriggerGridObjectChanged(int x, int z) { // trigger the event when the grid object is changed 
         OnGridObjectChanged?.Invoke(this, new OnGridObjectChangedEventArgs { x = x, z = z });
     }
-
+    
     public void SetGridObject(Vector3 worldPosition, TGridObject value) {
         GetXZ(worldPosition, out int x, out int z); //get the grid coodinates of the world position and store them in x and z
         SetGridObject(x, z, value); // set the desired object at the grid coordinates
@@ -118,10 +119,14 @@ public class GridXZ <TGridObject> // Generic class to create grid in XZ axis
         return GetGridObject(x, z);
     }
 
+    
+
     public Vector2Int ValidateGridPosition(Vector2Int gridPosition) { 
         return new Vector2Int(
             Mathf.Clamp(gridPosition.x, 0, width - 1),
             Mathf.Clamp(gridPosition.y, 0, height - 1)
         );
     }
+    
+    
 }
