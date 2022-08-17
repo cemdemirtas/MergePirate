@@ -7,7 +7,7 @@ public class InstantiateOnGrid : MonoBehaviour
 {
     [SerializeField] UnitSO[] units;
     
-    private GridXZ<GridBuildingSystem.GridObject> gridObject;
+    private GridXZ<GridCell> gridObject;
 
     private void Start()
     {
@@ -19,7 +19,7 @@ public class InstantiateOnGrid : MonoBehaviour
     {   
         if (checkEnoughPlaceToInstantiate(gridObject))
         {   
-            selectWhereToInstantiate(units[0].unitPrefab);
+            selectWhereToInstantiate(units[0].placedUnit);
         }
         
     }
@@ -27,12 +27,12 @@ public class InstantiateOnGrid : MonoBehaviour
     {   
         if (checkEnoughPlaceToInstantiate(gridObject))
         {   
-            selectWhereToInstantiate(units[1].unitPrefab);
+            selectWhereToInstantiate(units[1].placedUnit);
         }
         
     }
 
-    private bool checkEnoughPlaceToInstantiate(GridXZ<GridBuildingSystem.GridObject> gridObject)
+    private bool checkEnoughPlaceToInstantiate(GridXZ<GridCell> gridObject)
     {
         bool tempWhileLoop = true;
         bool tempBool = false;
@@ -42,7 +42,7 @@ public class InstantiateOnGrid : MonoBehaviour
             {
                 for (int z = 0; z < gridObject.GetHeight() - (gridObject.GetHeight()/2); z++)
                 {
-                    if (gridObject.GetGridObject(x, z).CanBuild() == true)
+                    if (gridObject.GetGridObject(x, z).isEmpthy() == true)
                     {   
                         tempBool= true;
                         tempWhileLoop = false;
@@ -55,16 +55,18 @@ public class InstantiateOnGrid : MonoBehaviour
         return tempBool;
 
     }
-    private void selectWhereToInstantiate(Transform unitPrefab)
+    private void selectWhereToInstantiate(PlacedUnit placedUnit)
     {   bool end = false;
         while (!end)
         {
             int x = UnityEngine.Random.Range(0, gridObject.GetWidth());
             int z = UnityEngine.Random.Range(0, gridObject.GetHeight()/2);
-            if (gridObject.GetGridObject(x,z).CanBuild() == true)
-            {   
-                Transform buildTransform = Instantiate(unitPrefab, gridObject.GetWorldPositionCenterOfGrid(x,z),Quaternion.identity);
-                gridObject.GetGridObject(x,z).SetTransform(buildTransform);
+            if (gridObject.GetGridObject(x,z).isEmpthy() == true)
+            {
+                PlacedUnit _placedUnit = PlacedUnit.Create(gridObject.GetWorldPositionCenterOfGrid(x, z) + new Vector3(0, 1, 0),new Vector2Int(x,z),
+                    placedUnit.placedUnitSO);
+                //Transform buildTransform = Instantiate(unitPrefab, gridObject.GetWorldPositionCenterOfGrid(x,z)  + new Vector3(0,1,0),Quaternion.identity);
+                gridObject.GetGridObject(x,z).SetPlacedUnit(_placedUnit);
                 end = true;
             }
             else

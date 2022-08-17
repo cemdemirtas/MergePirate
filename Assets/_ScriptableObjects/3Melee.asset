@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e57a286236ea1f46999f99e9ff25f5c, type: 3}
   m_Name: 3Melee
   m_EditorClassIdentifier: 
-  unitName: 
-  unitType: 
-  unitID: 0
+  unitName: MeleeLevel3
+  unitType: Melee
+  unitID: 31
   unitLevel: 0
   unitHealth: 0
   unitAttack: 0
@@ -22,3 +22,4 @@ MonoBehaviour:
   unitSpeed: 0
   unitRange: 0
   unitPrefab: {fileID: 1992345795499205388, guid: 33118b6f01584a44382f26e14d1d8c81, type: 3}
+  placedUnit: {fileID: 1990301863877435936, guid: 33118b6f01584a44382f26e14d1d8c81, type: 3}

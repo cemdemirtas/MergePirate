@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4188762283630477655}
   - component: {fileID: 7938425083034985616}
   - component: {fileID: 2270291300542843062}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 4936780381268737656}
   - component: {fileID: 8797323417076132007}
   - component: {fileID: 8242006370842381610}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: head (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,7 +207,8 @@ GameObject:
   - component: {fileID: 647792921441471736}
   - component: {fileID: 2410714256979811252}
   - component: {fileID: 7119345380896940744}
-  m_Layer: 0
+  - component: {fileID: -8588168734850271348}
+  m_Layer: 7
   m_Name: Range1
   m_TagString: Range
   m_Icon: {fileID: 0}
@@ -259,7 +260,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 93ac57d3ae2c8c8458434dc1b90fb1fd, type: 2}
+  - {fileID: 2100000, guid: b3f033212a54b824e9e11a8a8c24271c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -310,3 +311,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-8588168734850271348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3039778281972430763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ab5ab69e66fd5545b72115c482e570b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placedUnitSO: {fileID: 11400000, guid: f53c98b2aa38a354d9ab080d5a05676a, type: 2}

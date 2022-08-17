@@ -1,80 +1,147 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class DragAndDrop : MonoBehaviour
 {   
-    private GridXZ<GridBuildingSystem.GridObject> gridObject;
-    private Transform _pickedUpUnit;
-    private GridBuildingSystem.GridObject _lastPickedGrid;
+    private GridXZ<GridCell> grid;
+    private PlacedUnit _pickedUpUnit;
+    private GridCell _lastPickedGrid;
+    [SerializeField] private UnitSO[] _units;
+    public List<int> unitIdIndex = new List<int>();
+
+
 
     [SerializeField] private LayerMask _unitLayerMask;
     [SerializeField] private LayerMask _groundLayerMask;
 
-    private void Start()
+    private void Awake()
     {
-        gridObject = GameObject.FindGameObjectWithTag("Grid").GetComponent<GridBuildingSystem>().grid;
+        for (int i = 0; i < _units.Length; i++)
+        {
+            unitIdIndex.Add(_units[i].unitID);
+        }
     }
 
-    /*private void Update()
+    private void Start()
+    {
+        grid = GameObject.FindGameObjectWithTag("Grid").GetComponent<GridBuildingSystem>().grid;
+    }
+    
+    
+
+    private void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        GridBuildingSystem.GridObject _gridObject;
-        
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, _groundLayerMask))
+        GridCell gridCell;
+        bool unitHit = Physics.Raycast(ray, out RaycastHit hit, 100, _unitLayerMask);
+        bool groundHit = Physics.Raycast(ray, out RaycastHit groundHitInfo, 100, _groundLayerMask);
+
+        if (unitHit)
         {
-            _gridObject = gridObject.GetGridObject(hit.point);
-            if (_gridObject != null)
-            {
-                if (Input.GetMouseButtonDown(0))
-                {
-                    _lastPickedGrid = _gridObject;
-                    _pickedUpUnit = _gridObject.GetTransform();
-                    _pickedUpUnit.GetComponent<Rigidbody>().isKinematic = true;
-                }
-                else if (Input.GetMouseButtonUp(0))
-                {
-                    _pickedUpUnit.GetComponent<Rigidbody>().isKinematic = false;
-                    _pickedUpUnit = null;
-                }
-                else if (_pickedUpUnit != null)
-                {
-                    _pickedUpUnit.position = hit.point;
-                }
+            gridCell = grid.GetGridObject(hit.point);
+
+            if (Input.GetMouseButtonDown(0))
+            {    
+                _lastPickedGrid = gridCell;
+                _pickedUpUnit = hit.transform.gameObject.GetComponent<PlacedUnit>();
+                gridCell.ClearPlacedUnit();
+                return;
             }
         }
-        else if (Physics.Raycast(ray, out hit, Mathf.Infinity, _unitLayerMask))
+
+        if (groundHit)
         {
-            _gridObject = gridObject.GetGridObject(hit.point);
-            if (_gridObject != null)
+            gridCell = grid.GetGridObject(groundHitInfo.point);
+            if (Input.GetMouseButtonDown(0))
             {
-                if (Input.GetMouseButtonDown(0))
+                if (gridCell == null)
                 {
-                    _lastPickedGrid = _gridObject;
-                    _pickedUpUnit = _gridObject.GetTransform();
-                    _pickedUpUnit.GetComponent<Rigidbody>().isKinematic = true;
+                    return;
                 }
-                else if (Input.GetMouseButtonUp(0))
+
+                _lastPickedGrid = gridCell;
+                if (gridCell.isEmpthy())
                 {
-                    _pickedUpUnit.GetComponent<Rigidbody>().isKinematic = false;
                     _pickedUpUnit = null;
                 }
-                else if (_pickedUpUnit != null)
+            }
+
+            if (Input.GetMouseButton(0))
+            {
+                if (_pickedUpUnit != null)
                 {
-                    _pickedUpUnit.position = hit.point;
+                    _pickedUpUnit.transform.position = groundHitInfo.point + Vector3.up * 2f;
                 }
             }
-        }
-        else
-        {
+
             if (Input.GetMouseButtonUp(0))
             {
-                _pickedUpUnit.GetComponent<Rigidbody>().isKinematic = false;
+                if (_pickedUpUnit == null)
+                {
+                    return;
+                }
+                gridCell = grid.GetGridObject(groundHitInfo.point);
+
+                if (gridCell != null)
+                {  
+                    if (!gridCell.isEmpthy())
+                    {
+                        if (gridCell.GetIDPlacedUnit() != _pickedUpUnit.GetUnitID())
+                        {
+                            _pickedUpUnit.transform.position = grid.GetWorldPositionCenterOfGrid(_lastPickedGrid.x, _lastPickedGrid.z) + new Vector3(0, 1f, 0);
+                            _lastPickedGrid.SetPlacedUnit(_pickedUpUnit);
+                        }
+                        else if (_pickedUpUnit.GetUnitID() == 31 || _pickedUpUnit.GetUnitID() == 32)
+                        {
+                            _pickedUpUnit.transform.position = grid.GetWorldPositionCenterOfGrid(_lastPickedGrid.x, _lastPickedGrid.z) + new Vector3(0, 1f, 0);
+                            _lastPickedGrid.SetPlacedUnit(_pickedUpUnit);
+                        }
+                        else if (_pickedUpUnit.GetUnitID() == gridCell.GetIDPlacedUnit() )
+                        {   int temp = _pickedUpUnit.GetUnitID();
+                            int index = System.Array.IndexOf(unitIdIndex.ToArray(), temp + 10);
+                            //System.Array.FindLastIndex()
+                            Destroy(gridCell.GetPlacedUnit().transform.gameObject);
+                            gridCell.ClearPlacedUnit();
+                            Destroy(_pickedUpUnit.gameObject);
+                            _pickedUpUnit = _units[index].placedUnit;
+                            Debug.Log(_pickedUpUnit.GetUnitID());
+                            PlacedUnit placedUnit = PlacedUnit.Create(grid.GetWorldPositionCenterOfGrid(gridCell.x,gridCell.z) + Vector3.up,new Vector2Int(gridCell.x,gridCell.z),_pickedUpUnit.placedUnitSO);
+                            gridCell.SetPlacedUnit(placedUnit);
+                            _pickedUpUnit = null;
+                        }
+                        
+                        
+                        
+                    }
+                    else
+                    {
+                        _pickedUpUnit.transform.position =
+                            grid.GetWorldPositionCenterOfGrid(gridCell.x, gridCell.z)+ new Vector3(0, 1f, 0);
+                        gridCell.SetPlacedUnit(_pickedUpUnit);
+                        if (_lastPickedGrid != gridCell)
+                        {
+                            _lastPickedGrid.ClearPlacedUnit();
+                        }
+                    }
+                    
+                }
+                else
+                {
+                    _pickedUpUnit.transform.position = grid.GetWorldPositionCenterOfGrid(_lastPickedGrid.x, _lastPickedGrid.z) + Vector3.up;
+                    
+                    _lastPickedGrid.SetPlacedUnit(_pickedUpUnit);
+                }
                 _pickedUpUnit = null;
             }
+            
+            
         }
-    }*/
-    
-    
+        
+        
+    }
 }
+    

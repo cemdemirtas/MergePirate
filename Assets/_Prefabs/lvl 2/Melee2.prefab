@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4366374924054376622}
   - component: {fileID: 774337005691104706}
   - component: {fileID: 1088102622521068700}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 87758782149130518}
   - component: {fileID: 3670713595231201104}
   - component: {fileID: 3799473393824799907}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 200245415648496095}
   - component: {fileID: 916080612319319796}
   - component: {fileID: 2577626676362054552}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -304,7 +304,8 @@ GameObject:
   - component: {fileID: 7233226734954293440}
   - component: {fileID: 7382984284803613874}
   - component: {fileID: -908113210868335627}
-  m_Layer: 0
+  - component: {fileID: -7165906715135335782}
+  m_Layer: 7
   m_Name: Melee2
   m_TagString: Melee2
   m_Icon: {fileID: 0}
@@ -408,3 +409,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-7165906715135335782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5915986905237669127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ab5ab69e66fd5545b72115c482e570b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placedUnitSO: {fileID: 11400000, guid: 384af945d504df649b43b4ab3ec6605b, type: 2}

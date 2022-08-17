@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class MergeMechanic : MonoBehaviour
 {
-    private GridXZ<GridBuildingSystem.GridObject> gridObject;
+    private GridXZ<GridCell> gridObject;
     [SerializeField] UnitSO[] units;
-    
-    
-    private Vector3 ObjLastPos;
     
     private void Start()
     {
@@ -16,7 +13,7 @@ public class MergeMechanic : MonoBehaviour
         
     }
     
-    //private void 
+    
     
     
 }
