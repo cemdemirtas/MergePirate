@@ -25,6 +25,7 @@ public class UIManager : MonoSingleton<GameManager>
     // Start is called before the first frame update
     void Start()
     {
+
         
     }
 
@@ -48,6 +49,7 @@ public class UIManager : MonoSingleton<GameManager>
 
     public void MainExitButton(){
         //TODO: exit application
+        application.Quit();
     }
 
     public void BuyMeleeButton(){
