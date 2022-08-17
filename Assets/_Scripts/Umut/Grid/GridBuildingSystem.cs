@@ -18,17 +18,17 @@ public class GridBuildingSystem  : MonoSingleton<GridBuildingSystem>
         //float gridCellSize = 10f;
         grid = new GridXZ<GridCell>(gridWidth, gridHeight, cellSizeX,cellSizeZ, originPosition.position, (GridXZ<GridCell> grid, int x, int z) => new GridCell(grid, x, z));
         
-        GameObject tileContainer = GameObject.Find("TileContainer");
-        if (tileContainer == null)
-            tileContainer = new GameObject("TileContainer");
+        GameObject gridContainer = GameObject.Find("GridContainer");
+        if (gridContainer == null)
+            gridContainer = new GameObject("GridContainer");
 
         for (int i = 0; i < grid.GetWidth(); i++)
         {
             for (int j = 0; j < grid.GetHeight(); j++)
             {   GameObject spawnedTile = Instantiate(gridGroundPrefab, grid.GetWorldPositionCenterOfGrid(i, j), Quaternion.identity);
                 spawnedTile.tag = "Grid";
-                spawnedTile.name = $"Tile3D [{i}, {j}]";
-                spawnedTile.transform.SetParent(tileContainer.transform);
+                spawnedTile.name = $"GridCell [{i}, {j}]";
+                spawnedTile.transform.SetParent(gridContainer.transform);
             }
         }
     }

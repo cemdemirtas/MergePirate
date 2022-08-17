@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 2Range
   m_EditorClassIdentifier: 
   unitName: RangeLevel2
-  unitType: 
+  unitType: Range
   unitID: 22
   unitLevel: 0
   unitHealth: 0

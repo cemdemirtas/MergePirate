@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 3Melee
   m_EditorClassIdentifier: 
   unitName: MeleeLevel3
-  unitType: 
+  unitType: Melee
   unitID: 31
   unitLevel: 0
   unitHealth: 0

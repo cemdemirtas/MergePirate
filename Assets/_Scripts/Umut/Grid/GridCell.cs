@@ -19,6 +19,8 @@ public class GridCell
         this.x = x; 
         this.z = z;
     }
+    
+    
     public void SetPlacedUnit(PlacedUnit placedUnit)
     {
         this.placedUnit = placedUnit;
