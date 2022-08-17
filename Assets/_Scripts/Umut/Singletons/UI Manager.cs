@@ -12,9 +12,12 @@ public class UIManager : MonoSingleton<GameManager>
     //scene2 = scene1 - no fight button, no buy button
 
 
+    //? buy soldier panelinin arkasında saydam bir yapı mı yoksa sprite olacağı konuşulacak.
+
+
     private int gold = 0; //TODO: get gold info from scriptable object
 
-    //TODO!: Ayrı bir scene üzerinde çalışılacak. Umut scene'in den farklı adda scene oluşturulacak.
+    //TODO!: Ayrı bir scene üzerinde çalışılacak. Umut scene'in den farklı adda scene oluşturulacak. (kaan adında oluşturulacak)
 
     [SerializeField] private GameObject _startMenuPanel; //scene 0 (play&exit buttons)
     [SerializeField] private Button _playButton; //scene 0 (play&exit buttons)
