@@ -13,6 +13,10 @@ TagManager:
   - Range2
   - Range3
   - Grid
+  - Character
+  - Enemy
+  - Bullet
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX
@@ -21,8 +25,10 @@ TagManager:
   - Water
   - UI
   - Grid
-  - Unit
-  - 
+
+  - Character
+  - Enemy
+
   - 
   - 
   - 
