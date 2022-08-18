@@ -9,6 +9,7 @@ public class GridBuildingSystem  : MonoSingleton<GridBuildingSystem>
     public GridXZ<GridCell> grid;
     [SerializeField] private Transform originPosition;
     [SerializeField] private GameObject gridGroundPrefab;
+    [SerializeField] private GameObject gridGroundPrefabEnemyBorderless;
     private void Awake()
     {
         int gridWidth = 8;
@@ -24,10 +25,18 @@ public class GridBuildingSystem  : MonoSingleton<GridBuildingSystem>
 
         for (int i = 0; i < grid.GetWidth(); i++)
         {
-            for (int j = 0; j < grid.GetHeight(); j++)
-            {   GameObject spawnedTile = Instantiate(gridGroundPrefab, grid.GetWorldPositionCenterOfGrid(i, j), Quaternion.identity);
+            for (int j = 0; j < grid.GetHeight()/2; j++)
+            {   GameObject spawnedTile = Instantiate(gridGroundPrefab, grid.GetWorldPositionCenterOfGrid(i, j) + new Vector3(0,0.06f,0), Quaternion.identity);
                 spawnedTile.tag = "Grid";
                 spawnedTile.name = $"GridCell [{i}, {j}]";
+                spawnedTile.transform.SetParent(gridContainer.transform);
+            }
+
+            for (int j = grid.GetHeight()/2; j < gridHeight; j++)
+            {
+                GameObject spawnedTile = Instantiate(gridGroundPrefabEnemyBorderless, grid.GetWorldPositionCenterOfGrid(i, j) + new Vector3(0,0.06f,0), Quaternion.identity);
+                //spawnedTile.tag = "Grid";
+                spawnedTile.name = $"GridCellEnemy [{i}, {j}]";
                 spawnedTile.transform.SetParent(gridContainer.transform);
             }
         }
