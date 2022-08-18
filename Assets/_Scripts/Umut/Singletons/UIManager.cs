@@ -21,11 +21,9 @@ public class UIManager : MonoSingleton<GameManager>
 
     //TODO!: Ayrı bir scene üzerinde çalışılacak. Umut scene'in den farklı adda scene oluşturulacak. (kaan adında oluşturulacak)
 
-    [SerializeField]
-    private GameObject _startMenuPanel; //scene 0 (play&exit buttons)
 
-    [SerializeField]
-    private GameObject _inGamePanel; //scene 1 (buy panel bottom center) //TODO: panelbakgroun için sprite henüz yok drive'a bakılacak. // olmasada olur saydam düzen denenecek.
+
+
 
     [SerializeField]
     private GameObject _goldIndicatorPanel; //scene 1 (top right corner gold indicator) //TODO: put gold sprite in this panel
@@ -39,42 +37,57 @@ public class UIManager : MonoSingleton<GameManager>
     [SerializeField]
     private TextMeshProUGUI _rangedSoldierCostText;
 
+    [SerializeField]
+    private Button _meleeBuyButton;
+
+    [SerializeField]
+    private Button _rangedBuyButton;
+
     // Start is called before the first frame update
     void Start()
     {
-        // _startMenuPanel.SetActive(true);
-        // _inGamePanel.SetActive(false);
-        // _goldIndicatorPanel.SetActive(false);
-
-        //scenemanager
-
-        SetGold(5000);
+        if (SceneManager.GetActiveScene().buildIndex != 0)
+        {
+            SetGold(500);
+        }
     }
 
-    // Update is called once per frame
-    void Update() { }
-
-    public void ShowInGamePanel()
+    void Update()
     {
-        _inGamePanel.SetActive(true);
-        _goldIndicatorPanel.SetActive(true);
-    }
+        //chech if _meleeSoldierCostText.text is active
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            if (_meleeBuyButton.interactable)
+            {
+                if (gold - int.Parse(_meleeSoldierCostText.text) < 0)
+                {
+                    //Disable buy button
+                    _meleeBuyButton.interactable = false;
+                }
+                else
+                {
+                    _meleeBuyButton.interactable = true;
+                }
+            }
 
-    public void HideInGamePanel()
-    {
-        _inGamePanel.SetActive(false);
+            if (_rangedBuyButton.interactable)
+            {
+                if (gold - int.Parse(_rangedSoldierCostText.text) < 0)
+                {
+                    //Disable buy button
+                    _rangedBuyButton.interactable = false;
+                }
+                else
+                {
+                    _rangedBuyButton.interactable = true;
+                }
+            }
+        }
     }
 
     public void MainPlayButton()
     {
-        //TODO: load scene 1 and activate _inGamePanel (done)
-
-        //load scene 1
-        //SceneManager.LoadScene(1);
         SceneManager.LoadScene(1);
-
-        //activate _inGamePanel
-        ShowInGamePanel();
     }
 
     public void MainExitButton()
@@ -85,33 +98,47 @@ public class UIManager : MonoSingleton<GameManager>
 
     public void BuyMeleeButton()
     {
-        //TODO: run instantiateMelee() method from InstantiateOnGrid.cs script
         gold = gold - int.Parse(_meleeSoldierCostText.text);
         UpdateGoldIndicator();
     }
 
     public void BuyRangeButton()
     {
-        //TODO: run instantiateRange() method from InstantiateOnGrid.cs script
         gold = gold - int.Parse(_rangedSoldierCostText.text);
         UpdateGoldIndicator();
     }
 
     public void FightButton()
     {
-        HideInGamePanel();
+        /*
+        
+        START NAVMESH FIGHT HERE
+        
+        
+        */
         //TODO!: disable grid in fight scene
+        //disable buy buttons in fight scene
+        _meleeBuyButton.interactable = false;
+        _rangedBuyButton.interactable = false;
     }
 
-    public void ExitMainMenuButton()
+    public void ExitFight()
     {
-        //SceneManager.LoadScene(0);
+        /*
+                
+            STOP NAVMESH FIGHT HERE
+                
+                
+        */
+
+
+        //TODO!: enable grid in after fight scene
+        //enable buy buttons in fight scene
+        _meleeBuyButton.interactable = true;
+        _rangedBuyButton.interactable = true;
     }
 
-    public void ShowGoldIndicator()
-    {
-        _goldIndicatorPanel.SetActive(true);
-    }
+    //GOLD STUFF//
 
     private void UpdateGoldIndicator()
     {
