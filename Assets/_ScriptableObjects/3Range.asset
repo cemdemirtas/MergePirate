@@ -15,7 +15,7 @@ MonoBehaviour:
   unitName: RangeLevel3
   unitType: Range
   unitID: 32
-  unitHealth: 0
+  unitHealth: 100
   unitAttack: 0
   unitSpeed: 0
   unitRange: 0

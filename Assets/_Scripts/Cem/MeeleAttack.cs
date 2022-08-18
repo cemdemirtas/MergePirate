@@ -51,8 +51,8 @@ public class MeeleAttack : MonoBehaviour
         if (/*unitSO.startGame &&*/ OnGame==true)
         {
             findNearEnemy();
-            //transform.Translate(transform.forward * Time.deltaTime * unitSO.unitSpeed* SmoothSpeed);
-            transform.DOMove(target.transform.position, 3f);
+            transform.Translate(transform.forward * Time.deltaTime * unitSO.unitSpeed * SmoothSpeed);
+            //transform.DOMove(target.transform.position, 3f);
         }
     }
     private void OnTriggerEnter(Collider other)
