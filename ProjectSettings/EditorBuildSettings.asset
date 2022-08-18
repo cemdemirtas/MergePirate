@@ -4,6 +4,12 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_Scenes/StartScreen.unity
+    guid: 73d001a14723d5d40936cc2b7a33d65f
+  - enabled: 1
+    path: Assets/_Scenes/BuyMergeScreen.unity
+    guid: 9a9b6dc5cc3008f4e92b07aadbf12266
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 29b4b2e397073fa48a34a6e41ae3c2fa, type: 2}
