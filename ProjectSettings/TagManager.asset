@@ -17,6 +17,7 @@ TagManager:
   - Enemy
   - Bullet
   - EnemyBullet
+  - Unit
   layers:
   - Default
   - TransparentFX
@@ -25,10 +26,8 @@ TagManager:
   - Water
   - UI
   - Grid
-
-  - Character
-  - Enemy
-
+  - Unit
+  - 
   - 
   - 
   - 

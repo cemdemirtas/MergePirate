@@ -8,6 +8,7 @@ public class GridCell
     public int x;
     public int z;
     public PlacedUnit placedUnit;
+    
     public Transform transform;
     
 
