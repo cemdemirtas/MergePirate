@@ -62,7 +62,6 @@ public class GridController : MonoBehaviour
                 selectedCharacter.transform.position = new Vector3(selectedGrid.transform.position.x,
                     selectedCharacter.transform.position.y, selectedGrid.transform.position.z);
 
-                selectedCharacter.GetComponent<CharacterController>().lastPosition = selectedGrid.transform.position;
             }
             selectedCharacter = null;
             previousCharacter = null;

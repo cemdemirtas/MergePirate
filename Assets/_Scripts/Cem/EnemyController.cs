@@ -5,30 +5,31 @@ using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
-    public float _health;
+    //public float _health;
 
     public int enemyLevel;
 
-    [SerializeField] CharacterType characterType;
+    [SerializeField] UnitSO unitSO;
 
-    Slider healthBar;
+    //Slider healthBar;
 
     private void Start()
     {
-        _health = characterType.characterHealth * enemyLevel;
-        healthBar = transform.GetChild(0).transform.GetChild(0).transform.gameObject.GetComponent<Slider>();
-        healthBar.maxValue = _health;
-        healthBar.value = _health;
+        //    _health = unitSO.unitHealth * enemyLevel;
+        //    healthBar = transform.GetChild(0).transform.GetChild(0).transform.gameObject.GetComponent<Slider>();
+        //    healthBar.maxValue = _health;
+        //    healthBar.value = _health;
+        //}
     }
 
     private void Update()
     {
-        if (_health <= 0)
-        {
-            transform.gameObject.SetActive(false);
-        }
-        healthBar.transform.LookAt(Vector3.forward);
-        healthBar.transform.rotation = (Quaternion.LookRotation(Vector3.up));
+        //if (_health <= 0)
+        //{
+        //    transform.gameObject.SetActive(false);
+        //}
+        //healthBar.transform.LookAt(Vector3.forward);
+        //healthBar.transform.rotation = (Quaternion.LookRotation(Vector3.up));
 
     }
 
@@ -43,7 +44,7 @@ public class EnemyController : MonoBehaviour
 
     public void TakeDamage(float damageValue)
     {
-        _health -= damageValue;
-        healthBar.value = _health;
+        //_health -= damageValue;
+        //healthBar.value = _health;
     }
 }

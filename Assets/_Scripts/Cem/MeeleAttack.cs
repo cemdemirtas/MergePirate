@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class MeeleAttack : MonoBehaviour
 {
-    [SerializeField] CharacterType characterType;
+    [SerializeField] UnitSO unitSO;
 
     CharacterController characterController;
 
@@ -17,9 +17,11 @@ public class MeeleAttack : MonoBehaviour
     private float attackTime;
     private float distanceToClosestTarget;
     private float distanceToTarget;
+    private float SmoothSpeed=0.5f;
     GameObject[] allEnemy;
 
     private bool walk;
+    [SerializeField] bool OnGame;
 
     bool attack;
     private void Start()
@@ -28,8 +30,6 @@ public class MeeleAttack : MonoBehaviour
         animator = GetComponent<Animator>();
         attackTime = 0;
         walk = true;
-        characterType.startGame=true;
-
         //animator.SetTrigger("Walk");
     }
 
@@ -41,15 +41,18 @@ public class MeeleAttack : MonoBehaviour
             AttackTheEnemy();
             attackTime -= Time.deltaTime;
             walk = false;
+            OnGame = false;
         }
         else
         {
             walk = true;
+            OnGame = true;
         }
-        if (characterType.startGame && walk)
+        if (/*unitSO.startGame &&*/ OnGame==true)
         {
             findNearEnemy();
-            transform.Translate(transform.forward * Time.deltaTime * characterType.walkSpeed);
+            //transform.Translate(transform.forward * Time.deltaTime * unitSO.unitSpeed* SmoothSpeed);
+            transform.DOMove(target.transform.position, 3f);
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -72,7 +75,8 @@ public class MeeleAttack : MonoBehaviour
         allEnemy = GameObject.FindGameObjectsWithTag("Enemy");
         if (allEnemy.Length == 0)
         {
-            characterType.startGame = false;
+            //unitSO.startGame = false;
+            OnGame = false;
         }
         for (int i = 0; i < allEnemy.Length; i++)
         {
@@ -97,8 +101,9 @@ public class MeeleAttack : MonoBehaviour
         {
             case <= 0:
                 target.GetComponent<EnemyController>().TakeDamage(characterController.characterLevel * 10f);
-                attackTime = characterType.AttackTime;
+                attackTime = unitSO.unitAttackSpeed;
                 //animator.SetTrigger("Attack");
+                transform.LookAt(target.transform);
                 break;
         }
 
