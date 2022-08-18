@@ -87,61 +87,75 @@ public class DragAndDrop : MonoBehaviour
                 gridCell = grid.GetGridObject(groundHitInfo.point);
 
                 if (gridCell != null)
-                {  
-                    if (!gridCell.isEmpthy())
+                {
+                    if (gridCell.x < grid.GetWidth() && gridCell.x >= 0 && gridCell.z < grid.GetHeight() / 2 &&
+                        gridCell.z >= 0)
                     {
-                        if (gridCell.GetIDPlacedUnit() != _pickedUpUnit.GetUnitID())
+                        if (!gridCell.isEmpthy())
                         {
-                            _pickedUpUnit.transform.position = grid.GetWorldPositionCenterOfGrid(_lastPickedGrid.x, _lastPickedGrid.z) + new Vector3(0, 1f, 0);
-                            _lastPickedGrid.SetPlacedUnit(_pickedUpUnit);
+                            if (gridCell.GetIDPlacedUnit() != _pickedUpUnit.GetUnitID())
+                            {
+                                _pickedUpUnit.transform.position =
+                                    grid.GetWorldPositionCenterOfGrid(_lastPickedGrid.x, _lastPickedGrid.z) +
+                                    new Vector3(0, 1f, 0);
+                                _lastPickedGrid.SetPlacedUnit(_pickedUpUnit);
+                            }
+                            else if (_pickedUpUnit.GetUnitID() == 31 || _pickedUpUnit.GetUnitID() == 32)
+                            {
+                                _pickedUpUnit.transform.position =
+                                    grid.GetWorldPositionCenterOfGrid(_lastPickedGrid.x, _lastPickedGrid.z) +
+                                    new Vector3(0, 1f, 0);
+                                _lastPickedGrid.SetPlacedUnit(_pickedUpUnit);
+                            }
+                            else if (_pickedUpUnit.GetUnitID() == gridCell.GetIDPlacedUnit())
+                            {
+                                int temp = _pickedUpUnit.GetUnitID();
+                                int index = System.Array.IndexOf(unitIdIndex.ToArray(), temp + 10);
+                                //System.Array.FindLastIndex()
+                                Destroy(gridCell.GetPlacedUnit().transform.gameObject);
+                                gridCell.ClearPlacedUnit();
+                                Destroy(_pickedUpUnit.gameObject);
+                                _pickedUpUnit = _units[index].placedUnit;
+                                Debug.Log(_pickedUpUnit.GetUnitID());
+                                PlacedUnit placedUnit = PlacedUnit.Create(
+                                    grid.GetWorldPositionCenterOfGrid(gridCell.x, gridCell.z) + Vector3.up,
+                                    new Vector2Int(gridCell.x, gridCell.z), _pickedUpUnit.placedUnitSO);
+                                gridCell.SetPlacedUnit(placedUnit);
+                                _pickedUpUnit = null;
+                            }
                         }
-                        else if (_pickedUpUnit.GetUnitID() == 31 || _pickedUpUnit.GetUnitID() == 32)
+                        else
                         {
-                            _pickedUpUnit.transform.position = grid.GetWorldPositionCenterOfGrid(_lastPickedGrid.x, _lastPickedGrid.z) + new Vector3(0, 1f, 0);
-                            _lastPickedGrid.SetPlacedUnit(_pickedUpUnit);
+                            _pickedUpUnit.transform.position =
+                                grid.GetWorldPositionCenterOfGrid(gridCell.x, gridCell.z) + new Vector3(0, 1f, 0);
+                            gridCell.SetPlacedUnit(_pickedUpUnit);
+                            if (_lastPickedGrid != gridCell)
+                            {
+                                _lastPickedGrid.ClearPlacedUnit();
+                            }
                         }
-                        else if (_pickedUpUnit.GetUnitID() == gridCell.GetIDPlacedUnit() )
-                        {   int temp = _pickedUpUnit.GetUnitID();
-                            int index = System.Array.IndexOf(unitIdIndex.ToArray(), temp + 10);
-                            //System.Array.FindLastIndex()
-                            Destroy(gridCell.GetPlacedUnit().transform.gameObject);
-                            gridCell.ClearPlacedUnit();
-                            Destroy(_pickedUpUnit.gameObject);
-                            _pickedUpUnit = _units[index].placedUnit;
-                            Debug.Log(_pickedUpUnit.GetUnitID());
-                            PlacedUnit placedUnit = PlacedUnit.Create(grid.GetWorldPositionCenterOfGrid(gridCell.x,gridCell.z) + Vector3.up,new Vector2Int(gridCell.x,gridCell.z),_pickedUpUnit.placedUnitSO);
-                            gridCell.SetPlacedUnit(placedUnit);
-                            _pickedUpUnit = null;
-                        }
-                        
-                        
-                        
+
                     }
                     else
                     {
                         _pickedUpUnit.transform.position =
-                            grid.GetWorldPositionCenterOfGrid(gridCell.x, gridCell.z)+ new Vector3(0, 1f, 0);
-                        gridCell.SetPlacedUnit(_pickedUpUnit);
-                        if (_lastPickedGrid != gridCell)
-                        {
-                            _lastPickedGrid.ClearPlacedUnit();
-                        }
+                            grid.GetWorldPositionCenterOfGrid(_lastPickedGrid.x, _lastPickedGrid.z) + Vector3.up;
+
+                        _lastPickedGrid.SetPlacedUnit(_pickedUpUnit);
                     }
-                    
                 }
                 else
-                {
+                {   
                     _pickedUpUnit.transform.position = grid.GetWorldPositionCenterOfGrid(_lastPickedGrid.x, _lastPickedGrid.z) + Vector3.up;
-                    
                     _lastPickedGrid.SetPlacedUnit(_pickedUpUnit);
                 }
-                _pickedUpUnit = null;
+                _pickedUpUnit = null; 
             }
-            
-            
         }
+        
+    }
         
         
     }
-}
+
     
