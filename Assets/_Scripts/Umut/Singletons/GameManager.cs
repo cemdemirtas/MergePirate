@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class GameManager : MonoSingleton<GameManager>
 {
+    [SerializeField] public bool GameOn;
     public enum gameState {mergeScreen, fight}
 
-    void Start()
+    public void SetBoolTrue()
     {
-        
+        GameOn = true;
     }
 
     // Update is called once per frame
