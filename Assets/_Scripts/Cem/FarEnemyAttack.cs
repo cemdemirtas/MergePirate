@@ -6,6 +6,7 @@ using DG.Tweening;
 public class FarEnemyAttack : MonoBehaviour
 {
     [SerializeField] UnitSO unitSO;
+
     [SerializeField] bool OnGame;
     GameObject target;
     GameObject[] allEnemy;
@@ -19,7 +20,6 @@ public class FarEnemyAttack : MonoBehaviour
     EnemyBulletPool EnemyBulletPool;
     private void Start()
     {
-        OnGame = true;
     }
 
     private void Awake()
@@ -29,7 +29,7 @@ public class FarEnemyAttack : MonoBehaviour
     }
     private void Update()
     {
-        if (OnGame)
+        if (GameManager.Instance.GameOn)
         {
             _attackTime -= Time.deltaTime;
             switch (_attackTime)

@@ -41,9 +41,12 @@ public class MeeleEnemyAttack : MonoBehaviour
         else
         {
             walk = true;
+
         }
+
         if (/*unitSO.startGame &&*/ walk)
         {   //animator.SetTrigger("Walk");
+
             findNearEnemy();
             transform.Translate(transform.forward * Time.deltaTime * -1 * unitSO.unitSpeed* SmoothSpeed);
         }
@@ -62,6 +65,7 @@ public class MeeleEnemyAttack : MonoBehaviour
         {
 
             attack = false;
+            GameManager.Instance.GameOn = true;
         }
     }
     void AttackTheCharacter()
@@ -70,6 +74,7 @@ public class MeeleEnemyAttack : MonoBehaviour
         {
             attack = false;
             return;
+
         }
         switch (attackTime)
         {
@@ -77,6 +82,7 @@ public class MeeleEnemyAttack : MonoBehaviour
                 target.GetComponent<CharacterController>().TakeDamage(enemyController.enemyLevel * 10f);
                 attackTime = unitSO.unitAttackSpeed;
                 //animator.SetTrigger("Attack");
+                GameManager.Instance.GameOn = true;
                 break;
         }
     }
@@ -87,7 +93,8 @@ public class MeeleEnemyAttack : MonoBehaviour
         allEnemy = GameObject.FindGameObjectsWithTag("Character");
         if (allEnemy.Length == 0)
         {
-            //unitSO.startGame = false;
+            Debug.Log("GAME OVER");
+            GameManager.Instance.GameOn = false;
         }
         for (int i = 0; i < allEnemy.Length; i++)
         {
