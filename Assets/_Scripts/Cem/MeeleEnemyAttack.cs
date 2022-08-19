@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class MeeleEnemyAttack : MonoBehaviour
 {
-    [SerializeField] CharacterType characterType;
+    [SerializeField] UnitSO unitSO;
 
     EnemyController enemyController;
 
@@ -14,6 +14,7 @@ public class MeeleEnemyAttack : MonoBehaviour
     //private Animator animator;
 
     private float attackTime;
+    private float SmoothSpeed=0.5f;
     private float distanceToClosestTarget;
     private float distanceToTarget;
     GameObject[] allEnemy;
@@ -41,11 +42,11 @@ public class MeeleEnemyAttack : MonoBehaviour
         {
             walk = true;
         }
-        if (characterType.startGame && walk)
+        if (/*unitSO.startGame &&*/ walk)
         {
             //animator.SetTrigger("Walk");
             findNearEnemy();
-            transform.Translate(transform.forward * Time.deltaTime * -1 * characterType.walkSpeed);
+            transform.Translate(transform.forward * Time.deltaTime * -1 * unitSO.unitSpeed* SmoothSpeed);
         }
     }
 
@@ -75,7 +76,7 @@ public class MeeleEnemyAttack : MonoBehaviour
         {
             case <= 0:
                 target.GetComponent<CharacterController>().TakeDamage(enemyController.enemyLevel * 10f);
-                attackTime = characterType.AttackTime;
+                attackTime = unitSO.unitAttackSpeed;
                 //animator.SetTrigger("Attack");
                 break;
         }
@@ -87,7 +88,7 @@ public class MeeleEnemyAttack : MonoBehaviour
         allEnemy = GameObject.FindGameObjectsWithTag("Character");
         if (allEnemy.Length == 0)
         {
-            characterType.startGame = false;
+            //unitSO.startGame = false;
         }
         for (int i = 0; i < allEnemy.Length; i++)
         {

@@ -15,11 +15,10 @@ MonoBehaviour:
   unitName: RangeLevel2
   unitType: Range
   unitID: 22
-  unitLevel: 0
-  unitHealth: 0
+  unitHealth: 100
   unitAttack: 0
-  unitDefense: 0
   unitSpeed: 0
   unitRange: 0
+  unitAttackSpeed: 1
   unitPrefab: {fileID: 2278060506949597095, guid: 24c3ef7736a6bde4ca5239f57c545fa1, type: 3}
   placedUnit: {fileID: -4932786532179697134, guid: 24c3ef7736a6bde4ca5239f57c545fa1, type: 3}

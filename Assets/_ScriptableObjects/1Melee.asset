@@ -15,11 +15,10 @@ MonoBehaviour:
   unitName: MeleeLevel1
   unitType: Melee
   unitID: 11
-  unitLevel: 1
   unitHealth: 100
   unitAttack: 10
-  unitDefense: 5
   unitSpeed: 5
   unitRange: 0
+  unitAttackSpeed: 1
   unitPrefab: {fileID: 6092122489357803035, guid: 06fc973d40df06643a62bf958581ee55, type: 3}
   placedUnit: {fileID: 1470757453071770368, guid: 06fc973d40df06643a62bf958581ee55, type: 3}

@@ -9,16 +9,17 @@ public class EnemyController : MonoBehaviour
 
     public int enemyLevel;
 
-    [SerializeField] CharacterType characterType;
+    [SerializeField] UnitSO unitSO;
 
     Slider healthBar;
 
     private void Start()
     {
-        _health = characterType.characterHealth * enemyLevel;
+        _health = unitSO.unitHealth * enemyLevel;
         healthBar = transform.GetChild(0).transform.GetChild(0).transform.gameObject.GetComponent<Slider>();
         healthBar.maxValue = _health;
         healthBar.value = _health;
+       
     }
 
     private void Update()
