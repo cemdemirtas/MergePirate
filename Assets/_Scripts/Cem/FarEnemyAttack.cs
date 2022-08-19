@@ -8,7 +8,6 @@ public class FarEnemyAttack : MonoBehaviour
     [SerializeField] UnitSO unitSO;
     [SerializeField] bool OnGame;
     GameObject target;
-
     GameObject[] allEnemy;
 
     private float ClosestTarget;

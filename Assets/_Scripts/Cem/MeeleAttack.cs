@@ -39,7 +39,6 @@ public class MeeleAttack : MonoBehaviour
         if (attack)
         {
             AttackTheEnemy();
-            
             attackTime -= Time.deltaTime;
             walk = false;
             OnGame = false;
@@ -49,7 +48,6 @@ public class MeeleAttack : MonoBehaviour
             walk = true;
             OnGame = true;
         }
-        
         if (/*unitSO.startGame &&*/ OnGame==true)
         {
             findNearEnemy();

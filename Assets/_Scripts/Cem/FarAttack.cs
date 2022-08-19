@@ -6,8 +6,8 @@ using DG.Tweening;
 public class FarAttack : MonoBehaviour
 {
     [SerializeField] UnitSO unitSO;
+    [SerializeField] bool OnGame;
     GameObject target;
-
     GameObject[] allEnemy;
 
     private float CloseTarget;
@@ -25,9 +25,13 @@ public class FarAttack : MonoBehaviour
 
     }
 
+    private void OnEnable()
+    {
+        OnGame = true;
+    }
     private void Update()
     {
-        if (GameManager.Instance.GameOn)
+        if (OnGame)
         {
             _attackTime -= Time.deltaTime;
             switch (_attackTime)
