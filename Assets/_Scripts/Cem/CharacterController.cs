@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CharacterController : MonoBehaviour
 {
     [HideInInspector] public bool canHit;
-
+    Animator animator;
     [SerializeField] int _characterLevel;
     [SerializeField] UnitSO unitSO;
 
@@ -17,7 +17,10 @@ public class CharacterController : MonoBehaviour
     {
         get { return _characterLevel; }
     }
-
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
     private void OnEnable()
     {
         healthBar = transform.GetChild(0).transform.GetChild(0).transform.gameObject.GetComponent<Slider>();
@@ -43,18 +46,25 @@ public class CharacterController : MonoBehaviour
         healthBar.value = _health;
         if (_health <= 0)
         {
-            transform.gameObject.SetActive(false);
+            animator.SetBool("Die", true);
+            animator.SetBool("Attack", false);
         }
     }
 
-        private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("EnemyBullet"))
         {
             TakeDamage(10);
 
         }
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            TakeDamage(10);
+
+        }
     }
+
 
 
 }

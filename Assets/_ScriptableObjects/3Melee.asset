@@ -15,7 +15,7 @@ MonoBehaviour:
   unitName: MeleeLevel3
   unitType: Melee
   unitID: 31
-  unitHealth: 100
+  unitHealth: 10000
   unitAttack: 0
   unitSpeed: 5
   unitRange: 0
