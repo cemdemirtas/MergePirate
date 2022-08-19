@@ -20,5 +20,5 @@ MonoBehaviour:
   unitSpeed: 0
   unitRange: 0
   unitAttackSpeed: 1
-  unitPrefab: {fileID: 2564568293843430387, guid: 8e49d098bba91ff459e2e9b2de7a37e8, type: 3}
-  placedUnit: {fileID: 2602399143448251574, guid: 8e49d098bba91ff459e2e9b2de7a37e8, type: 3}
+  unitPrefab: {fileID: 8002018682436854265, guid: b086e12bb1c50ac4a9521a88b98edc5c, type: 3}
+  placedUnit: {fileID: 8544590566514411764, guid: b086e12bb1c50ac4a9521a88b98edc5c, type: 3}
