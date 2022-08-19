@@ -11,6 +11,7 @@ public class DragAndDrop : MonoBehaviour
     private PlacedUnit _pickedUpUnit;
     private GridCell _lastPickedGrid;
     [SerializeField] private UnitSO[] _units;
+    [SerializeField] private float yAdjustment;
     public List<int> unitIdIndex = new List<int>();
 
 
@@ -97,14 +98,14 @@ public class DragAndDrop : MonoBehaviour
                             {
                                 _pickedUpUnit.transform.position =
                                     grid.GetWorldPositionCenterOfGrid(_lastPickedGrid.x, _lastPickedGrid.z) +
-                                    new Vector3(0, 1f, 0);
+                                    new Vector3(0, yAdjustment, 0);
                                 _lastPickedGrid.SetPlacedUnit(_pickedUpUnit);
                             }
                             else if (_pickedUpUnit.GetUnitID() == 31 || _pickedUpUnit.GetUnitID() == 32)
                             {
                                 _pickedUpUnit.transform.position =
                                     grid.GetWorldPositionCenterOfGrid(_lastPickedGrid.x, _lastPickedGrid.z) +
-                                    new Vector3(0, 1f, 0);
+                                    new Vector3(0, yAdjustment, 0);
                                 _lastPickedGrid.SetPlacedUnit(_pickedUpUnit);
                             }
                             else if (_pickedUpUnit.GetUnitID() == gridCell.GetIDPlacedUnit())
@@ -118,7 +119,7 @@ public class DragAndDrop : MonoBehaviour
                                 _pickedUpUnit = _units[index].placedUnit;
                                 Debug.Log(_pickedUpUnit.GetUnitID());
                                 PlacedUnit placedUnit = PlacedUnit.Create(
-                                    grid.GetWorldPositionCenterOfGrid(gridCell.x, gridCell.z) + Vector3.up,
+                                    grid.GetWorldPositionCenterOfGrid(gridCell.x, gridCell.z) + new Vector3(0,yAdjustment,0),
                                     new Vector2Int(gridCell.x, gridCell.z), _pickedUpUnit.placedUnitSO);
                                 gridCell.SetPlacedUnit(placedUnit);
                                 _pickedUpUnit = null;
@@ -127,7 +128,7 @@ public class DragAndDrop : MonoBehaviour
                         else
                         {
                             _pickedUpUnit.transform.position =
-                                grid.GetWorldPositionCenterOfGrid(gridCell.x, gridCell.z) + new Vector3(0, 1f, 0);
+                                grid.GetWorldPositionCenterOfGrid(gridCell.x, gridCell.z) + new Vector3(0, yAdjustment, 0);
                             gridCell.SetPlacedUnit(_pickedUpUnit);
                             if (_lastPickedGrid != gridCell)
                             {
@@ -139,14 +140,14 @@ public class DragAndDrop : MonoBehaviour
                     else
                     {
                         _pickedUpUnit.transform.position =
-                            grid.GetWorldPositionCenterOfGrid(_lastPickedGrid.x, _lastPickedGrid.z) + Vector3.up;
+                            grid.GetWorldPositionCenterOfGrid(_lastPickedGrid.x, _lastPickedGrid.z) + new Vector3(0,yAdjustment,0);
 
                         _lastPickedGrid.SetPlacedUnit(_pickedUpUnit);
                     }
                 }
                 else
                 {   
-                    _pickedUpUnit.transform.position = grid.GetWorldPositionCenterOfGrid(_lastPickedGrid.x, _lastPickedGrid.z) + Vector3.up;
+                    _pickedUpUnit.transform.position = grid.GetWorldPositionCenterOfGrid(_lastPickedGrid.x, _lastPickedGrid.z) + new Vector3(0,yAdjustment,0);
                     _lastPickedGrid.SetPlacedUnit(_pickedUpUnit);
                 }
                 _pickedUpUnit = null; 
