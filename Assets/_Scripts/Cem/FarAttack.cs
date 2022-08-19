@@ -7,6 +7,7 @@ public class FarAttack : MonoBehaviour
 {
     [SerializeField] UnitSO unitSO;
     GameObject target;
+
     GameObject[] allEnemy;
 
     private float CloseTarget;
@@ -22,12 +23,6 @@ public class FarAttack : MonoBehaviour
         _attackTime = unitSO.unitAttackSpeed;
         BulletPoolController = GameObject.FindObjectOfType<BulletPool>();
 
-    }
-
-
-    private void OnEnable()
-    {
-        OnGame = true;
     }
 
     private void Update()
