@@ -5,7 +5,8 @@ using DG.Tweening;
 
 public class FarEnemyAttack : MonoBehaviour
 {
-    [SerializeField] CharacterType characterType;
+    [SerializeField] UnitSO unitSO;
+    [SerializeField] bool OnGame;
 
     GameObject target;
 
@@ -18,16 +19,19 @@ public class FarEnemyAttack : MonoBehaviour
     private int enemyBallLine;
     private GameObject enemyBall;
     EnemyBulletPool EnemyBulletPool;
-
+    private void Start()
+    {
+        OnGame = true;
+    }
 
     private void Awake()
     {
         EnemyBulletPool = GameObject.FindObjectOfType<EnemyBulletPool>();
-        _attackTime = characterType.AttackTime;
+        _attackTime = unitSO.unitAttackSpeed;
     }
     private void Update()
     {
-        if (characterType.startGame)
+        if (OnGame)
         {
             _attackTime -= Time.deltaTime;
             switch (_attackTime)
@@ -35,14 +39,14 @@ public class FarEnemyAttack : MonoBehaviour
                 case <= 0:
                     findNearEnemy();
                     Attack();
-                    _attackTime = characterType.AttackTime;
+                    _attackTime = unitSO.unitAttackSpeed;
                     break;
             }
         }
     }
     void Attack()
     {
-       
+
         if (!target.gameObject.activeInHierarchy)
         {
             return;
@@ -66,7 +70,7 @@ public class FarEnemyAttack : MonoBehaviour
     void findNearEnemy()
     {
         ClosestTarget = Mathf.Infinity;
-        allEnemy = GameObject.FindGameObjectsWithTag(characterType.characterTag);
+        allEnemy = GameObject.FindGameObjectsWithTag("Character");
         for (int i = 0; i < allEnemy.Length; i++)
         {
             distanceToTarget = (allEnemy[i].transform.position - gameObject.transform.position).sqrMagnitude;

@@ -5,7 +5,8 @@ using DG.Tweening;
 
 public class FarAttack : MonoBehaviour
 {
-    [SerializeField] CharacterType characterType;
+    [SerializeField] UnitSO unitSO;
+    [SerializeField] bool OnGame;
     GameObject target;
 
     GameObject[] allEnemy;
@@ -20,13 +21,17 @@ public class FarAttack : MonoBehaviour
 
     private void Awake()
     {
-        _attackTime = characterType.AttackTime;
+        _attackTime = unitSO.unitAttackSpeed;
         BulletPoolController = GameObject.FindObjectOfType<BulletPool>();
 
     }
+    private void OnEnable()
+    {
+        OnGame = true;
+    }
     private void Update()
     {
-        if (characterType.startGame)
+        if (OnGame)
         {
             _attackTime -= Time.deltaTime;
             switch (_attackTime)
@@ -34,7 +39,7 @@ public class FarAttack : MonoBehaviour
                 case <= 0:
                     findNearEnemy();
                     Attack();
-                    _attackTime = characterType.AttackTime;
+                    _attackTime = unitSO.unitAttackSpeed;
                     break;
             }
         }
@@ -46,7 +51,7 @@ public class FarAttack : MonoBehaviour
         {
             BulletLine++;
             Bullet = BulletPoolController.BulletPoolList[BulletLine].transform.gameObject;
-        } 
+        }
         if (!target.gameObject.activeInHierarchy)
         {
             return;
@@ -64,7 +69,7 @@ public class FarAttack : MonoBehaviour
     void findNearEnemy()
     {
         CloseTarget = Mathf.Infinity;
-        allEnemy = GameObject.FindGameObjectsWithTag(characterType.enemyTag);
+        allEnemy = GameObject.FindGameObjectsWithTag("Enemy");
         for (int i = 0; i < allEnemy.Length; i++)
         {
             distanceToTarget = (allEnemy[i].transform.position - gameObject.transform.position).sqrMagnitude;
