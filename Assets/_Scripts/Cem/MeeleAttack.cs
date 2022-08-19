@@ -32,7 +32,11 @@ public class MeeleAttack : MonoBehaviour
         //animator.SetTrigger("Walk");
     }
 
+    private void Awake()
+    {
+        GameManager.Instance.GameOn = false;
 
+    }
     private void Update()
     {
         if (attack)
@@ -40,12 +44,10 @@ public class MeeleAttack : MonoBehaviour
             AttackTheEnemy();
             attackTime -= Time.deltaTime;
             walk = false;
-            GameManager.Instance.GameOn = false;
         }
         else
         {
             walk = true;
-            //GameManager.Instance.GameOn = true;
         }
         if (/*unitSO.startGame &&*/ GameManager.Instance.GameOn == true)
         {
@@ -74,8 +76,9 @@ public class MeeleAttack : MonoBehaviour
         allEnemy = GameObject.FindGameObjectsWithTag("Enemy");
         if (allEnemy.Length == 0)
         {
-            //unitSO.startGame = false;
             GameManager.Instance.GameOn = false;
+            Debug.Log("finish");
+
         }
         for (int i = 0; i < allEnemy.Length; i++)
         {

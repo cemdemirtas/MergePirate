@@ -73,6 +73,7 @@ public class FarAttack : MonoBehaviour
             {
                 CloseTarget = distanceToTarget;
                 target = allEnemy[i];
+
             }
         }
         transform.LookAt(target.transform);
