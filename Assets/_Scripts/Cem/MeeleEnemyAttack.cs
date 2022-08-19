@@ -10,8 +10,7 @@ public class MeeleEnemyAttack : MonoBehaviour
     EnemyController enemyController;
 
     private GameObject target;
-
-    //private Animator animator;
+    
 
     private float attackTime;
     private float SmoothSpeed=0.5f;
@@ -44,7 +43,6 @@ public class MeeleEnemyAttack : MonoBehaviour
         }
         if (/*unitSO.startGame &&*/ walk)
         {
-            //animator.SetTrigger("Walk");
             findNearEnemy();
             transform.Translate(transform.forward * Time.deltaTime * -1 * unitSO.unitSpeed* SmoothSpeed);
         }

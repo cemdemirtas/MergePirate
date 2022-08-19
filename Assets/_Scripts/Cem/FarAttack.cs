@@ -8,6 +8,7 @@ public class FarAttack : MonoBehaviour
     [SerializeField] UnitSO unitSO;
     [SerializeField] bool OnGame;
     GameObject target;
+    
 
     GameObject[] allEnemy;
 
@@ -40,6 +41,7 @@ public class FarAttack : MonoBehaviour
                     findNearEnemy();
                     Attack();
                     _attackTime = unitSO.unitAttackSpeed;
+
                     break;
             }
         }
