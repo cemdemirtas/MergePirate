@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 3816127429120136470}
   - component: {fileID: 3816127429120136457}
   - component: {fileID: 3816127429120136469}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Grid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,8 +111,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c465efffecf7394d91ec754f0ebaacc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridObjectPrefab: {fileID: 6092122489357803035, guid: 06fc973d40df06643a62bf958581ee55, type: 3}
   originPosition: {fileID: 3816127430560063556}
+  gridGroundPrefab: {fileID: 5612070719441096778, guid: ab8cf52a83e204341a4fed7145782c9a, type: 3}
+  gridGroundPrefabEnemyBorderless: {fileID: 8032057009329097676, guid: 2a3e84f81bd97ab4781f01761a40aed9, type: 3}
 --- !u!1 &3816127430560063559
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,7 +123,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3816127430560063556}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: OriginPositionOfGrid
   m_TagString: Untagged
   m_Icon: {fileID: 0}

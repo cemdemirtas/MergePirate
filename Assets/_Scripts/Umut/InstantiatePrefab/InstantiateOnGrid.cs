@@ -6,7 +6,9 @@ using UnityEngine;
 public class InstantiateOnGrid : MonoBehaviour
 {
     [SerializeField] UnitSO[] units;
-    
+
+    [SerializeField] private float yAdjustment;
+
     private GridXZ<GridCell> gridObject;
 
     private void Start()
@@ -57,16 +59,22 @@ public class InstantiateOnGrid : MonoBehaviour
     }
     private void selectWhereToInstantiate(PlacedUnit placedUnit)
     {   bool end = false;
+        GameObject teammates = GameObject.Find("TeamMates");
+        if (teammates == null)
+            teammates = new GameObject("TeamMates");
         while (!end)
         {
             int x = UnityEngine.Random.Range(0, gridObject.GetWidth());
             int z = UnityEngine.Random.Range(0, gridObject.GetHeight()/2);
             if (gridObject.GetGridObject(x,z).isEmpthy() == true)
             {
-                PlacedUnit _placedUnit = PlacedUnit.Create(gridObject.GetWorldPositionCenterOfGrid(x, z) + new Vector3(0, 1, 0),new Vector2Int(x,z),
+                PlacedUnit _placedUnit = PlacedUnit.Create(gridObject.GetWorldPositionCenterOfGrid(x, z) + new Vector3(0, yAdjustment, 0),new Vector2Int(x,z),
                     placedUnit.placedUnitSO);
+                
+                
                 //Transform buildTransform = Instantiate(unitPrefab, gridObject.GetWorldPositionCenterOfGrid(x,z)  + new Vector3(0,1,0),Quaternion.identity);
                 gridObject.GetGridObject(x,z).SetPlacedUnit(_placedUnit);
+                _placedUnit.transform.SetParent(teammates.transform);
                 end = true;
             }
             else

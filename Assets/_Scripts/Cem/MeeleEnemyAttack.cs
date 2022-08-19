@@ -10,7 +10,7 @@ public class MeeleEnemyAttack : MonoBehaviour
     EnemyController enemyController;
 
     private GameObject target;
-
+    
     //private Animator animator;
 
     private float attackTime;
@@ -43,9 +43,10 @@ public class MeeleEnemyAttack : MonoBehaviour
             walk = true;
 
         }
-        if (GameManager.Instance.GameOn==true && walk)
-        {
-            //animator.SetTrigger("Walk");
+
+        if (/*unitSO.startGame &&*/ walk)
+        {   //animator.SetTrigger("Walk");
+
             findNearEnemy();
             transform.Translate(transform.forward * Time.deltaTime * -1 * unitSO.unitSpeed* SmoothSpeed);
         }
