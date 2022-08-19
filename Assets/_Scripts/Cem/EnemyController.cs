@@ -8,6 +8,8 @@ public class EnemyController : MonoBehaviour
     public float _health;
 
     public int enemyLevel;
+    Animator animator;
+    Animation anim;
 
     [SerializeField] UnitSO unitSO;
 
@@ -15,6 +17,7 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
+        animator = GetComponent<Animator>();
         _health = unitSO.unitHealth * enemyLevel;
         healthBar = transform.GetChild(0).transform.GetChild(0).transform.gameObject.GetComponent<Slider>();
         healthBar.maxValue = _health;
@@ -26,7 +29,7 @@ public class EnemyController : MonoBehaviour
     {
         if (_health <= 0)
         {
-            transform.gameObject.SetActive(false);
+
         }
         healthBar.transform.LookAt(Vector3.forward);
         healthBar.transform.rotation = (Quaternion.LookRotation(Vector3.up));
@@ -40,11 +43,17 @@ public class EnemyController : MonoBehaviour
             TakeDamage(10);
 
         }
-    }
+        if (other.gameObject.CompareTag("Character"))
+        {
+            TakeDamage(10);
 
+        }
+
+    }
     public void TakeDamage(float damageValue)
     {
         _health -= damageValue;
         healthBar.value = _health;
     }
+
 }
