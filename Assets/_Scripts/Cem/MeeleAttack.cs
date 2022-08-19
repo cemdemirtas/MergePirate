@@ -21,7 +21,6 @@ public class MeeleAttack : MonoBehaviour
     GameObject[] allEnemy;
 
     private bool walk;
-    [SerializeField] bool OnGame;
 
     bool attack;
     private void Start()
@@ -41,14 +40,14 @@ public class MeeleAttack : MonoBehaviour
             AttackTheEnemy();
             attackTime -= Time.deltaTime;
             walk = false;
-            OnGame = false;
+            GameManager.Instance.GameOn = false;
         }
         else
         {
             walk = true;
-            OnGame = true;
+            //GameManager.Instance.GameOn = true;
         }
-        if (/*unitSO.startGame &&*/ OnGame==true)
+        if (/*unitSO.startGame &&*/ GameManager.Instance.GameOn == true)
         {
             findNearEnemy();
             transform.Translate(transform.forward * Time.deltaTime * unitSO.unitSpeed * SmoothSpeed);
@@ -76,7 +75,7 @@ public class MeeleAttack : MonoBehaviour
         if (allEnemy.Length == 0)
         {
             //unitSO.startGame = false;
-            OnGame = false;
+            GameManager.Instance.GameOn = false;
         }
         for (int i = 0; i < allEnemy.Length; i++)
         {

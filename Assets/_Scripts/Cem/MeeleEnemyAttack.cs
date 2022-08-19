@@ -42,7 +42,7 @@ public class MeeleEnemyAttack : MonoBehaviour
         {
             walk = true;
         }
-        if (/*unitSO.startGame &&*/ walk)
+        if (GameManager.Instance.GameOn==true && walk)
         {
             //animator.SetTrigger("Walk");
             findNearEnemy();
