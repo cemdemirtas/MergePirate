@@ -37,7 +37,7 @@ public class MeeleAttack : MonoBehaviour
         GameManager.Instance.GameOn = false;
 
     }
-    private void LateUpdate()
+    private void Update()
     {
         if (attack)
         {
