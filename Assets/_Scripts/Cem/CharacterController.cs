@@ -48,6 +48,7 @@ public class CharacterController : MonoBehaviour
         {
             animator.SetBool("Die", true);
             animator.SetBool("Attack", false);
+
         }
     }
 
