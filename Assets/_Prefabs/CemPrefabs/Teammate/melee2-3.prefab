@@ -682,6 +682,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6762768566883302466}
   - component: {fileID: 2162084894122676166}
+  - component: {fileID: 1716633594}
   m_Layer: 7
   m_Name: melee2
   m_TagString: Untagged
@@ -796,6 +797,26 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.00016033323, y: 0.00030382862, z: -0.00043398305}
     m_Extent: {x: 0.011736149, y: 0.013135344, z: 0.004823095}
   m_DirtyAABB: 0
+--- !u!95 &1716633594
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7677793304095091443}
+  m_Enabled: 0
+  m_Avatar: {fileID: 9000000, guid: 62f11ec68cff585409bce9d6dfbc1977, type: 3}
+  m_Controller: {fileID: 9100000, guid: 9a6d16bb2cf908d4a81d7e30781df5dc, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7747627783376022650
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,7 +1025,7 @@ Animator:
   m_GameObject: {fileID: 8303184099086043514}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 62f11ec68cff585409bce9d6dfbc1977, type: 3}
-  m_Controller: {fileID: 9100000, guid: 6e043c2a11ca626409ce0de6ee5c47b6, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9a6d16bb2cf908d4a81d7e30781df5dc, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1028,7 +1049,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 0
   m_CollisionDetection: 1
 --- !u!136 &9222171523409983976
 CapsuleCollider:
