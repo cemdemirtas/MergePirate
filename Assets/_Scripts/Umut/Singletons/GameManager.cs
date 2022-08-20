@@ -4,9 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+
+
 public class GameManager : MonoSingleton<GameManager>
-{   
-    [SerializeField] public bool GameOn;
+{
+    [SerializeField]
+    public bool GameOn;
     public GameState CurrentGameState;
     private int _currentLevel = 0;
     private int _boughtMeleeUnitCount = 0;
@@ -14,7 +18,6 @@ public class GameManager : MonoSingleton<GameManager>
     private float _baseMeleeUnitCost = 100;
     private float _baseRangedUnitCost = 100;
     private float playerGold = 1000;
-    
 
     private GridXZ<GridCell> _grid;
 
@@ -28,17 +31,23 @@ public class GameManager : MonoSingleton<GameManager>
         get { return _currentLevel; }
         set { _currentLevel = value; }
     }
-    
+
     public float PlayerGold
     {
         get { return playerGold; }
         set { playerGold = value; }
     }
-    
-    public static event Action<GameState> OnGameStateChanged;
-    public enum GameState {MainMenuScreen,MergeScreen, FightScreen, GameOverScreen, GameWonScreen}
 
-    
+    public static event Action<GameState> OnGameStateChanged;
+
+    public enum GameState
+    {
+        MainMenuScreen,
+        MergeScreen,
+        FightScreen,
+        GameOverScreen,
+        GameWonScreen
+    }
 
     public void UpdateGameState(GameState newState)
     {
@@ -47,8 +56,12 @@ public class GameManager : MonoSingleton<GameManager>
         switch (newState)
         {
             case GameState.MergeScreen:
+                //call ShowMergeScreen() method in UIManager
+                UIManager.Instance.ShowMergeScreen();
                 break;
             case GameState.FightScreen:
+                UIManager.Instance.ShowFightScreen();
+                //UIManager.Instance.test = 1234;
                 break;
             case GameState.GameOverScreen:
                 break;
@@ -58,11 +71,9 @@ public class GameManager : MonoSingleton<GameManager>
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
-            
         }
 
         OnGameStateChanged?.Invoke(newState);
-
     }
 
     public void SavePlayer()
@@ -78,40 +89,54 @@ public class GameManager : MonoSingleton<GameManager>
         _grid = data.grid;
         SceneManager.LoadScene(_currentLevel);
     }
-    
+
     public void setGridObject(GridXZ<GridCell> grid)
     {
         _grid = grid;
     }
-    
 
     public float calculateMeleeUnitCost()
     {
-        return _baseMeleeUnitCost * Mathf.Pow(1.1f, _boughtMeleeUnitCount +1);
+        //Debug.Log("calculateMeleeUnitCost");
+        return _baseMeleeUnitCost * Mathf.Pow(1.1f, _boughtMeleeUnitCount + 1);
+
+        //ToDo: re-write cost of melee unit with UI manager -> done
     }
 
     public float calculateRangedUnitCost()
     {
-        return _baseRangedUnitCost * Mathf.Pow(1.1f, _boughtRangedUnitCount +1);
+        return _baseRangedUnitCost * Mathf.Pow(1.1f, _boughtRangedUnitCount + 1);
+
+        //ToDo: re-write cost of ranged unit with UI manager -> done
     }
 
     public void increaseBoughtMeleeUnitCount()
     {
         _boughtMeleeUnitCount++;
     }
+
     public void increaseBoughtRangedUnitCount()
     {
         _boughtRangedUnitCount++;
     }
-    
+
     public void decreasePlayerGold(float amount)
     {
         playerGold -= amount;
+
+        //ToDo: re-write gold value with UI manager
     }
-    
+
     public void increasePlayerGold(float amount)
     {
         playerGold += amount;
+
+        //ToDo: re-write gold value with UI manager
+    }
+
+    public void setPlayerGold(float amount)
+    {
+        playerGold = amount;
     }
 
     public void setGrid(GridXZ<GridCell> grid)
@@ -130,7 +155,7 @@ public class GameManager : MonoSingleton<GameManager>
         {
             return false;
         }
-        else 
+        else
         {
             return true;
         }
@@ -140,18 +165,14 @@ public class GameManager : MonoSingleton<GameManager>
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
-    
+
     public void RestartScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-    
-    
 
     public void SetBoolTrue()
     {
         GameOn = true;
     }
-
-    
 }

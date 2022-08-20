@@ -5,10 +5,10 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 
-public class UIManager : MonoSingleton<GameManager>
+public class UIManager : MonoSingleton<UIManager>
 {
-    private int gold = 0; //TODO: get gold info from somewhere else
-
+    //private int gold = 0; //TODO: get gold info from somewhere else
+    public int test = 123;
     [SerializeField]
     private GameObject _goldIndicatorPanel; //scene 1 (top right corner gold indicator) //TODO: put gold sprite in this panel
 
@@ -44,18 +44,21 @@ public class UIManager : MonoSingleton<GameManager>
     {
         if (SceneManager.GetActiveScene().buildIndex != 0)
         {
-            SetGold(500);
+            GameManager.Instance.setPlayerGold(1000);
+            UpdateGoldIndicator();
+            SetMeleeSoldierCost();
+            SetRangedSoldierCost();
         }
     }
 
     void Update()
     {
-        //chech if _meleeSoldierCostText.text is active
-        if (SceneManager.GetActiveScene().buildIndex == 1)
+        // if (SceneManager.GetActiveScene().buildIndex == 1)
+        if (GameManager.Instance.CurrentGameState == GameManager.GameState.MergeScreen)
         {
             if (_meleeBuyButton.interactable)
             {
-                if (gold - int.Parse(_meleeSoldierCostText.text) < 0)
+                if (GameManager.Instance.PlayerGold - int.Parse(_meleeSoldierCostText.text) < 0)
                 {
                     //Disable buy button
                     _meleeBuyButton.interactable = false;
@@ -68,7 +71,7 @@ public class UIManager : MonoSingleton<GameManager>
 
             if (_rangedBuyButton.interactable)
             {
-                if (gold - int.Parse(_rangedSoldierCostText.text) < 0)
+                if (GameManager.Instance.PlayerGold - int.Parse(_rangedSoldierCostText.text) < 0)
                 {
                     //Disable buy button
                     _rangedBuyButton.interactable = false;
@@ -94,14 +97,20 @@ public class UIManager : MonoSingleton<GameManager>
 
     public void BuyMeleeButton()
     {
-        gold = gold - int.Parse(_meleeSoldierCostText.text);
+        GameManager.Instance.PlayerGold =
+            GameManager.Instance.PlayerGold - int.Parse(_meleeSoldierCostText.text);
         UpdateGoldIndicator();
+        GameManager.Instance.increaseBoughtMeleeUnitCount();
+        SetMeleeSoldierCost();
     }
 
     public void BuyRangeButton()
     {
-        gold = gold - int.Parse(_rangedSoldierCostText.text);
+        GameManager.Instance.PlayerGold =
+            GameManager.Instance.PlayerGold - int.Parse(_rangedSoldierCostText.text);
         UpdateGoldIndicator();
+        GameManager.Instance.increaseBoughtRangedUnitCount();
+        SetRangedSoldierCost();
     }
 
     public void FightButton()
@@ -112,10 +121,12 @@ public class UIManager : MonoSingleton<GameManager>
         
         
         */
+
+        GameManager.Instance.UpdateGameState(GameManager.GameState.FightScreen);
         //TODO!: disable grid in fight scene
         //disable buy buttons in fight scene
-        _meleeBuyButton.interactable = false;
-        _rangedBuyButton.interactable = false;
+        // _meleeBuyButton.interactable = false;
+        // _rangedBuyButton.interactable = false; //! BUG: bu buton paradan bağımsız her türlü açılıyor bu şekilde dikkat et!
     }
 
     public void ExitFight()
@@ -127,11 +138,16 @@ public class UIManager : MonoSingleton<GameManager>
                 
         */
 
+        GameManager.Instance.UpdateGameState(GameManager.GameState.MergeScreen);
 
         //TODO!: enable grid in after fight scene
         //enable buy buttons in fight scene
-        _meleeBuyButton.interactable = true;
-        _rangedBuyButton.interactable = true;
+        // _meleeBuyButton.interactable = true;
+        // _rangedBuyButton.interactable = true; //! BUG: bu buton paradan bağımsız her türlü açılıyor bu şekilde dikkat et!
+
+        //setactive false button in fight scene
+        // _meleeBuyButton.gameObject.SetActive(false);
+        // _rangedBuyButton.gameObject.SetActive(false);
     }
 
     public void CharacterPanel()
@@ -170,33 +186,72 @@ public class UIManager : MonoSingleton<GameManager>
         }
     }
 
+    public void ShowFightScreen()
+    {
+        if (GameManager.Instance.CurrentGameState == GameManager.GameState.FightScreen)
+        {
+            _meleeBuyButton.gameObject.SetActive(false);
+            _rangedBuyButton.gameObject.SetActive(false);
+        }
+    }
+
+    public void ShowMergeScreen()
+    {
+        if (GameManager.Instance.CurrentGameState == GameManager.GameState.MergeScreen)
+        {
+            _meleeBuyButton.gameObject.SetActive(true);
+            _rangedBuyButton.gameObject.SetActive(true);
+        }
+    }
+
     //GOLD STUFF//
 
     private void UpdateGoldIndicator()
     {
-        _goldIndicatorText.text = gold.ToString();
+        _goldIndicatorText.text = GameManager.Instance.PlayerGold.ToString();
     }
 
     public void AddGold(int amount)
     {
-        gold += amount;
+        GameManager.Instance.PlayerGold += amount;
         UpdateGoldIndicator();
     }
 
-    public void RemoveGold(int amount)
+    public void RemoveGold(int amount) //Gamemanager ile karışmasın diye metot isimleri değiştirildi.
     {
-        gold -= amount;
+        GameManager.Instance.PlayerGold -= amount;
         UpdateGoldIndicator();
     }
 
     public int GetGold()
     {
-        return gold;
+        return (int)(GameManager.Instance.PlayerGold);
     }
 
     public void SetGold(int amount)
     {
-        gold = amount;
+        GameManager.Instance.PlayerGold = amount;
         UpdateGoldIndicator();
+    }
+
+    //END GOLD STUFF//
+
+    // COST STUFF //
+
+    public void SetMeleeSoldierCost()
+    {
+        Debug.Log("SetMeleeSoldierCost");
+        _meleeSoldierCostText.text = (
+            (int)(GameManager.Instance.calculateMeleeUnitCost())
+        ).ToString();
+    }
+
+    public void SetRangedSoldierCost()
+    {
+        Debug.Log("SetRangedSoldierCost");
+        //conver to int and then to string
+        _rangedSoldierCostText.text = (
+            (int)(GameManager.Instance.calculateRangedUnitCost())
+        ).ToString();
     }
 }
