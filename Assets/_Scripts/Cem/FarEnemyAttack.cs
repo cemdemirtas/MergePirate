@@ -14,16 +14,16 @@ public class FarEnemyAttack : MonoBehaviour
     private float ClosestTarget;
     private float distanceToTarget;
     private float _attackTime;
+    private Animator animator;
 
     private int enemyBallLine;
     private GameObject enemyBall;
     EnemyBulletPool EnemyBulletPool;
-    private void Start()
-    {
-    }
+
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
         EnemyBulletPool = GameObject.FindObjectOfType<EnemyBulletPool>();
         _attackTime = unitSO.unitAttackSpeed;
     }
@@ -38,6 +38,7 @@ public class FarEnemyAttack : MonoBehaviour
                     findNearEnemy();
                     Attack();
                     _attackTime = unitSO.unitAttackSpeed;
+                    animator.SetBool("Attack", true);
                     break;
             }
         }
@@ -47,6 +48,8 @@ public class FarEnemyAttack : MonoBehaviour
 
         if (!target.gameObject.activeInHierarchy)
         {
+            animator.SetBool("Win", true);
+
             return;
         }
         enemyBall = EnemyBulletPool.enemyBulletList[enemyBallLine].transform.gameObject;
@@ -69,6 +72,14 @@ public class FarEnemyAttack : MonoBehaviour
     {
         ClosestTarget = Mathf.Infinity;
         allEnemy = GameObject.FindGameObjectsWithTag("Character");
+        if (allEnemy.Length <= 0)
+        {
+            animator.SetBool("Win", true);
+            //animator.SetBool("Attack", false);
+            animator.SetBool("Idle", false);
+            Debug.Log("Game Over");
+
+        }
         for (int i = 0; i < allEnemy.Length; i++)
         {
             distanceToTarget = (allEnemy[i].transform.position - gameObject.transform.position).sqrMagnitude;

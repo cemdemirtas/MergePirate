@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 2Melee
   m_EditorClassIdentifier: 
   unitName: MeleeLevel2
-  unitType: 
+  unitType: Melee
   unitID: 21
   unitHealth: 100
   unitAttack: 0

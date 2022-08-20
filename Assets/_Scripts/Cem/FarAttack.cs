@@ -7,6 +7,7 @@ public class FarAttack : MonoBehaviour
 {
     [SerializeField] UnitSO unitSO;
     GameObject target;
+    private Animator animator;
 
     GameObject[] allEnemy;
 
@@ -20,11 +21,11 @@ public class FarAttack : MonoBehaviour
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
         _attackTime = unitSO.unitAttackSpeed;
         BulletPoolController = GameObject.FindObjectOfType<BulletPool>();
 
     }
-
     private void Update()
     {
         if (GameManager.Instance.GameOn)
@@ -36,6 +37,7 @@ public class FarAttack : MonoBehaviour
                     findNearEnemy();
                     Attack();
                     _attackTime = unitSO.unitAttackSpeed;
+                    animator.SetBool("Attack", true);
                     break;
             }
         }
@@ -43,15 +45,18 @@ public class FarAttack : MonoBehaviour
     void Attack()
     {
         Bullet = BulletPoolController.BulletPoolList[BulletLine].transform.gameObject;
+        if (!target.gameObject.activeInHierarchy)
+        {
+            animator.SetBool("Win", true);
+
+            return;
+        }
         if (Bullet.gameObject.activeInHierarchy)
         {
             BulletLine++;
             Bullet = BulletPoolController.BulletPoolList[BulletLine].transform.gameObject;
         }
-        if (!target.gameObject.activeInHierarchy)
-        {
-            return;
-        }
+
         Bullet.transform.position = transform.GetChild(0).transform.position;
         Bullet.transform.gameObject.SetActive(true);
         BulletPoolController.BulletPoolList[BulletLine].transform.DOMove(target.transform.position, 0.5f);
@@ -66,6 +71,14 @@ public class FarAttack : MonoBehaviour
     {
         CloseTarget = Mathf.Infinity;
         allEnemy = GameObject.FindGameObjectsWithTag("Enemy");
+        if (allEnemy.Length <= 0)
+        {
+            animator.SetBool("Win", true);
+            //animator.SetBool("Attack", false);
+            animator.SetBool("Idle", false);
+            Debug.Log("finish");
+
+        }
         for (int i = 0; i < allEnemy.Length; i++)
         {
             distanceToTarget = (allEnemy[i].transform.position - gameObject.transform.position).sqrMagnitude;
