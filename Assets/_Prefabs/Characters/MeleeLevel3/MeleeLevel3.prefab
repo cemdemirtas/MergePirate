@@ -1189,6 +1189,7 @@ GameObject:
   - component: {fileID: 9016935234780478919}
   - component: {fileID: 3812159393860274945}
   - component: {fileID: 4734358814041182497}
+  - component: {fileID: 8647490906509952904}
   m_Layer: 7
   m_Name: MeleeLevel3
   m_TagString: Character
@@ -1306,6 +1307,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitSO: {fileID: 11400000, guid: f4d26dd38ebbd324ead0b795719ed46a, type: 2}
+--- !u!114 &8647490906509952904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5925037664503630503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 279e6f0b48a3b944c993cff872f75ca8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gridMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &5939490036005854917
 GameObject:
   m_ObjectHideFlags: 0

@@ -837,6 +837,7 @@ GameObject:
   - component: {fileID: 6162089275894410690}
   - component: {fileID: 3781509438338805833}
   - component: {fileID: 8544590566514411764}
+  - component: {fileID: 7622765119969319020}
   m_Layer: 7
   m_Name: RangeLevel2
   m_TagString: Character
@@ -953,6 +954,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placedUnitSO: {fileID: 11400000, guid: 4dac620750ddd844e9f3cc2d9cb43e84, type: 2}
+--- !u!114 &7622765119969319020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7225798229869230915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 279e6f0b48a3b944c993cff872f75ca8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gridMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &7783146277545065034
 GameObject:
   m_ObjectHideFlags: 0
