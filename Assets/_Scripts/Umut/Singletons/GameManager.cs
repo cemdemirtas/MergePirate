@@ -35,8 +35,14 @@ public class GameManager : MonoSingleton<GameManager>
         set { playerGold = value; }
     }
     
+    public GameState currentGameState
+    {
+        get { return CurrentGameState; }
+        set { CurrentGameState = value; }
+    }
+    
     public static event Action<GameState> OnGameStateChanged;
-    public enum GameState {MainMenuScreen,MergeScreen, FightScreen, GameOverScreen, GameWonScreen}
+    
 
     
 
@@ -155,3 +161,4 @@ public class GameManager : MonoSingleton<GameManager>
 
     
 }
+public enum GameState {MainMenuScreen,MergeScreen, FightScreen, GameOverScreen, GameWonScreen}
