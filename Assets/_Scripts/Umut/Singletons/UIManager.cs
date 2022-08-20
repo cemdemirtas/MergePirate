@@ -7,23 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoSingleton<GameManager>
 {
-    //scene 0 play exit button
-    //scene 1 fight button, 2x buy soldier button + gold indicator(top right)
-    //scene2 = scene1 - no fight button, no buy button
-
-
-
-    //! gold eksiye düşmesin
-    //! gold yetersiz olduğunda initprefab eklemesin
-
-
     private int gold = 0; //TODO: get gold info from somewhere else
-
-    //TODO!: Ayrı bir scene üzerinde çalışılacak. Umut scene'in den farklı adda scene oluşturulacak. (kaan adında oluşturulacak)
-
-
-
-
 
     [SerializeField]
     private GameObject _goldIndicatorPanel; //scene 1 (top right corner gold indicator) //TODO: put gold sprite in this panel
@@ -42,6 +26,18 @@ public class UIManager : MonoSingleton<GameManager>
 
     [SerializeField]
     private Button _rangedBuyButton;
+
+    [SerializeField]
+    private GameObject _charactersPanel;
+
+    [SerializeField]
+    private GameObject _charactersPanelRange;
+
+    [SerializeField]
+    private GameObject _charactersPanelMelee;
+
+    [SerializeField]
+    private GameObject _settingsPanel;
 
     // Start is called before the first frame update
     void Start()
@@ -112,7 +108,7 @@ public class UIManager : MonoSingleton<GameManager>
     {
         /*
         
-        START NAVMESH FIGHT HERE
+        START FIGHT HERE
         
         
         */
@@ -126,7 +122,7 @@ public class UIManager : MonoSingleton<GameManager>
     {
         /*
                 
-            STOP NAVMESH FIGHT HERE
+            STOP FIGHT HERE
                 
                 
         */
@@ -136,6 +132,42 @@ public class UIManager : MonoSingleton<GameManager>
         //enable buy buttons in fight scene
         _meleeBuyButton.interactable = true;
         _rangedBuyButton.interactable = true;
+    }
+
+    public void CharacterPanel()
+    {
+        if (!_settingsPanel.activeSelf)
+        {
+            _charactersPanel.SetActive(!_charactersPanel.activeSelf);
+        }
+    }
+
+    public void CharacterPanelRange()
+    {
+        _charactersPanelRange.SetActive(true);
+
+        if (_charactersPanelRange.activeSelf)
+        {
+            _charactersPanelMelee.SetActive(false);
+        }
+    }
+
+    public void CharacterPanelMelee()
+    {
+        _charactersPanelMelee.SetActive(true);
+
+        if (_charactersPanelMelee.activeSelf)
+        {
+            _charactersPanelRange.SetActive(false);
+        }
+    }
+
+    public void SettingsPanel()
+    {
+        if (!_charactersPanel.activeSelf)
+        {
+            _settingsPanel.SetActive(!_settingsPanel.activeSelf);
+        }
     }
 
     //GOLD STUFF//
