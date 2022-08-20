@@ -18,6 +18,7 @@ public class GridBuildingSystem  : MonoSingleton<GridBuildingSystem>
         float cellSizeZ = 2.2f;
         //float gridCellSize = 10f;
         grid = new GridXZ<GridCell>(gridWidth, gridHeight, cellSizeX,cellSizeZ, originPosition.position, (GridXZ<GridCell> grid, int x, int z) => new GridCell(grid, x, z));
+        GameManager.Instance.setGrid(grid);
         
         GameObject gridContainer = GameObject.Find("GridContainer");
         if (gridContainer == null)

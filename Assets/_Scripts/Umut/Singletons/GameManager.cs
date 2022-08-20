@@ -8,20 +8,35 @@ public class GameManager : MonoSingleton<GameManager>
 {   
     [SerializeField] public bool GameOn;
     public GameState CurrentGameState;
-    private int _currentLevel;
+    private int _currentLevel = 0;
     private int _boughtMeleeUnitCount = 0;
     private int _boughtRangedUnitCount = 0;
     private float _baseMeleeUnitCost = 100;
     private float _baseRangedUnitCost = 100;
     private float playerGold = 1000;
+    
+
+    private GridXZ<GridCell> _grid;
+
+    public GridXZ<GridCell> Grid
+    {
+        get { return _grid; }
+        set { _grid = value; }
+    }
     public int CurrentLevel
     {
         get { return _currentLevel; }
         set { _currentLevel = value; }
     }
     
+    public float PlayerGold
+    {
+        get { return playerGold; }
+        set { playerGold = value; }
+    }
+    
     public static event Action<GameState> OnGameStateChanged;
-    public enum GameState {MergeScreen, FightScreen, GameOverScreen, GameWonScreen}
+    public enum GameState {MainMenuScreen,MergeScreen, FightScreen, GameOverScreen, GameWonScreen}
 
     
 
@@ -39,6 +54,8 @@ public class GameManager : MonoSingleton<GameManager>
                 break;
             case GameState.GameWonScreen:
                 break;
+            case GameState.MainMenuScreen:
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
             
@@ -47,6 +64,26 @@ public class GameManager : MonoSingleton<GameManager>
         OnGameStateChanged?.Invoke(newState);
 
     }
+
+    public void SavePlayer()
+    {
+        SaveSystem.SavePlayer(this);
+    }
+
+    public void LoadPlayer()
+    {
+        PlayerData data = SaveSystem.LoadPlayer();
+        _currentLevel = data.currentLevel;
+        playerGold = data.gold;
+        _grid = data.grid;
+        SceneManager.LoadScene(_currentLevel);
+    }
+    
+    public void setGridObject(GridXZ<GridCell> grid)
+    {
+        _grid = grid;
+    }
+    
 
     public float calculateMeleeUnitCost()
     {
@@ -76,8 +113,16 @@ public class GameManager : MonoSingleton<GameManager>
     {
         playerGold += amount;
     }
-    
-    
+
+    public void setGrid(GridXZ<GridCell> grid)
+    {
+        _grid = grid;
+    }
+
+    public void clearGrid(GridXZ<GridCell> grid)
+    {
+        _grid = null;
+    }
 
     public bool checkEnoughGoldForMelee()
     {
