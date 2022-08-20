@@ -2486,6 +2486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae4a03079380f547af8794b0330e539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  test: 123
   _goldIndicatorPanel: {fileID: 3396987647811250952}
   _goldIndicatorText: {fileID: 3396987647863526458}
   _meleeSoldierCostText: {fileID: 3396987649618060040}
