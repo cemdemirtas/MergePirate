@@ -10,8 +10,7 @@ public class MeeleEnemyAttack : MonoBehaviour
     EnemyController enemyController;
 
     private GameObject target;
-    
-    //private Animator animator;
+    private Animator animator;
 
     private float attackTime;
     private float SmoothSpeed=0.5f;
@@ -25,7 +24,7 @@ public class MeeleEnemyAttack : MonoBehaviour
     private void OnEnable()
     {
         enemyController = GetComponent<EnemyController>();
-        //animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         attackTime = 0;
         walk = true;
         //animator.SetTrigger("Walk");
@@ -37,15 +36,20 @@ public class MeeleEnemyAttack : MonoBehaviour
             walk = false;
             AttackTheCharacter();
             attackTime -= Time.deltaTime;
+            animator.SetBool("Run", false);
+
         }
         else
         {
             walk = true;
+            animator.SetBool("Attack", false);
 
         }
 
         if (walk && GameManager.Instance.GameOn==true)
-        {   //animator.SetTrigger("Walk");
+        { 
+            animator.SetBool("Run", true);
+            animator.SetBool("Attack", false);
 
             findNearEnemy();
             transform.Translate(transform.forward * Time.deltaTime * -1 * unitSO.unitSpeed* SmoothSpeed);
@@ -81,7 +85,7 @@ public class MeeleEnemyAttack : MonoBehaviour
             case <= 0:
                 target.GetComponent<CharacterController>().TakeDamage(enemyController.enemyLevel * 10f);
                 attackTime = unitSO.unitAttackSpeed;
-                //animator.SetTrigger("Attack");
+                animator.SetBool("Attack",true);
                 GameManager.Instance.GameOn = true;
                 break;
         }
@@ -93,8 +97,9 @@ public class MeeleEnemyAttack : MonoBehaviour
         allEnemy = GameObject.FindGameObjectsWithTag("Character");
         if (allEnemy.Length == 0)
         {
+            animator.SetBool("Win", true);
             Debug.Log("GAME OVER");
-            GameManager.Instance.GameOn = false;
+            //GameManager.Instance.GameOn = false;
         }
         for (int i = 0; i < allEnemy.Length; i++)
         {
