@@ -40,14 +40,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     public static event Action<GameState> OnGameStateChanged;
 
-    public enum GameState
-    {
-        MainMenuScreen,
-        MergeScreen,
-        FightScreen,
-        GameOverScreen,
-        GameWonScreen
-    }
+    
 
     public void UpdateGameState(GameState newState)
     {
@@ -175,4 +168,14 @@ public class GameManager : MonoSingleton<GameManager>
     {
         GameOn = true;
     }
+    
+    
+}
+public enum GameState
+{
+    MainMenuScreen,
+    MergeScreen,
+    FightScreen,
+    GameOverScreen,
+    GameWonScreen
 }

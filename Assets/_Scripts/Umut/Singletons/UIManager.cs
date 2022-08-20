@@ -54,7 +54,7 @@ public class UIManager : MonoSingleton<UIManager>
     void Update()
     {
         // if (SceneManager.GetActiveScene().buildIndex == 1)
-        if (GameManager.Instance.CurrentGameState == GameManager.GameState.MergeScreen)
+        if (GameManager.Instance.CurrentGameState == GameState.MergeScreen)
         {
             if (_meleeBuyButton.interactable)
             {
@@ -122,7 +122,7 @@ public class UIManager : MonoSingleton<UIManager>
         
         */
 
-        GameManager.Instance.UpdateGameState(GameManager.GameState.FightScreen);
+        GameManager.Instance.UpdateGameState(GameState.FightScreen);
         //TODO!: disable grid in fight scene
         //disable buy buttons in fight scene
         // _meleeBuyButton.interactable = false;
@@ -138,7 +138,7 @@ public class UIManager : MonoSingleton<UIManager>
                 
         */
 
-        GameManager.Instance.UpdateGameState(GameManager.GameState.MergeScreen);
+        GameManager.Instance.UpdateGameState(GameState.MergeScreen);
 
         //TODO!: enable grid in after fight scene
         //enable buy buttons in fight scene
@@ -188,7 +188,7 @@ public class UIManager : MonoSingleton<UIManager>
 
     public void ShowFightScreen()
     {
-        if (GameManager.Instance.CurrentGameState == GameManager.GameState.FightScreen)
+        if (GameManager.Instance.CurrentGameState == GameState.FightScreen)
         {
             _meleeBuyButton.gameObject.SetActive(false);
             _rangedBuyButton.gameObject.SetActive(false);
@@ -197,7 +197,7 @@ public class UIManager : MonoSingleton<UIManager>
 
     public void ShowMergeScreen()
     {
-        if (GameManager.Instance.CurrentGameState == GameManager.GameState.MergeScreen)
+        if (GameManager.Instance.CurrentGameState == GameState.MergeScreen)
         {
             _meleeBuyButton.gameObject.SetActive(true);
             _rangedBuyButton.gameObject.SetActive(true);
