@@ -29,6 +29,8 @@ public class EnemyController : MonoBehaviour
     {
         if (_health <= 0)
         {
+            animator.SetBool("Die", true);
+            animator.SetBool("Attack", false);
 
         }
         healthBar.transform.LookAt(Vector3.forward);
