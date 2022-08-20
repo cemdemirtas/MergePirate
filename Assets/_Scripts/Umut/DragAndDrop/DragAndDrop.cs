@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using UnityEngine;
 
 public class DragAndDrop : MonoBehaviour
-{   
+{
     private GridXZ<GridCell> grid;
     private PlacedUnit _pickedUpUnit;
     private GridCell _lastPickedGrid;
@@ -31,8 +31,8 @@ public class DragAndDrop : MonoBehaviour
     {
         grid = GameObject.FindGameObjectWithTag("Grid").GetComponent<GridBuildingSystem>().grid;
     }
-    
-    
+
+
 
     private void Update()
     {
@@ -46,7 +46,7 @@ public class DragAndDrop : MonoBehaviour
             gridCell = grid.GetGridObject(hit.point);
 
             if (Input.GetMouseButtonDown(0))
-            {    
+            {
                 _lastPickedGrid = gridCell;
                 _pickedUpUnit = hit.transform.gameObject.GetComponent<PlacedUnit>();
                 gridCell.ClearPlacedUnit();
@@ -75,7 +75,14 @@ public class DragAndDrop : MonoBehaviour
             {
                 if (_pickedUpUnit != null)
                 {
+                    
                     _pickedUpUnit.transform.position = groundHitInfo.point + Vector3.up * 2f;
+                   ;
+                    /*if (tempGridCell != gridCell)
+                    {
+                        tempGridCell.transform.GetComponent<GridCellHighlight>().UnhighlightCell();
+                    }*/
+
                 }
             }
 
@@ -85,6 +92,7 @@ public class DragAndDrop : MonoBehaviour
                 {
                     return;
                 }
+
                 gridCell = grid.GetGridObject(groundHitInfo.point);
 
                 if (gridCell != null)
@@ -119,7 +127,8 @@ public class DragAndDrop : MonoBehaviour
                                 _pickedUpUnit = _units[index].placedUnit;
                                 Debug.Log(_pickedUpUnit.GetUnitID());
                                 PlacedUnit placedUnit = PlacedUnit.Create(
-                                    grid.GetWorldPositionCenterOfGrid(gridCell.x, gridCell.z) + new Vector3(0,yAdjustment,0),
+                                    grid.GetWorldPositionCenterOfGrid(gridCell.x, gridCell.z) +
+                                    new Vector3(0, yAdjustment, 0),
                                     new Vector2Int(gridCell.x, gridCell.z), _pickedUpUnit.placedUnitSO);
                                 gridCell.SetPlacedUnit(placedUnit);
                                 _pickedUpUnit = null;
@@ -128,7 +137,8 @@ public class DragAndDrop : MonoBehaviour
                         else
                         {
                             _pickedUpUnit.transform.position =
-                                grid.GetWorldPositionCenterOfGrid(gridCell.x, gridCell.z) + new Vector3(0, yAdjustment, 0);
+                                grid.GetWorldPositionCenterOfGrid(gridCell.x, gridCell.z) +
+                                new Vector3(0, yAdjustment, 0);
                             gridCell.SetPlacedUnit(_pickedUpUnit);
                             if (_lastPickedGrid != gridCell)
                             {
@@ -140,23 +150,49 @@ public class DragAndDrop : MonoBehaviour
                     else
                     {
                         _pickedUpUnit.transform.position =
-                            grid.GetWorldPositionCenterOfGrid(_lastPickedGrid.x, _lastPickedGrid.z) + new Vector3(0,yAdjustment,0);
+                            grid.GetWorldPositionCenterOfGrid(_lastPickedGrid.x, _lastPickedGrid.z) +
+                            new Vector3(0, yAdjustment, 0);
 
                         _lastPickedGrid.SetPlacedUnit(_pickedUpUnit);
                     }
                 }
                 else
-                {   
-                    _pickedUpUnit.transform.position = grid.GetWorldPositionCenterOfGrid(_lastPickedGrid.x, _lastPickedGrid.z) + new Vector3(0,yAdjustment,0);
+                {
+                    _pickedUpUnit.transform.position =
+                        grid.GetWorldPositionCenterOfGrid(_lastPickedGrid.x, _lastPickedGrid.z) +
+                        new Vector3(0, yAdjustment, 0);
                     _lastPickedGrid.SetPlacedUnit(_pickedUpUnit);
                 }
-                _pickedUpUnit = null; 
+
+                _pickedUpUnit = null;
             }
         }
-        
+
+        /*if (_pickedUpUnit!=null)
+        {
+            castRayToHighlightCell(_pickedUpUnit);
+        }*/
+
     }
-        
-        
+
+    private void castRayToHighlightCell(PlacedUnit placedUnit)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Physics.Raycast(placedUnit.transform.position, Vector3.down, out RaycastHit hitInfo, 10000);
+        RaycastHit tempHitInfo = hitInfo;
+        Debug.Log(hitInfo.transform.GetComponent<GridCellHighlight>());
+        if (hitInfo.transform.GetComponent<GridCellHighlight>() != null)
+        {
+            hitInfo.transform.GetComponent<GridCellHighlight>().HighlightCell();
+        }
+
+        if (tempHitInfo.transform != hitInfo.transform)
+        {
+            tempHitInfo.transform.GetComponent<GridCellHighlight>().UnhighlightCell();
+        }
+
+
     }
+}
 
     
