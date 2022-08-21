@@ -11,7 +11,7 @@ public class GridBuildingSystem  : MonoSingleton<GridBuildingSystem>
     [SerializeField] private GameObject gridGroundPrefab;
     [SerializeField] private GameObject gridGroundPrefabEnemyBorderless;
     private void Awake()
-    {
+    {   GameManager.OnGameStateChanged += OnGameStateChanged;
         int gridWidth = 8;
         int gridHeight = 8;
         float cellSizeX = 1.4f;
@@ -26,7 +26,7 @@ public class GridBuildingSystem  : MonoSingleton<GridBuildingSystem>
             grid = GameManager.Instance.getGridObject();
         }
         
-        GameManager.Instance.setGrid(grid);
+        
         
         GameObject gridContainer = GameObject.Find("GridContainer");
         if (gridContainer == null)
@@ -35,7 +35,7 @@ public class GridBuildingSystem  : MonoSingleton<GridBuildingSystem>
         for (int i = 0; i < grid.GetWidth(); i++)
         {
             for (int j = 0; j < grid.GetHeight()/2; j++)
-            {   GameObject spawnedTile = Instantiate(gridGroundPrefab, grid.GetWorldPositionCenterOfGrid(i, j) + new Vector3(0,0.06f,0), Quaternion.identity);
+            {   GameObject spawnedTile = Instantiate(gridGroundPrefab, grid.GetWorldPositionCenterOfGrid(i, j) + new Vector3(0,-0.91f,0), Quaternion.identity);
                 spawnedTile.tag = "Grid";
                 spawnedTile.name = $"GridCell [{i}, {j}]";
                 spawnedTile.transform.SetParent(gridContainer.transform);
@@ -43,7 +43,7 @@ public class GridBuildingSystem  : MonoSingleton<GridBuildingSystem>
 
             for (int j = grid.GetHeight()/2; j < gridHeight; j++)
             {
-                GameObject spawnedTile = Instantiate(gridGroundPrefabEnemyBorderless, grid.GetWorldPositionCenterOfGrid(i, j) + new Vector3(0,0.06f,0), Quaternion.identity);
+                GameObject spawnedTile = Instantiate(gridGroundPrefabEnemyBorderless, grid.GetWorldPositionCenterOfGrid(i, j) + new Vector3(0,-0.91f,0), Quaternion.identity);
                 //spawnedTile.tag = "Grid";
                 spawnedTile.name = $"GridCellEnemy [{i}, {j}]";
                 spawnedTile.transform.SetParent(gridContainer.transform);
@@ -51,8 +51,26 @@ public class GridBuildingSystem  : MonoSingleton<GridBuildingSystem>
         }
     }
 
-    
-    
+    private void OnGameStateChanged(GameState state)
+    {
+        if (state == GameState.FightScreen)
+        {
+            for (int x = 0; x < grid.GetHeight(); x++)
+            {
+                for (int z = 0; z < grid.GetWidth(); z++)
+                {
+                    GameManager.Instance.saveGridSO.addGridSaveValues(new GridSaveValues(x, z, grid.GetGridObject(x, z)));
+                }
+            }
+        }
+
+        if (state == GameState.MergeScreen)
+        {
+            GameManager.Instance.saveGridSO.removeAll();
+        }
+    }
+
+
     /*public void InstantiateGridObjectRandomly(Transform gridObjectPrefab)
     {   bool end = false;
         while (!end)

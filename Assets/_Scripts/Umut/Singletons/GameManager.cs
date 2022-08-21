@@ -22,6 +22,8 @@ public class GameManager : MonoSingleton<GameManager>
     private int levelEnemyCount = 0;
     private int levelFriendlyUnitCount = 0;
     private float playerGold = 10000;
+    
+    [SerializeField] public SaveGridSO saveGridSO;
 
     private GridXZ<GridCell> _grid;
 

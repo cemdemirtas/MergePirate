@@ -44,7 +44,7 @@ public class UnitHighlightGrid : MonoBehaviour
     private void FixedUpdate()
     {
         if (mergeScreenOn)
-        {
+        {   
             if (_yValueWhenPlacedGrid+ 0.4f < transform.position.y)
             {
                 if (_gridCellBelow != null)

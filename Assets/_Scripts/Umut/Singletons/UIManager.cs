@@ -285,9 +285,9 @@ public class UIManager : MonoSingleton<UIManager>
 
             _meleeBuyButton.interactable = true;
             _rangedBuyButton.interactable = true;
-
-            GameManager.Instance.UpdateGameState(GameState.MergeScreen);
             GameManager.Instance.NextScene();
+            GameManager.Instance.UpdateGameState(GameState.MergeScreen);
+            
         }
 
 
