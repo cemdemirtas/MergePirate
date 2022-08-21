@@ -651,6 +651,7 @@ GameObject:
   - component: {fileID: 1412257908872128175}
   - component: {fileID: 1412257908872128174}
   - component: {fileID: 7375468300851483146}
+  - component: {fileID: -5881445381025532953}
   m_Layer: 0
   m_Name: EnemyRangeLevel2
   m_TagString: Enemy
@@ -665,7 +666,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5634747975428384365}
-  m_LocalRotation: {x: -0, y: -0.99990505, z: -0, w: -0.013784955}
+  m_LocalRotation: {x: -0, y: -0.999905, z: 0, w: -0.0137876}
   m_LocalPosition: {x: 5.447217, y: -1.3743889, z: 15.934979}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -685,8 +686,8 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5634747975428384365}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a82b68af7a018a444b6813034c18ea88, type: 2}
+  m_Avatar: {fileID: 9000000, guid: b6bd485a4a395234fa8c73bf6ed776b6, type: 3}
+  m_Controller: {fileID: 9100000, guid: 6c18b85eaf57e4c40bce061471c8af0d, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -710,7 +711,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 4
   m_CollisionDetection: 0
 --- !u!136 &4824424735703374743
 CapsuleCollider:
@@ -768,6 +769,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placedUnitSO: {fileID: 11400000, guid: 4dac620750ddd844e9f3cc2d9cb43e84, type: 2}
+--- !u!114 &-5881445381025532953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5634747975428384365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c32c74a5c5778264abbb37643f9872f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goldValue: 200
 --- !u!1 &6063031650448990740
 GameObject:
   m_ObjectHideFlags: 0

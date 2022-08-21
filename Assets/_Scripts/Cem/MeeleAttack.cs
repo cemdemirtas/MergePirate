@@ -113,7 +113,7 @@ public class MeeleAttack : MonoBehaviour
                 target.GetComponent<EnemyController>().TakeDamage(characterController.characterLevel * 10f);
                 attackTime = unitSO.unitAttackSpeed;
                 animator.SetBool("Attack",true);
-                transform.LookAt(target.transform);
+                //transform.LookAt(target.transform);
                 break;
         }
 

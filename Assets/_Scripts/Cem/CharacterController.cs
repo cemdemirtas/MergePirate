@@ -11,8 +11,9 @@ public class CharacterController : MonoBehaviour
     [SerializeField] UnitSO unitSO;
 
     Slider healthBar;
-
-    private float _health;
+    
+    public float _health;
+    
     public int characterLevel
     {
         get { return _characterLevel; }
@@ -31,7 +32,7 @@ public class CharacterController : MonoBehaviour
     }
 
     private void Update()
-    {
+    {   
         if (Input.touchCount == 0)
         {
             canHit = false;
@@ -48,6 +49,9 @@ public class CharacterController : MonoBehaviour
         {
             animator.SetBool("Die", true);
             animator.SetBool("Attack", false);
+            animator.SetBool("Run", false);
+            this.GetComponent<CharacterController>().enabled = false;
+
         }
     }
 

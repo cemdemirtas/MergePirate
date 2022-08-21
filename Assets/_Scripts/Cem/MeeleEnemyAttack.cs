@@ -47,13 +47,15 @@ public class MeeleEnemyAttack : MonoBehaviour
         }
 
         if (walk && GameManager.Instance.GameOn==true)
-        { 
+        {
             animator.SetBool("Run", true);
             animator.SetBool("Attack", false);
-
+            
             findNearEnemy();
-            transform.Translate(transform.forward * Time.deltaTime * -1 * unitSO.unitSpeed* SmoothSpeed);
+            transform.Translate(transform.forward * Time.deltaTime * -1 * unitSO.unitSpeed * SmoothSpeed);
+            //transform.DOMove(target.transform.position, 3f);
         }
+        
     }
 
     private void OnTriggerEnter(Collider other)

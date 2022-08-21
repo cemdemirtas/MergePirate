@@ -62,6 +62,7 @@ public class InstantiateOnGrid : MonoBehaviour
         GameObject teammates = GameObject.Find("TeamMates");
         if (teammates == null)
             teammates = new GameObject("TeamMates");
+        teammates.tag = "TeamMates";
         while (!end)
         {
             int x = UnityEngine.Random.Range(0, gridObject.GetWidth());
