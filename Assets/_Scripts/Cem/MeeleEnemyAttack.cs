@@ -50,10 +50,11 @@ public class MeeleEnemyAttack : MonoBehaviour
         { 
             animator.SetBool("Run", true);
             animator.SetBool("Attack", false);
-
+            
             findNearEnemy();
             transform.Translate(transform.forward * Time.deltaTime * -1 * unitSO.unitSpeed* SmoothSpeed);
         }
+        
     }
 
     private void OnTriggerEnter(Collider other)

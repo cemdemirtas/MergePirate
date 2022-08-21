@@ -17,6 +17,8 @@ public class GameManager : MonoSingleton<GameManager>
     private int _boughtRangedUnitCount = 0;
     private float _baseMeleeUnitCost = 100;
     private float _baseRangedUnitCost = 100;
+    private int levelEnemyCount = 0;
+    private int levelFriendlyUnitCount = 0;
     private float playerGold = 1000;
 
     private GridXZ<GridCell> _grid;
@@ -54,9 +56,11 @@ public class GameManager : MonoSingleton<GameManager>
                 break;
             case GameState.FightScreen:
                 UIManager.Instance.ShowFightScreen();
+                
                 //UIManager.Instance.test = 1234;
                 break;
             case GameState.GameOverScreen:
+                
                 break;
             case GameState.GameWonScreen:
                 break;
@@ -86,6 +90,41 @@ public class GameManager : MonoSingleton<GameManager>
     public void setGridObject(GridXZ<GridCell> grid)
     {
         _grid = grid;
+    }
+
+    public int getLevelEnemyCount()
+    {
+        return levelEnemyCount;
+    }
+
+    public int getLevelFriendlyUnitCount()
+    {
+        return levelFriendlyUnitCount;
+    }
+
+    public void increaseLevelEnemyCount()
+    {
+        levelEnemyCount += 1;
+    }
+
+    public void increaseLevelFriendlyUnitCount()
+    {
+        levelFriendlyUnitCount += 1;
+    }
+    public void decreaseLevelEnemyCount()
+    {
+        levelEnemyCount -= 1;
+    }
+
+    public void decreaseLevelFriendlyUnitCount()
+    {
+        levelFriendlyUnitCount -= 1;
+    }
+
+    public void resetCountOfUnits()
+    {
+        levelEnemyCount = 0;
+        levelFriendlyUnitCount = 0;
     }
 
     public float calculateMeleeUnitCost()
@@ -168,8 +207,14 @@ public class GameManager : MonoSingleton<GameManager>
     {
         GameOn = true;
     }
+
+    public void changeCurrentStete(GameState gameState)
+    {
+        CurrentGameState = gameState;
+    }
     
-    
+
+
 }
 public enum GameState
 {
