@@ -1251,7 +1251,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!136 &5386276342202679294
 CapsuleCollider:
@@ -1261,12 +1261,12 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5925037664503630503}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 1.328737
   m_Height: 2.840248
   m_Direction: 1
-  m_Center: {x: 0, y: 1.4199114, z: 0}
+  m_Center: {x: 0.05197382, y: 1.4199114, z: 0.14550567}
 --- !u!114 &9016935234780478919
 MonoBehaviour:
   m_ObjectHideFlags: 0
