@@ -41,9 +41,15 @@ public class GameManager : MonoSingleton<GameManager>
         set { playerGold = value; }
     }
 
+    public int LevelGoldEarnings
+    {
+        get { return levelGoldEarnings; }
+        set { levelGoldEarnings = value; }
+    }
+
     public static event Action<GameState> OnGameStateChanged;
 
-    
+
 
     public void UpdateGameState(GameState newState)
     {
@@ -54,29 +60,35 @@ public class GameManager : MonoSingleton<GameManager>
             case GameState.MergeScreen:
                 UIManager.Instance.ShowMergeScreen();
                 GameOn = false;
+                UIManager.Instance.UpdateGoldIndicator();
                 break;
             case GameState.FightScreen:
                 UIManager.Instance.ShowFightScreen();
-
+                UIManager.Instance.UpdateGoldIndicator();
+                SetBoolTrue();
                 GameOn = true;
-                //UIManager.Instance.test = 1234;
+                UIManager.Instance.UpdateGoldIndicator();
                 break;
             case GameState.GameOverScreen:
+                UIManager.Instance.getGoldEarnings();
                 convertGoldEarningsToRealGold();
                 resetCountOfUnits();
-                 UIManager.Instance.ShowDefeatScreen();
+                UIManager.Instance.ShowDefeatScreen();
                 GameOn = false;
+                UIManager.Instance.UpdateGoldIndicator();
                 break;
             case GameState.GameWonScreen:
+                UIManager.Instance.getGoldEarnings();
                 increaseGoldEarnings(levelGoldEarnings); //double profit when won
                 convertGoldEarningsToRealGold();
                 resetCountOfUnits();
                 UIManager.Instance.ShowVictoryScreen();
                 GameOn = false;
-
+                UIManager.Instance.UpdateGoldIndicator();
                 break;
             case GameState.MainMenuScreen:
                 GameOn = false;
+                //UIManager.Instance.UpdateGoldIndicator();
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -99,6 +111,11 @@ public class GameManager : MonoSingleton<GameManager>
         SceneManager.LoadScene(_currentLevel);
     }
 
+    public GridXZ<GridCell> getGridObject()
+    {
+        return _grid;
+    }
+
     public void setGridObject(GridXZ<GridCell> grid)
     {
         _grid = grid;
@@ -107,6 +124,7 @@ public class GameManager : MonoSingleton<GameManager>
     public void increaseGoldEarnings(int value)
     {
         levelGoldEarnings += value;
+        Debug.Log("GoldEarnings: " + levelGoldEarnings);
     }
 
     public void resetGoldEarnings()
@@ -223,6 +241,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void NextScene()
     {
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         _currentLevel++;
     }
@@ -241,7 +260,13 @@ public class GameManager : MonoSingleton<GameManager>
     {
         CurrentGameState = gameState;
     }
-    
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
+
+    }
+
 
 
 }

@@ -9,6 +9,8 @@ public class ReportLevelEnemyCount : MonoBehaviour
 
     [SerializeField] private int
         goldValue;
+
+    private bool diedOnce = false;
     private void Awake()
     {
         GameManager.OnGameStateChanged += GameManagerOnOnGameStateChanged;
@@ -29,8 +31,9 @@ public class ReportLevelEnemyCount : MonoBehaviour
     {
         hp = gameObject.GetComponent<EnemyController>()._health;
 
-        if (hp<0)
+        if (hp<0 && !diedOnce)
         {
+            diedOnce = true;
             GameManager.Instance.decreaseLevelEnemyCount();
             GameManager.Instance.increaseGoldEarnings(goldValue);
 
@@ -39,12 +42,12 @@ public class ReportLevelEnemyCount : MonoBehaviour
             {
                 if (GameManager.Instance.getLevelFriendlyUnitCount() == 0)
                 {   
-                    GameManager.Instance.changeCurrentStete(GameState.GameOverScreen);
+                    GameManager.Instance.UpdateGameState(GameState.GameOverScreen);
                 }
 
                 if (GameManager.Instance.getLevelEnemyCount() == 0)
                 {
-                    GameManager.Instance.changeCurrentStete(GameState.GameWonScreen);
+                    GameManager.Instance.UpdateGameState(GameState.GameWonScreen);
                 }
             }
         }
