@@ -271,9 +271,9 @@ public class UIManager : MonoSingleton<UIManager>
         //if scene index is 4, debug log "you won"
         if (SceneManager.GetActiveScene().buildIndex == 4)
         {
+            GameManager.Instance.UpdateGameState(GameState.MergeScreen);
             //load scene 0
             SceneManager.LoadScene(0);
-            GameManager.Instance.UpdateGameState(GameState.MainMenuScreen);
         }
         else
         {
