@@ -7,8 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoSingleton<UIManager>
 {
-    //private int gold = 0; //TODO: get gold info from somewhere else
-    public int test = 123;
     [SerializeField]
     private GameObject _goldIndicatorPanel; //scene 1 (top right corner gold indicator) //TODO: put gold sprite in this panel
 
@@ -27,6 +25,9 @@ public class UIManager : MonoSingleton<UIManager>
     [SerializeField]
     private Button _rangedBuyButton;
 
+    [SerializeField] private Button _startFightButton;
+
+
     [SerializeField]
     private GameObject _charactersPanel;
 
@@ -38,6 +39,14 @@ public class UIManager : MonoSingleton<UIManager>
 
     [SerializeField]
     private GameObject _settingsPanel;
+
+    [SerializeField] private GameObject _victoryPanel;
+    [SerializeField] private GameObject _defeatPanel;
+
+    [SerializeField] private TextMeshProUGUI _victoryEarnedText;
+    [SerializeField] private TextMeshProUGUI _defeatEarnedText;
+    [SerializeField] private Button _victoryContinueButton;
+    [SerializeField] private Button _defeatRestartButton;
 
     // Start is called before the first frame update
     void Start()
@@ -190,8 +199,13 @@ public class UIManager : MonoSingleton<UIManager>
     {
         if (GameManager.Instance.CurrentGameState == GameState.FightScreen)
         {
-            _meleeBuyButton.gameObject.SetActive(false);
-            _rangedBuyButton.gameObject.SetActive(false);
+            // _meleeBuyButton.gameObject.SetActive(false);
+            // _rangedBuyButton.gameObject.SetActive(false);
+
+            _startFightButton.gameObject.SetActive(false);
+            _meleeBuyButton.interactable = false;
+            _rangedBuyButton.interactable = false;
+
         }
     }
 
@@ -204,7 +218,64 @@ public class UIManager : MonoSingleton<UIManager>
         }
     }
 
-    //GOLD STUFF//
+    public void ShowVictoryScreen()
+    {
+        if (GameManager.Instance.CurrentGameState == GameManager.GameState.GameWonScreen)
+        {
+            _victoryPanel.SetActive(true);
+            _victoryEarnedText.text = "You earned " + GameManager.Instance.PlayerGold + " gold!";
+            //_victoryContinueButton.gameObject.SetActive(true);
+            //disable buy & start fight buttons
+            _meleeBuyButton.interactable = false;
+            _rangedBuyButton.interactable = false;
+            _startFightButton.interactable = false;
+
+        }
+    }
+
+    public void ShowDefeatScreen()
+    {
+        if (GameManager.Instance.CurrentGameState == GameManager.GameState.GameOverScreen)
+        {
+            _defeatPanel.SetActive(true);
+            _defeatEarnedText.text = "You earned " + GameManager.Instance.PlayerGold + " gold!";
+            //_defeatRestartButton.gameObject.SetActive(true);
+            //disable buy & start fight buttons
+            _meleeBuyButton.interactable = false;
+            _rangedBuyButton.interactable = false;
+            _startFightButton.interactable = false;
+
+        }
+    }
+
+    public void VictoryContinueButton()
+    {
+        _victoryPanel.SetActive(false);
+        _defeatPanel.SetActive(false);
+
+
+        _startFightButton.interactable = true;
+
+        _meleeBuyButton.interactable = true;
+        _rangedBuyButton.interactable = true;
+        GameManager.Instance.UpdateGameState(GameManager.GameState.MergeScreen);
+    }
+
+    public void DefeatRestartButton()
+    {
+        _victoryPanel.SetActive(false);
+        _defeatPanel.SetActive(false);
+        _startFightButton.interactable = true;
+
+        _meleeBuyButton.interactable = true;
+        _rangedBuyButton.interactable = true;
+        GameManager.Instance.UpdateGameState(GameManager.GameState.MergeScreen);
+    }
+
+
+
+
+    //!!!GOLD STUFF//
 
     private void UpdateGoldIndicator()
     {
