@@ -675,6 +675,7 @@ GameObject:
   - component: {fileID: 3769254460685572635}
   - component: {fileID: 7288373820058298955}
   - component: {fileID: 7288373820058298954}
+  - component: {fileID: 8728435880292149835}
   m_Layer: 0
   m_Name: EnemyMeleeLevel2
   m_TagString: Enemy
@@ -778,6 +779,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitSO: {fileID: 11400000, guid: 384af945d504df649b43b4ab3ec6605b, type: 2}
+--- !u!114 &8728435880292149835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4075332322111089289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c32c74a5c5778264abbb37643f9872f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4096804251274854123
 GameObject:
   m_ObjectHideFlags: 0
