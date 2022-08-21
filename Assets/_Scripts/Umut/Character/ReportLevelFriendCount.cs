@@ -34,12 +34,12 @@ public class ReportLevelFriendCount : MonoBehaviour
             {
                 if (GameManager.Instance.getLevelFriendlyUnitCount() == 0)
                 {
-                    GameManager.Instance.changeCurrentStete(GameState.GameOverScreen);
+                    GameManager.Instance.UpdateGameState(GameState.GameOverScreen);
                 }
 
                 if (GameManager.Instance.getLevelEnemyCount() == 0)
                 {
-                    GameManager.Instance.changeCurrentStete(GameState.GameWonScreen);
+                    GameManager.Instance.UpdateGameState(GameState.GameWonScreen);
                 }
             }
         }
