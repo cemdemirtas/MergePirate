@@ -245,6 +245,7 @@ public class GameManager : MonoSingleton<GameManager>
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         _currentLevel++;
+        SavePlayer();
     }
 
     public void RestartScene()
