@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoSingleton<GameManager>
 {
+    public static GameManager instance;
     [SerializeField]
     public bool GameOn;
     public GameState CurrentGameState;
@@ -20,7 +21,7 @@ public class GameManager : MonoSingleton<GameManager>
     private float _baseRangedUnitCost = 100;
     private int levelEnemyCount = 0;
     private int levelFriendlyUnitCount = 0;
-    private float playerGold = 1000;
+    private float playerGold = 10000;
 
     private GridXZ<GridCell> _grid;
 
@@ -264,10 +265,7 @@ public class GameManager : MonoSingleton<GameManager>
     private void Awake()
     {
         DontDestroyOnLoad(this);
-
     }
-
-
 
 }
 public enum GameState
