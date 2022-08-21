@@ -50,10 +50,17 @@ MonoBehaviour:
   _rangedSoldierCostText: {fileID: 0}
   _meleeBuyButton: {fileID: 0}
   _rangedBuyButton: {fileID: 0}
+  _startFightButton: {fileID: 0}
   _charactersPanel: {fileID: 0}
   _charactersPanelRange: {fileID: 0}
   _charactersPanelMelee: {fileID: 0}
   _settingsPanel: {fileID: 0}
+  _victoryPanel: {fileID: 0}
+  _defeatPanel: {fileID: 0}
+  _victoryEarnedText: {fileID: 0}
+  _defeatEarnedText: {fileID: 0}
+  _victoryContinueButton: {fileID: 0}
+  _defeatRestartButton: {fileID: 0}
 --- !u!1 &8664387513485421440
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,7 +128,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -430576668, guid: 0a37a394cc33c6b4fae240c08a996120, type: 3}
+  m_Sprite: {fileID: -1209674611, guid: 84fd40df9cf4e074eb00c5dea9d17725, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -199,7 +206,7 @@ GameObject:
   - component: {fileID: 8664387513620122750}
   - component: {fileID: 8664387513620122751}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: GameLogo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -214,7 +221,7 @@ RectTransform:
   m_GameObject: {fileID: 8664387513620122749}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7512556, y: 0.29291, z: 0.29291}
+  m_LocalScale: {x: 1.004654, y: 0.29291, z: 0.29291}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8664387514688920959}
@@ -246,15 +253,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 227ceb748153d9d439b04a7e1d6c0b5f, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -511,8 +518,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2041586023, guid: 0a37a394cc33c6b4fae240c08a996120, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 933281521, guid: 84fd40df9cf4e074eb00c5dea9d17725, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

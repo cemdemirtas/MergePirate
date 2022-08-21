@@ -56,18 +56,23 @@ public class GameManager : MonoSingleton<GameManager>
         switch (newState)
         {
             case GameState.MergeScreen:
-                //call ShowMergeScreen() method in UIManager
                 UIManager.Instance.ShowMergeScreen();
+                GameOn = false;
                 break;
             case GameState.FightScreen:
                 UIManager.Instance.ShowFightScreen();
-                //UIManager.Instance.test = 1234;
+                GameOn = true;
                 break;
             case GameState.GameOverScreen:
+                UIManager.Instance.ShowDefeatScreen();
+                GameOn = false;
                 break;
             case GameState.GameWonScreen:
+                UIManager.Instance.ShowVictoryScreen();
+                GameOn = false;
                 break;
             case GameState.MainMenuScreen:
+                GameOn = false;
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
