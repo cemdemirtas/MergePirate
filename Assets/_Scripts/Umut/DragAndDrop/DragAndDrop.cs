@@ -13,7 +13,7 @@ public class DragAndDrop : MonoBehaviour
     [SerializeField] private UnitSO[] _units;
     [SerializeField] private float yAdjustment;
     public List<int> unitIdIndex = new List<int>();
-
+    private GameObject teammates;
 
 
     [SerializeField] private LayerMask _unitLayerMask;
@@ -25,11 +25,14 @@ public class DragAndDrop : MonoBehaviour
         {
             unitIdIndex.Add(_units[i].unitID);
         }
+        
+        
     }
 
     private void Start()
     {
         grid = GameObject.FindGameObjectWithTag("Grid").GetComponent<GridBuildingSystem>().grid;
+        
     }
     
     
@@ -109,19 +112,20 @@ public class DragAndDrop : MonoBehaviour
                                 _lastPickedGrid.SetPlacedUnit(_pickedUpUnit);
                             }
                             else if (_pickedUpUnit.GetUnitID() == gridCell.GetIDPlacedUnit())
-                            {
+                            {   
                                 int temp = _pickedUpUnit.GetUnitID();
                                 int index = System.Array.IndexOf(unitIdIndex.ToArray(), temp + 10);
                                 //System.Array.FindLastIndex()
                                 Destroy(gridCell.GetPlacedUnit().transform.gameObject);
                                 gridCell.ClearPlacedUnit();
+                                Transform parent = _pickedUpUnit.gameObject.transform.root;
                                 Destroy(_pickedUpUnit.gameObject);
                                 _pickedUpUnit = _units[index].placedUnit;
-                                Debug.Log(_pickedUpUnit.GetUnitID());
                                 PlacedUnit placedUnit = PlacedUnit.Create(
                                     grid.GetWorldPositionCenterOfGrid(gridCell.x, gridCell.z) + new Vector3(0,yAdjustment,0),
                                     new Vector2Int(gridCell.x, gridCell.z), _pickedUpUnit.placedUnitSO);
                                 gridCell.SetPlacedUnit(placedUnit);
+                                placedUnit.transform.SetParent(parent);
                                 _pickedUpUnit = null;
                             }
                         }
@@ -130,6 +134,8 @@ public class DragAndDrop : MonoBehaviour
                             _pickedUpUnit.transform.position =
                                 grid.GetWorldPositionCenterOfGrid(gridCell.x, gridCell.z) + new Vector3(0, yAdjustment, 0);
                             gridCell.SetPlacedUnit(_pickedUpUnit);
+                            lookForTeamMates();
+                            _pickedUpUnit.transform.SetParent(teammates.transform);
                             if (_lastPickedGrid != gridCell)
                             {
                                 _lastPickedGrid.ClearPlacedUnit();
@@ -141,7 +147,6 @@ public class DragAndDrop : MonoBehaviour
                     {
                         _pickedUpUnit.transform.position =
                             grid.GetWorldPositionCenterOfGrid(_lastPickedGrid.x, _lastPickedGrid.z) + new Vector3(0,yAdjustment,0);
-
                         _lastPickedGrid.SetPlacedUnit(_pickedUpUnit);
                     }
                 }
@@ -154,6 +159,13 @@ public class DragAndDrop : MonoBehaviour
             }
         }
         
+    }
+
+    private void lookForTeamMates()
+    {
+        GameObject teammates = GameObject.Find("TeamMates");
+        if (teammates == null)
+            teammates = new GameObject("TeamMates");
     }
         
         
