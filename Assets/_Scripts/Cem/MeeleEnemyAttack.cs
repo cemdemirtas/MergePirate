@@ -6,14 +6,112 @@ using DG.Tweening;
 public class MeeleEnemyAttack : MonoBehaviour
 {
     [SerializeField] UnitSO unitSO;
+    private GameObject target;
 
+    private Animator animator;
     EnemyController enemyController;
 
-    private GameObject target;
-    private Animator animator;
+    //private float attackTime;
+    //private float distanceToClosestTarget;
+    //private float distanceToTarget;
+    //GameObject[] allEnemy;
+
+    //private bool walk;
+
+    //bool attack;
+    //private void OnEnable()
+    //{
+    //    enemyController = GetComponent<EnemyController>();
+    //    animator = GetComponent<Animator>();
+    //    attackTime = 0;
+    //    walk = true;
+    //    animator.SetBool("Run",true);
+    //}
+    //private void Update()
+    //{
+    //    if (attack)
+    //    {
+    //        walk = false;
+    //        AttackTheCharacter();
+    //        attackTime -= Time.deltaTime;
+    //    }
+    //    else
+    //    {
+    //        walk = true;
+    //    }
+    //    if (GameManager.Instance.GameOn && walk)
+    //    {
+    //        animator.SetBool("Run", true);
+    //        findNearEnemy();
+    //        transform.Translate(transform.forward * Time.deltaTime * -1 * unitSO.unitSpeed);
+    //    }
+    //}
+
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.CompareTag("Character"))
+    //    {
+    //        attack = true;
+    //    }
+    //}
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.gameObject.CompareTag("Character"))
+    //    {
+
+    //        attack = false;
+    //    }
+    //}
+    //void AttackTheCharacter()
+    //{
+    //    if (!target.activeInHierarchy)
+    //    {
+    //        attack = false;
+    //        return;
+    //    }
+    //    switch (attackTime)
+    //    {
+    //        case <= 0:
+    //            target.GetComponent<CharacterController>().TakeDamage(enemyController.enemyLevel * 10f);
+    //            attackTime = unitSO.unitAttackSpeed;
+    //            animator.SetBool("Attack", true);
+    //            animator.SetBool("Run", false);
+
+    //            break;
+    //    }
+    //}
+
+    //void findNearEnemy()
+    //{
+    //    distanceToClosestTarget = Mathf.Infinity;
+    //    allEnemy = GameObject.FindGameObjectsWithTag("Character");
+    //    if (allEnemy.Length == 0)
+    //    {
+    //        GameManager.Instance.GameOn = false;
+    //    }
+    //    for (int i = 0; i < allEnemy.Length; i++)
+    //    {
+    //        distanceToTarget = (allEnemy[i].transform.position - gameObject.transform.position).sqrMagnitude;
+    //        if (distanceToTarget < distanceToClosestTarget)
+    //        {
+    //            distanceToClosestTarget = distanceToTarget;
+    //            target = allEnemy[i];
+    //        }
+    //        //else if (distanceToTarget < 1)
+    //        //{
+    //        //    animator.SetBool("Attack", false);
+
+    //        //}
+    //    }
+    //    transform.LookAt(target.transform);
+    //}
+    //EnemyController enemyController;
+
+    //private GameObject target;
+    //private Animator animator;
 
     private float attackTime;
-    private float SmoothSpeed=0.5f;
+    private float SmoothSpeed = 0.5f;
     private float distanceToClosestTarget;
     private float distanceToTarget;
     GameObject[] allEnemy;
@@ -42,20 +140,20 @@ public class MeeleEnemyAttack : MonoBehaviour
         else
         {
             walk = true;
-            animator.SetBool("Attack", false);
+            //animator.SetBool("Attack", false);
 
         }
 
-        if (walk && GameManager.Instance.GameOn==true)
+        if (walk && GameManager.Instance.GameOn == true)
         {
             animator.SetBool("Run", true);
             animator.SetBool("Attack", false);
-            
+
             findNearEnemy();
             transform.Translate(transform.forward * Time.deltaTime * -1 * unitSO.unitSpeed * SmoothSpeed);
             //transform.DOMove(target.transform.position, 3f);
         }
-        
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -76,9 +174,15 @@ public class MeeleEnemyAttack : MonoBehaviour
     }
     void AttackTheCharacter()
     {
+        walk = false;
+        animator.SetBool("Attack", true);
+        animator.SetBool("Run", false);
+
         if (!target.activeInHierarchy)
         {
             attack = false;
+            animator.SetBool("Attack", false);
+
             return;
 
         }
@@ -87,7 +191,6 @@ public class MeeleEnemyAttack : MonoBehaviour
             case <= 0:
                 target.GetComponent<CharacterController>().TakeDamage(enemyController.enemyLevel * 10f);
                 attackTime = unitSO.unitAttackSpeed;
-                animator.SetBool("Attack",true);
                 GameManager.Instance.GameOn = true;
                 break;
         }
@@ -101,7 +204,9 @@ public class MeeleEnemyAttack : MonoBehaviour
         {
             animator.SetBool("Win", true);
             Debug.Log("GAME OVER");
-            //GameManager.Instance.GameOn = false;
+            this.GetComponent<EnemyController>().enabled = false;
+
+            GameManager.Instance.GameOn = false;
         }
         for (int i = 0; i < allEnemy.Length; i++)
         {
@@ -111,6 +216,12 @@ public class MeeleEnemyAttack : MonoBehaviour
                 distanceToClosestTarget = distanceToTarget;
                 target = allEnemy[i];
             }
+            //if (distanceToTarget < 2)
+            //{
+            //    animator.SetBool("Run", false);
+            //    animator.SetBool("Attack", true);
+
+            //}
         }
         transform.LookAt(target.transform);
     }

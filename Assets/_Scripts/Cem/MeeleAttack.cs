@@ -44,7 +44,7 @@ public class MeeleAttack : MonoBehaviour
             AttackTheEnemy();
             attackTime -= Time.deltaTime;
             walk = false;
-            animator.SetBool("Run", false);
+            ////animator.SetBool("Run", false);
 
         }
         else
@@ -56,7 +56,7 @@ public class MeeleAttack : MonoBehaviour
         if (walk == true && GameManager.Instance.GameOn == true)
         {
             animator.SetBool("Run", true);
-            animator.SetBool("Attack", false);
+            //animator.SetBool("Attack", false);
             findNearEnemy();
             transform.Translate(transform.forward * Time.deltaTime * unitSO.unitSpeed * SmoothSpeed);
             //transform.DOMove(target.transform.position, 3f);
@@ -83,8 +83,9 @@ public class MeeleAttack : MonoBehaviour
         if (allEnemy.Length == 0)
         {
             GameManager.Instance.GameOn = false;
-            animator.SetBool("Win",true);
-
+            animator.SetBool("Win", true);
+            this.GetComponent<CharacterController>().enabled = false;
+            GameManager.Instance.GameOn = false;
             Debug.Log("finish");
 
         }
@@ -96,12 +97,22 @@ public class MeeleAttack : MonoBehaviour
                 distanceToClosestTarget = distanceToTarget;
                 target = allEnemy[i];
             }
+            if (distanceToTarget < 2)
+            {
+                animator.SetBool("Run", false);
+                animator.SetBool("Attack", true);
+            }
+
         }
         transform.LookAt(target.transform);
     }
 
     void AttackTheEnemy()
     {
+        walk = false;
+        animator.SetBool("Attack", true);
+        animator.SetBool("Run", false);
+
         if (!target.activeInHierarchy)
         {
             attack = false;
@@ -109,11 +120,14 @@ public class MeeleAttack : MonoBehaviour
         }
         switch (attackTime)
         {
+                            
+
             case <= 0:
                 target.GetComponent<EnemyController>().TakeDamage(characterController.characterLevel * 10f);
                 attackTime = unitSO.unitAttackSpeed;
-                animator.SetBool("Attack",true);
-                //transform.LookAt(target.transform);
+
+                transform.LookAt(target.transform);
+
                 break;
         }
 

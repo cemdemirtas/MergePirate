@@ -990,6 +990,8 @@ GameObject:
   - component: {fileID: 9222171523409983981}
   - component: {fileID: 9222171523409983978}
   - component: {fileID: 9222171523409983979}
+  - component: {fileID: 845210486401743097}
+  - component: {fileID: 845210486401743098}
   m_Layer: 7
   m_Name: melee2-3
   m_TagString: Character
@@ -1049,8 +1051,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 4
-  m_CollisionDetection: 1
+  m_Constraints: 116
+  m_CollisionDetection: 0
 --- !u!136 &9222171523409983976
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1059,12 +1061,12 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8303184099086043514}
   m_Material: {fileID: 13400000, guid: c8ada3993571d2a48a38f1aec2511ffb, type: 2}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.54178286
+  m_Radius: 1.2479488
   m_Height: 2.713099
   m_Direction: 1
-  m_Center: {x: -0.041782856, y: 1.135102, z: 0}
+  m_Center: {x: 0.13878989, y: 1.135102, z: -0.038294196}
 --- !u!114 &9222171523409983981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1093,6 +1095,7 @@ MonoBehaviour:
   canHit: 0
   _characterLevel: 2
   unitSO: {fileID: 11400000, guid: 384af945d504df649b43b4ab3ec6605b, type: 2}
+  _health: 0
 --- !u!114 &9222171523409983979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1106,6 +1109,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitSO: {fileID: 11400000, guid: 384af945d504df649b43b4ab3ec6605b, type: 2}
+--- !u!114 &845210486401743097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8303184099086043514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12ecee3fb85f4e49b3cdd3b2237aeb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &845210486401743098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8303184099086043514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 279e6f0b48a3b944c993cff872f75ca8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gridMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &8317705508360772888
 GameObject:
   m_ObjectHideFlags: 0

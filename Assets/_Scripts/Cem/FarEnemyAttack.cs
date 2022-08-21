@@ -38,7 +38,6 @@ public class FarEnemyAttack : MonoBehaviour
                     findNearEnemy();
                     Attack();
                     _attackTime = unitSO.unitAttackSpeed;
-                    animator.SetBool("Attack", true);
                     break;
             }
         }
@@ -48,7 +47,6 @@ public class FarEnemyAttack : MonoBehaviour
 
         if (!target.gameObject.activeInHierarchy)
         {
-            animator.SetBool("Win", true);
 
             return;
         }
@@ -89,6 +87,8 @@ public class FarEnemyAttack : MonoBehaviour
                 target = allEnemy[i];
             }
         }
+        animator.SetBool("Attack", true);
+
         transform.LookAt(target.transform);
     }
 }

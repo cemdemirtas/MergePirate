@@ -37,7 +37,6 @@ public class FarAttack : MonoBehaviour
                     findNearEnemy();
                     Attack();
                     _attackTime = unitSO.unitAttackSpeed;
-                    animator.SetBool("Attack", true);
                     break;
             }
         }
@@ -47,8 +46,6 @@ public class FarAttack : MonoBehaviour
         Bullet = BulletPoolController.BulletPoolList[BulletLine].transform.gameObject;
         if (!target.gameObject.activeInHierarchy)
         {
-            animator.SetBool("Win", true);
-
             return;
         }
         if (Bullet.gameObject.activeInHierarchy)
@@ -89,6 +86,8 @@ public class FarAttack : MonoBehaviour
 
             }
         }
+        animator.SetBool("Attack", true);
+
         transform.LookAt(target.transform);
     }
 }
