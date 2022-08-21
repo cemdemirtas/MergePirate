@@ -304,10 +304,10 @@ public class UIManager : MonoSingleton<UIManager>
 
         _meleeBuyButton.interactable = true;
         _rangedBuyButton.interactable = true;
-
+        GameManager.Instance.RestartScene();
         GameManager.Instance.UpdateGameState(GameState.MergeScreen);
 
-        GameManager.Instance.RestartScene(); //!Harcanan Gold geri gelmiyor veya asker geri gelmiyor!!
+         //!Harcanan Gold geri gelmiyor veya asker geri gelmiyor!!
     }
 
 

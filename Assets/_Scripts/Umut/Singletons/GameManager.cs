@@ -13,7 +13,7 @@ public class GameManager : MonoSingleton<GameManager>
     [SerializeField]
     public bool GameOn;
     public GameState CurrentGameState;
-    private int _currentLevel = 0;
+    private int _currentLevel = 1;
     private int levelGoldEarnings = 0;
     private int _boughtMeleeUnitCount = 0;
     private int _boughtRangedUnitCount = 0;
