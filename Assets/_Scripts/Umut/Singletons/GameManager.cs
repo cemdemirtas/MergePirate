@@ -64,12 +64,14 @@ public class GameManager : MonoSingleton<GameManager>
             case GameState.GameOverScreen:
                 convertGoldEarningsToRealGold();
                 resetCountOfUnits();
+                Time.timeScale = 0;
                 
                 break;
             case GameState.GameWonScreen:
                 increaseGoldEarnings(levelGoldEarnings); //double profit when won
                 convertGoldEarningsToRealGold();
                 resetCountOfUnits();
+                Time.timeScale = 0;
                 break;
             case GameState.MainMenuScreen:
                 break;
