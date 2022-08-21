@@ -48,12 +48,14 @@ public class UIManager : MonoSingleton<UIManager>
     [SerializeField] private Button _victoryContinueButton;
     [SerializeField] private Button _defeatRestartButton;
 
+    [SerializeField] private ParticleSystem _victoryParticleSystem;
+    [SerializeField] private ParticleSystem _defeatParticleSystem;
+
     // Start is called before the first frame update
     void Start()
     {
         if (SceneManager.GetActiveScene().buildIndex != 0)
         {
-            GameManager.Instance.setPlayerGold(1000);
             UpdateGoldIndicator();
             SetMeleeSoldierCost();
             SetRangedSoldierCost();
@@ -228,13 +230,13 @@ public class UIManager : MonoSingleton<UIManager>
         if (GameManager.Instance.CurrentGameState == GameState.GameWonScreen)
         {
             _victoryPanel.SetActive(true);
-            _victoryEarnedText.text = "You earned " + GameManager.Instance.PlayerGold + " gold!";
+            //_victoryEarnedText.text = getGoldEarnings().ToString();
             //_victoryContinueButton.gameObject.SetActive(true);
             //disable buy & start fight buttons
             _meleeBuyButton.interactable = false;
             _rangedBuyButton.interactable = false;
             _startFightButton.interactable = false;
-
+            _victoryParticleSystem.Play();
         }
     }
 
@@ -243,28 +245,45 @@ public class UIManager : MonoSingleton<UIManager>
         if (GameManager.Instance.CurrentGameState == GameState.GameOverScreen)
         {
             _defeatPanel.SetActive(true);
-            _defeatEarnedText.text = "You earned " + GameManager.Instance.PlayerGold + " gold!";
+            _defeatEarnedText.text = GameManager.Instance.LevelGoldEarnings.ToString();
             //_defeatRestartButton.gameObject.SetActive(true);
             //disable buy & start fight buttons
             _meleeBuyButton.interactable = false;
             _rangedBuyButton.interactable = false;
             _startFightButton.interactable = false;
+            _defeatParticleSystem.Play();
 
         }
     }
 
     public void VictoryContinueButton()
     {
-        _victoryPanel.SetActive(false);
-        _defeatPanel.SetActive(false);
+
+        //if scene index is 4, debug log "you won"
+        if (SceneManager.GetActiveScene().buildIndex == 4)
+        {
+            //load scene 0
+            SceneManager.LoadScene(0);
+        }
+        else
+        {
+            _victoryPanel.SetActive(false);
+            _defeatPanel.SetActive(false);
 
 
-        _startFightButton.interactable = true;
+            _startFightButton.interactable = true;
 
-        _meleeBuyButton.interactable = true;
-        _rangedBuyButton.interactable = true;
+            _meleeBuyButton.interactable = true;
+            _rangedBuyButton.interactable = true;
 
-        GameManager.Instance.UpdateGameState(GameState.MergeScreen);
+            GameManager.Instance.UpdateGameState(GameState.MergeScreen);
+            GameManager.Instance.NextScene();
+        }
+
+
+
+
+
     }
 
     public void DefeatRestartButton()
@@ -277,6 +296,8 @@ public class UIManager : MonoSingleton<UIManager>
         _rangedBuyButton.interactable = true;
 
         GameManager.Instance.UpdateGameState(GameState.MergeScreen);
+
+        GameManager.Instance.RestartScene(); //!Harcanan Gold geri gelmiyor veya asker geri gelmiyor!!
     }
 
 
@@ -284,7 +305,7 @@ public class UIManager : MonoSingleton<UIManager>
 
     //!!!GOLD STUFF//
 
-    private void UpdateGoldIndicator()
+    public void UpdateGoldIndicator()
     {
         _goldIndicatorText.text = GameManager.Instance.PlayerGold.ToString();
     }
@@ -310,6 +331,12 @@ public class UIManager : MonoSingleton<UIManager>
     {
         GameManager.Instance.PlayerGold = amount;
         UpdateGoldIndicator();
+    }
+
+    public void getGoldEarnings()
+    {
+        _victoryEarnedText.text = (GameManager.Instance.LevelGoldEarnings * 2).ToString();
+        _defeatEarnedText.text = GameManager.Instance.LevelGoldEarnings.ToString();
     }
 
     //END GOLD STUFF//
