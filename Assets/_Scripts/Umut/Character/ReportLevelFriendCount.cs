@@ -5,6 +5,7 @@ using UnityEngine;
 public class ReportLevelFriendCount : MonoBehaviour
 {
     private float hp;
+    private bool diedOnce = false;
     private void Awake()
     {
         GameManager.OnGameStateChanged += GameManagerOnOnGameStateChanged;
@@ -25,8 +26,9 @@ public class ReportLevelFriendCount : MonoBehaviour
     {
         hp = gameObject.GetComponent<CharacterController>()._health;
 
-        if (hp<0)
+        if (hp<0 && !diedOnce)
         {
+            diedOnce = true;
             GameManager.Instance.decreaseLevelFriendlyUnitCount();
 
             if (GameManager.Instance.getLevelEnemyCount() == 0 ||

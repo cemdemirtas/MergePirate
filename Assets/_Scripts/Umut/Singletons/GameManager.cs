@@ -66,6 +66,7 @@ public class GameManager : MonoSingleton<GameManager>
                 resetCountOfUnits();
                 UIManager.Instance.ShowDefeatScreen();
                 GameOn = false;
+
                 break;
             case GameState.GameWonScreen:
                 increaseGoldEarnings(levelGoldEarnings); //double profit when won
@@ -73,7 +74,6 @@ public class GameManager : MonoSingleton<GameManager>
                 resetCountOfUnits();
                 UIManager.Instance.ShowVictoryScreen();
                 GameOn = false;
-
                 break;
             case GameState.MainMenuScreen:
                 GameOn = false;
