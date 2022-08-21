@@ -239,6 +239,8 @@ public class UIManager : MonoSingleton<UIManager>
 
     public void ShowDefeatScreen()
     {
+
+        ;
         if (GameManager.Instance.CurrentGameState == GameState.GameOverScreen)
         {
             _defeatPanel.SetActive(true);
