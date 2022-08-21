@@ -372,6 +372,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: instantiateMelee
       objectReference: {fileID: 0}
+    - target: {fileID: 7053503787133714670, guid: e5d420e14419bd1408c7ccdc214ffc6a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9210913277259673231, guid: e5d420e14419bd1408c7ccdc214ffc6a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
