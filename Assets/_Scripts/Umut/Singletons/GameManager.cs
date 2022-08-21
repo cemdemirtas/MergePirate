@@ -52,8 +52,8 @@ public class GameManager : MonoSingleton<GameManager>
         switch (newState)
         {
             case GameState.MergeScreen:
-                //call ShowMergeScreen() method in UIManager
                 UIManager.Instance.ShowMergeScreen();
+                GameOn = false;
                 break;
             case GameState.FightScreen:
                 UIManager.Instance.ShowFightScreen();
@@ -64,16 +64,19 @@ public class GameManager : MonoSingleton<GameManager>
             case GameState.GameOverScreen:
                 convertGoldEarningsToRealGold();
                 resetCountOfUnits();
-                Time.timeScale = 0;
-                
+                UIManager.Instance.ShowDefeatScreen();
+                GameOn = false;
+
                 break;
             case GameState.GameWonScreen:
                 increaseGoldEarnings(levelGoldEarnings); //double profit when won
                 convertGoldEarningsToRealGold();
                 resetCountOfUnits();
-                Time.timeScale = 0;
+                UIManager.Instance.ShowVictoryScreen();
+                GameOn = false;
                 break;
             case GameState.MainMenuScreen:
+                GameOn = false;
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);

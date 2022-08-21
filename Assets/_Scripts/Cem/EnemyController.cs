@@ -31,6 +31,8 @@ public class EnemyController : MonoBehaviour
         {
             animator.SetBool("Die", true);
             animator.SetBool("Attack", false);
+            animator.SetBool("Run", false);
+            this.GetComponent<EnemyController>().enabled = false;
 
         }
         healthBar.transform.LookAt(Vector3.forward);
