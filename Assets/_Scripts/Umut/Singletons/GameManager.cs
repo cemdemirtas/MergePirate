@@ -13,6 +13,7 @@ public class GameManager : MonoSingleton<GameManager>
     public bool GameOn;
     public GameState CurrentGameState;
     private int _currentLevel = 0;
+    private int levelGoldEarnings = 0;
     private int _boughtMeleeUnitCount = 0;
     private int _boughtRangedUnitCount = 0;
     private float _baseMeleeUnitCost = 100;
@@ -60,9 +61,13 @@ public class GameManager : MonoSingleton<GameManager>
                 //UIManager.Instance.test = 1234;
                 break;
             case GameState.GameOverScreen:
-                
+                convertGoldEarningsToRealGold();
+                resetCountOfUnits();
                 break;
             case GameState.GameWonScreen:
+                increaseGoldEarnings(levelGoldEarnings); //double profit when won
+                convertGoldEarningsToRealGold();
+                resetCountOfUnits();
                 break;
             case GameState.MainMenuScreen:
                 break;
@@ -90,6 +95,22 @@ public class GameManager : MonoSingleton<GameManager>
     public void setGridObject(GridXZ<GridCell> grid)
     {
         _grid = grid;
+    }
+
+    public void increaseGoldEarnings(int value)
+    {
+        levelGoldEarnings += value;
+    }
+
+    public void resetGoldEarnings()
+    {
+        levelGoldEarnings = 0;
+    }
+
+    public void convertGoldEarningsToRealGold()
+    {
+        playerGold += levelGoldEarnings;
+        resetGoldEarnings();
     }
 
     public int getLevelEnemyCount()
@@ -196,6 +217,7 @@ public class GameManager : MonoSingleton<GameManager>
     public void NextScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        _currentLevel++;
     }
 
     public void RestartScene()

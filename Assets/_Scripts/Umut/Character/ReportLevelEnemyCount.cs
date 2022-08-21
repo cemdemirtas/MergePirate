@@ -6,6 +6,9 @@ using UnityEngine;
 public class ReportLevelEnemyCount : MonoBehaviour
 {
     private float hp;
+
+    [SerializeField] private int
+        goldValue;
     private void Awake()
     {
         GameManager.OnGameStateChanged += GameManagerOnOnGameStateChanged;
@@ -29,12 +32,13 @@ public class ReportLevelEnemyCount : MonoBehaviour
         if (hp<0)
         {
             GameManager.Instance.decreaseLevelEnemyCount();
+            GameManager.Instance.increaseGoldEarnings(goldValue);
 
             if (GameManager.Instance.getLevelEnemyCount() == 0 ||
                 GameManager.Instance.getLevelFriendlyUnitCount() == 0) 
             {
                 if (GameManager.Instance.getLevelFriendlyUnitCount() == 0)
-                {
+                {   
                     GameManager.Instance.changeCurrentStete(GameState.GameOverScreen);
                 }
 
