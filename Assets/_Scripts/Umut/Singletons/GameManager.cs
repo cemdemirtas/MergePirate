@@ -43,7 +43,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     public static event Action<GameState> OnGameStateChanged;
 
-    
+
 
     public void UpdateGameState(GameState newState)
     {
@@ -57,8 +57,13 @@ public class GameManager : MonoSingleton<GameManager>
                 break;
             case GameState.FightScreen:
                 UIManager.Instance.ShowFightScreen();
-                SetBoolTrue();
+
                 
+
+                SetBoolTrue();
+                GameOn = true;
+                
+
                 //UIManager.Instance.test = 1234;
                 break;
             case GameState.GameOverScreen:
@@ -246,7 +251,7 @@ public class GameManager : MonoSingleton<GameManager>
     {
         CurrentGameState = gameState;
     }
-    
+
 
 
 }

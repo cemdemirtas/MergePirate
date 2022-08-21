@@ -131,6 +131,9 @@ public class UIManager : MonoSingleton<UIManager>
         
         */
 
+
+
+        Debug.Log(GameManager.Instance.CurrentGameState.ToString() + " fight button is preeeeeessd");
         GameManager.Instance.UpdateGameState(GameState.FightScreen);
         //TODO!: disable grid in fight scene
         //disable buy buttons in fight scene
@@ -146,6 +149,8 @@ public class UIManager : MonoSingleton<UIManager>
                 
                 
         */
+
+
 
         GameManager.Instance.UpdateGameState(GameState.MergeScreen);
 
@@ -258,6 +263,7 @@ public class UIManager : MonoSingleton<UIManager>
 
         _meleeBuyButton.interactable = true;
         _rangedBuyButton.interactable = true;
+
         GameManager.Instance.UpdateGameState(GameState.MergeScreen);
     }
 
@@ -269,6 +275,7 @@ public class UIManager : MonoSingleton<UIManager>
 
         _meleeBuyButton.interactable = true;
         _rangedBuyButton.interactable = true;
+
         GameManager.Instance.UpdateGameState(GameState.MergeScreen);
     }
 
