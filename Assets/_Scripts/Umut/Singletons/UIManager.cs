@@ -65,39 +65,46 @@ public class UIManager : MonoSingleton<UIManager>
     void Update()
     {
         // if (SceneManager.GetActiveScene().buildIndex == 1)
-        if (GameManager.Instance.CurrentGameState == GameState.MergeScreen)
+        if (SceneManager.GetActiveScene().buildIndex != 0)
         {
-            if (_meleeBuyButton.interactable)
+            if (GameManager.Instance.CurrentGameState == GameState.MergeScreen)
             {
-                if (GameManager.Instance.PlayerGold - int.Parse(_meleeSoldierCostText.text) < 0)
+                if (_meleeBuyButton.interactable)
                 {
-                    //Disable buy button
-                    _meleeBuyButton.interactable = false;
+                    if (GameManager.Instance.PlayerGold - int.Parse(_meleeSoldierCostText.text) < 0)
+                    {
+                        //Disable buy button
+                        _meleeBuyButton.interactable = false;
+                    }
+                    else
+                    {
+                        _meleeBuyButton.interactable = true;
+                    }
                 }
-                else
-                {
-                    _meleeBuyButton.interactable = true;
-                }
-            }
 
-            if (_rangedBuyButton.interactable)
-            {
-                if (GameManager.Instance.PlayerGold - int.Parse(_rangedSoldierCostText.text) < 0)
+                if (_rangedBuyButton.interactable)
                 {
-                    //Disable buy button
-                    _rangedBuyButton.interactable = false;
-                }
-                else
-                {
-                    _rangedBuyButton.interactable = true;
+                    if (GameManager.Instance.PlayerGold - int.Parse(_rangedSoldierCostText.text) < 0)
+                    {
+                        //Disable buy button
+                        _rangedBuyButton.interactable = false;
+                    }
+                    else
+                    {
+                        _rangedBuyButton.interactable = true;
+                    }
                 }
             }
         }
+
+
     }
 
     public void MainPlayButton()
     {
         SceneManager.LoadScene(1);
+
+        //GameManager.Instance.UpdateGameState(GameState.MergeScreen);
     }
 
     public void MainExitButton()
@@ -135,6 +142,8 @@ public class UIManager : MonoSingleton<UIManager>
 
 
 
+        Debug.Log(GameManager.Instance.CurrentGameState.ToString() + " fight button is preeeeeessd");
+        GameManager.Instance.UpdateGameState(GameState.FightScreen);
         //TODO!: disable grid in fight scene
         //disable buy buttons in fight scene
         // _meleeBuyButton.interactable = false;
@@ -152,6 +161,7 @@ public class UIManager : MonoSingleton<UIManager>
 
 
 
+        GameManager.Instance.UpdateGameState(GameState.MergeScreen);
 
         //TODO!: enable grid in after fight scene
         //enable buy buttons in fight scene
@@ -239,6 +249,8 @@ public class UIManager : MonoSingleton<UIManager>
 
     public void ShowDefeatScreen()
     {
+
+        ;
         if (GameManager.Instance.CurrentGameState == GameState.GameOverScreen)
         {
             _defeatPanel.SetActive(true);
@@ -261,6 +273,7 @@ public class UIManager : MonoSingleton<UIManager>
         {
             //load scene 0
             SceneManager.LoadScene(0);
+            GameManager.Instance.UpdateGameState(GameState.MainMenuScreen);
         }
         else
         {
@@ -281,7 +294,6 @@ public class UIManager : MonoSingleton<UIManager>
 
 
 
-
     }
 
     public void DefeatRestartButton()
@@ -293,7 +305,9 @@ public class UIManager : MonoSingleton<UIManager>
         _meleeBuyButton.interactable = true;
         _rangedBuyButton.interactable = true;
 
+        GameManager.Instance.UpdateGameState(GameState.MergeScreen);
 
+        GameManager.Instance.RestartScene(); //!Harcanan Gold geri gelmiyor veya asker geri gelmiyor!!
     }
 
 
