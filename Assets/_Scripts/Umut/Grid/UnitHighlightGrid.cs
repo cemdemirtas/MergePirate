@@ -10,6 +10,30 @@ public class UnitHighlightGrid : MonoBehaviour
     private Transform _oldGridCellBelow;
     private Transform _tempGridCellBelow;
     private int _yValueWhenPlacedGrid;
+    private bool mergeScreenOn;
+
+    private void OnEnable()
+    {
+        GameManager.OnGameStateChanged += GameManagerOnGameStateChanged;
+        GameManagerOnGameStateChanged(GameManager.Instance.CurrentGameState);
+    }
+
+    void OnDestroy()
+    {
+        GameManager.OnGameStateChanged -= GameManagerOnGameStateChanged;
+    }
+
+    private void GameManagerOnGameStateChanged(GameState state)
+    {
+        if (state == GameState.MergeScreen)
+        {
+            mergeScreenOn = true;
+        }
+        else
+        {
+            mergeScreenOn = false;
+        }
+    }
 
     private void Start()
     {
@@ -19,47 +43,50 @@ public class UnitHighlightGrid : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
-        if (_yValueWhenPlacedGrid+ 0.4f < transform.position.y)
+        if (mergeScreenOn)
         {
-            if (_gridCellBelow != null)
+            if (_yValueWhenPlacedGrid+ 0.4f < transform.position.y)
             {
-                _tempGridCellBelow = _gridCellBelow;
-            }
-            if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit info ,10, _gridMask))
-            {
-                if (info.transform.CompareTag("Grid") && info.transform.name.Contains("GridCell"))
+                if (_gridCellBelow != null)
                 {
-                    _gridCellBelow = info.transform;
-                
-                    _gridCellBelow.transform.GetComponent<GridCellHighlight>().HighlightCell();
+                    _tempGridCellBelow = _gridCellBelow;
                 }
+                if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit info ,10, _gridMask))
+                {
+                    if (info.transform.CompareTag("Grid") && info.transform.name.Contains("GridCell"))
+                    {
+                        _gridCellBelow = info.transform;
                 
-            }
+                        _gridCellBelow.transform.GetComponent<GridCellHighlight>().HighlightCell();
+                    }
+                
+                }
 
-            if (_gridCellBelow != _tempGridCellBelow)
+                if (_gridCellBelow != _tempGridCellBelow)
+                {
+                    _oldGridCellBelow = _tempGridCellBelow;
+                    if (_oldGridCellBelow!=null)
+                    {
+                        _oldGridCellBelow.transform.GetComponent<GridCellHighlight>().UnhighlightCell();
+                    }
+                
+                }
+
+            }
+            else
             {
-                _oldGridCellBelow = _tempGridCellBelow;
-                if (_oldGridCellBelow!=null)
+                if (_oldGridCellBelow!= null & _gridCellBelow!=null)
                 {
                     _oldGridCellBelow.transform.GetComponent<GridCellHighlight>().UnhighlightCell();
+                    _gridCellBelow.transform.GetComponent<GridCellHighlight>().UnhighlightCell();
+                
                 }
-                
+            
+            
+            
             }
-
         }
-        else
-        {
-            if (_oldGridCellBelow!= null & _gridCellBelow!=null)
-            {
-                _oldGridCellBelow.transform.GetComponent<GridCellHighlight>().UnhighlightCell();
-                _gridCellBelow.transform.GetComponent<GridCellHighlight>().UnhighlightCell();
-                
-            }
-            
-            
-            
-        }
+        
         
         
         
