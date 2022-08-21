@@ -57,8 +57,13 @@ public class GameManager : MonoSingleton<GameManager>
                 break;
             case GameState.FightScreen:
                 UIManager.Instance.ShowFightScreen();
-                Debug.Log("FightScreen");
+
+                
+
+                SetBoolTrue();
                 GameOn = true;
+                
+
                 //UIManager.Instance.test = 1234;
                 break;
             case GameState.GameOverScreen:
@@ -66,6 +71,7 @@ public class GameManager : MonoSingleton<GameManager>
                 resetCountOfUnits();
                 UIManager.Instance.ShowDefeatScreen();
                 GameOn = false;
+
                 break;
             case GameState.GameWonScreen:
                 increaseGoldEarnings(levelGoldEarnings); //double profit when won
@@ -73,7 +79,6 @@ public class GameManager : MonoSingleton<GameManager>
                 resetCountOfUnits();
                 UIManager.Instance.ShowVictoryScreen();
                 GameOn = false;
-
                 break;
             case GameState.MainMenuScreen:
                 GameOn = false;
@@ -97,6 +102,11 @@ public class GameManager : MonoSingleton<GameManager>
         playerGold = data.gold;
         _grid = data.grid;
         SceneManager.LoadScene(_currentLevel);
+    }
+
+    public GridXZ<GridCell> getGridObject()
+    {
+        return _grid;
     }
 
     public void setGridObject(GridXZ<GridCell> grid)
