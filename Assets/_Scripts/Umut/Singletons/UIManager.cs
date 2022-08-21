@@ -135,6 +135,8 @@ public class UIManager : MonoSingleton<UIManager>
 
 
 
+        Debug.Log(GameManager.Instance.CurrentGameState.ToString() + " fight button is preeeeeessd");
+        GameManager.Instance.UpdateGameState(GameState.FightScreen);
         //TODO!: disable grid in fight scene
         //disable buy buttons in fight scene
         // _meleeBuyButton.interactable = false;
@@ -152,6 +154,7 @@ public class UIManager : MonoSingleton<UIManager>
 
 
 
+        GameManager.Instance.UpdateGameState(GameState.MergeScreen);
 
         //TODO!: enable grid in after fight scene
         //enable buy buttons in fight scene
@@ -283,7 +286,6 @@ public class UIManager : MonoSingleton<UIManager>
 
 
 
-
     }
 
     public void DefeatRestartButton()
@@ -295,7 +297,9 @@ public class UIManager : MonoSingleton<UIManager>
         _meleeBuyButton.interactable = true;
         _rangedBuyButton.interactable = true;
 
+        GameManager.Instance.UpdateGameState(GameState.MergeScreen);
 
+        GameManager.Instance.RestartScene(); //!Harcanan Gold geri gelmiyor veya asker geri gelmiyor!!
     }
 
 
