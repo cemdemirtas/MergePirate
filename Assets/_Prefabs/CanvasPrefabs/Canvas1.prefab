@@ -75,8 +75,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278228220
-  m_fontColor: {r: 0.98823535, g: 0.5803922, b: 0, a: 1}
+    rgba: 4279453868
+  m_fontColor: {r: 0.6745098, g: 0.28235295, b: 0.07450981, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -210,8 +210,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278228221
-  m_fontColor: {r: 0.990566, g: 0.5794123, b: 0, a: 1}
+    rgba: 4279453868
+  m_fontColor: {r: 0.6745098, g: 0.28235295, b: 0.07450981, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2743,7 +2743,6 @@ MonoBehaviour:
   _meleeBuyButton: {fileID: 3396987649355890513}
   _rangedBuyButton: {fileID: 9210913277259673231}
   _startFightButton: {fileID: 3396987648600496867}
-  _exitFightButton: {fileID: 0}
   _charactersPanel: {fileID: 3396987649290692740}
   _charactersPanelRange: {fileID: 3396987648534548443}
   _charactersPanelMelee: {fileID: 3396987649444382663}
@@ -3933,8 +3932,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278228220
-  m_fontColor: {r: 0.98823535, g: 0.5803922, b: 0, a: 1}
+    rgba: 4279453868
+  m_fontColor: {r: 0.6745098, g: 0.28235295, b: 0.07450981, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4144,8 +4143,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278228221
-  m_fontColor: {r: 0.990566, g: 0.5794123, b: 0, a: 1}
+    rgba: 4279453868
+  m_fontColor: {r: 0.6745098, g: 0.28235295, b: 0.07450981, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

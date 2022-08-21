@@ -43,7 +43,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     public static event Action<GameState> OnGameStateChanged;
 
-    
+
 
     public void UpdateGameState(GameState newState)
     {
@@ -57,14 +57,14 @@ public class GameManager : MonoSingleton<GameManager>
                 break;
             case GameState.FightScreen:
                 UIManager.Instance.ShowFightScreen();
-
+                Debug.Log("FightScreen");
                 GameOn = true;
                 //UIManager.Instance.test = 1234;
                 break;
             case GameState.GameOverScreen:
                 convertGoldEarningsToRealGold();
                 resetCountOfUnits();
-                 UIManager.Instance.ShowDefeatScreen();
+                UIManager.Instance.ShowDefeatScreen();
                 GameOn = false;
                 break;
             case GameState.GameWonScreen:
@@ -241,7 +241,7 @@ public class GameManager : MonoSingleton<GameManager>
     {
         CurrentGameState = gameState;
     }
-    
+
 
 
 }
