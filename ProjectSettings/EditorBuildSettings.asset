@@ -9,7 +9,16 @@ EditorBuildSettings:
     path: Assets/_Scenes/StartScreen.unity
     guid: 73d001a14723d5d40936cc2b7a33d65f
   - enabled: 1
-    path: Assets/_Scenes/BuyMergeScreen.unity
-    guid: 9a9b6dc5cc3008f4e92b07aadbf12266
+    path: Assets/_Scenes/Level/Level1.unity
+    guid: 778b2424d044e8d4db9d47968d7b7bf3
+  - enabled: 1
+    path: Assets/_Scenes/Level/Level2.unity
+    guid: f14818df506c7c84da8aa86239d0acc4
+  - enabled: 1
+    path: Assets/_Scenes/Level/Level3.unity
+    guid: 051350aeb66b29b49b53fec7beede6c7
+  - enabled: 1
+    path: Assets/_Scenes/Level/Level4.unity
+    guid: 1da1dcbe03140994481b1b6b225006c0
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 29b4b2e397073fa48a34a6e41ae3c2fa, type: 2}

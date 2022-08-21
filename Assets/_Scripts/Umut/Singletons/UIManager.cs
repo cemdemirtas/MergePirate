@@ -53,7 +53,6 @@ public class UIManager : MonoSingleton<UIManager>
     {
         if (SceneManager.GetActiveScene().buildIndex != 0)
         {
-            GameManager.Instance.setPlayerGold(1000);
             UpdateGoldIndicator();
             SetMeleeSoldierCost();
             SetRangedSoldierCost();
@@ -228,7 +227,7 @@ public class UIManager : MonoSingleton<UIManager>
         if (GameManager.Instance.CurrentGameState == GameState.GameWonScreen)
         {
             _victoryPanel.SetActive(true);
-            _victoryEarnedText.text = "You earned " + GameManager.Instance.PlayerGold + " gold!";
+            _victoryEarnedText.text = GameManager.Instance.LevelGoldEarnings.ToString();
             //_victoryContinueButton.gameObject.SetActive(true);
             //disable buy & start fight buttons
             _meleeBuyButton.interactable = false;
@@ -243,7 +242,7 @@ public class UIManager : MonoSingleton<UIManager>
         if (GameManager.Instance.CurrentGameState == GameState.GameOverScreen)
         {
             _defeatPanel.SetActive(true);
-            _defeatEarnedText.text = "You earned " + GameManager.Instance.PlayerGold + " gold!";
+            _defeatEarnedText.text = GameManager.Instance.LevelGoldEarnings.ToString();
             //_defeatRestartButton.gameObject.SetActive(true);
             //disable buy & start fight buttons
             _meleeBuyButton.interactable = false;
@@ -265,6 +264,7 @@ public class UIManager : MonoSingleton<UIManager>
         _rangedBuyButton.interactable = true;
 
         GameManager.Instance.UpdateGameState(GameState.MergeScreen);
+        GameManager.Instance.NextScene();
     }
 
     public void DefeatRestartButton()
@@ -284,7 +284,7 @@ public class UIManager : MonoSingleton<UIManager>
 
     //!!!GOLD STUFF//
 
-    private void UpdateGoldIndicator()
+    public void UpdateGoldIndicator()
     {
         _goldIndicatorText.text = GameManager.Instance.PlayerGold.ToString();
     }

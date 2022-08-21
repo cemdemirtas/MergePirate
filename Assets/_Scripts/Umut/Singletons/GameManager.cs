@@ -41,6 +41,12 @@ public class GameManager : MonoSingleton<GameManager>
         set { playerGold = value; }
     }
 
+    public int LevelGoldEarnings
+    {
+        get { return levelGoldEarnings; }
+        set { levelGoldEarnings = value; }
+    }
+
     public static event Action<GameState> OnGameStateChanged;
 
 
@@ -54,24 +60,21 @@ public class GameManager : MonoSingleton<GameManager>
             case GameState.MergeScreen:
                 UIManager.Instance.ShowMergeScreen();
                 GameOn = false;
+                UIManager.Instance.UpdateGoldIndicator();
                 break;
             case GameState.FightScreen:
                 UIManager.Instance.ShowFightScreen();
-
-                
-
+                UIManager.Instance.UpdateGoldIndicator();
                 SetBoolTrue();
                 GameOn = true;
-                
-
-                //UIManager.Instance.test = 1234;
+                UIManager.Instance.UpdateGoldIndicator();
                 break;
             case GameState.GameOverScreen:
                 convertGoldEarningsToRealGold();
                 resetCountOfUnits();
                 UIManager.Instance.ShowDefeatScreen();
                 GameOn = false;
-
+                UIManager.Instance.UpdateGoldIndicator();
                 break;
             case GameState.GameWonScreen:
                 increaseGoldEarnings(levelGoldEarnings); //double profit when won
@@ -79,9 +82,11 @@ public class GameManager : MonoSingleton<GameManager>
                 resetCountOfUnits();
                 UIManager.Instance.ShowVictoryScreen();
                 GameOn = false;
+                UIManager.Instance.UpdateGoldIndicator();
                 break;
             case GameState.MainMenuScreen:
                 GameOn = false;
+                //UIManager.Instance.UpdateGoldIndicator();
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -233,6 +238,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void NextScene()
     {
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         _currentLevel++;
     }
