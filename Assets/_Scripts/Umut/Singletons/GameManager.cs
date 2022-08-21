@@ -70,6 +70,7 @@ public class GameManager : MonoSingleton<GameManager>
                 UIManager.Instance.UpdateGoldIndicator();
                 break;
             case GameState.GameOverScreen:
+                UIManager.Instance.getGoldEarnings();
                 convertGoldEarningsToRealGold();
                 resetCountOfUnits();
                 UIManager.Instance.ShowDefeatScreen();
@@ -77,6 +78,7 @@ public class GameManager : MonoSingleton<GameManager>
                 UIManager.Instance.UpdateGoldIndicator();
                 break;
             case GameState.GameWonScreen:
+                UIManager.Instance.getGoldEarnings();
                 increaseGoldEarnings(levelGoldEarnings); //double profit when won
                 convertGoldEarningsToRealGold();
                 resetCountOfUnits();
@@ -122,6 +124,7 @@ public class GameManager : MonoSingleton<GameManager>
     public void increaseGoldEarnings(int value)
     {
         levelGoldEarnings += value;
+        Debug.Log("GoldEarnings: " + levelGoldEarnings);
     }
 
     public void resetGoldEarnings()
@@ -256,6 +259,12 @@ public class GameManager : MonoSingleton<GameManager>
     public void changeCurrentStete(GameState gameState)
     {
         CurrentGameState = gameState;
+    }
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
+
     }
 
 
