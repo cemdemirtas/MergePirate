@@ -16,11 +16,27 @@ public class UnitHighlightGrid : MonoBehaviour
     {
         GameManager.OnGameStateChanged += GameManagerOnGameStateChanged;
         GameManagerOnGameStateChanged(GameManager.Instance.CurrentGameState);
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit info, 10, _gridMask))
+        {
+            _gridCellBelow = info.transform;
+            _gridCellBelow.transform.GetComponent<GridCellHighlight>().UnMarkerHighlight();
+        }
+        
     }
 
     void OnDestroy()
     {
         GameManager.OnGameStateChanged -= GameManagerOnGameStateChanged;
+        if (_gridCellBelow!=null)
+        {
+            _gridCellBelow.transform.GetComponent<GridCellHighlight>().UnMarkerHighlight();
+        }
+
+        if (_oldGridCellBelow!=null)
+        {
+            _oldGridCellBelow.transform.GetComponent<GridCellHighlight>().UnMarkerHighlight();
+        }
+        
     }
 
     private void GameManagerOnGameStateChanged(GameState state)
@@ -48,17 +64,20 @@ public class UnitHighlightGrid : MonoBehaviour
             if (_yValueWhenPlacedGrid+ 0.4f < transform.position.y)
             {
                 if (_gridCellBelow != null)
-                {
+                {   
                     _tempGridCellBelow = _gridCellBelow;
                 }
                 if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit info ,10, _gridMask))
                 {
-                    if (info.transform.CompareTag("Grid") && info.transform.name.Contains("GridCell"))
-                    {
+                    if (info.transform.CompareTag("GridCellFake")) //&&
+                        //info.transform.TryGetComponent(out GridCellHighlight gridCellHighlight)) ;//&& info.transform.name.Contains("GridCell"))
+                    {   Debug.Log("merge screen on");
                         _gridCellBelow = info.transform;
+                        Debug.Log(_gridCellBelow.name);
                 
-                        _gridCellBelow.transform.GetComponent<GridCellHighlight>().HighlightCell();
+                        _gridCellBelow.transform.GetComponent<GridCellHighlight>().MarkerHighlight();
                     }
+                    
                 
                 }
 
@@ -67,7 +86,7 @@ public class UnitHighlightGrid : MonoBehaviour
                     _oldGridCellBelow = _tempGridCellBelow;
                     if (_oldGridCellBelow!=null)
                     {
-                        _oldGridCellBelow.transform.GetComponent<GridCellHighlight>().UnhighlightCell();
+                        _oldGridCellBelow.transform.GetComponent<GridCellHighlight>().UnMarkerHighlight();
                     }
                 
                 }
@@ -77,8 +96,8 @@ public class UnitHighlightGrid : MonoBehaviour
             {
                 if (_oldGridCellBelow!= null & _gridCellBelow!=null)
                 {
-                    _oldGridCellBelow.transform.GetComponent<GridCellHighlight>().UnhighlightCell();
-                    _gridCellBelow.transform.GetComponent<GridCellHighlight>().UnhighlightCell();
+                    _oldGridCellBelow.transform.GetComponent<GridCellHighlight>().UnMarkerHighlight();
+                    _gridCellBelow.transform.GetComponent<GridCellHighlight>().UnMarkerHighlight();
                 
                 }
             

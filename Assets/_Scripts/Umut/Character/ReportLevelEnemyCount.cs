@@ -29,7 +29,6 @@ public class ReportLevelEnemyCount : MonoBehaviour
             diedOnce = true;
             GameManager.Instance.decreaseLevelEnemyCount();
             GameManager.Instance.increaseGoldEarnings(goldValue);
-            Debug.Log("decreased enemy " + transform.name);
 
             if (GameManager.Instance.getLevelEnemyCount() <= 0 ||
                 GameManager.Instance.getLevelFriendlyUnitCount() <= 0) 

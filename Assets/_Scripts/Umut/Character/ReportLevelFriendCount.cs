@@ -24,7 +24,6 @@ public class ReportLevelFriendCount : MonoBehaviour
         {
             diedOnce = true;
             GameManager.Instance.decreaseLevelFriendlyUnitCount();
-            Debug.Log("decreased friendly " + transform.name);
             if (GameManager.Instance.getLevelEnemyCount() <= 0 ||
                 GameManager.Instance.getLevelFriendlyUnitCount() <= 0) 
             {   

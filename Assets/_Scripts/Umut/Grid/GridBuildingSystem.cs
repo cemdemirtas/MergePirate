@@ -42,7 +42,7 @@ public class GridBuildingSystem  : MonoSingleton<GridBuildingSystem>
         {
             for (int j = 0; j < grid.GetHeight()/2; j++)
             {   GameObject spawnedTile = Instantiate(gridGroundPrefab, grid.GetWorldPositionCenterOfGrid(i, j) + new Vector3(0,-0.91f,0), Quaternion.identity);
-                spawnedTile.tag = "Grid";
+                spawnedTile.tag = "GridCellFake";
                 spawnedTile.name = $"GridCell [{i}, {j}]";
                 spawnedTile.transform.SetParent(gridContainer.transform);
             }

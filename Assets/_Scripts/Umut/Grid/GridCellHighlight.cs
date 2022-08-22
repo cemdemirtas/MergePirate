@@ -8,16 +8,15 @@ public class GridCellHighlight : MonoBehaviour
     [SerializeField] private Material _highlightMaterial;
     [SerializeField] private Material _defaultMaterial;
     [SerializeField] private Material _borderMaterial;
-    private ParticleSystem particleSystem;
+    [SerializeField] private Material _markerHighlightMaterial;
+    //private ParticleSystem particleSystem;
     private MeshRenderer _meshRenderer;
-    private Collider _collider;
     [SerializeField] private LayerMask _unitLayer;
     void Awake()
     {
         GameManager.OnGameStateChanged += GameManagerOnGameStateChanged;
-        _collider = GetComponent<Collider>();
         _meshRenderer = GetComponent<MeshRenderer>();
-        particleSystem = transform.GetComponent<ParticleSystem>();
+        //particleSystem = transform.GetComponent<ParticleSystem>();
         
         
     }
@@ -48,17 +47,28 @@ public class GridCellHighlight : MonoBehaviour
             _meshRenderer.materials[1].color = _defaultMaterial.color;
         }
     }
+    
+    public void MarkerHighlight()
+    {
+        _meshRenderer.materials[0].color = _markerHighlightMaterial.color;
+        _meshRenderer.materials[1].color = _markerHighlightMaterial.color;
+    }
+    public void UnMarkerHighlight()
+    {
+        _meshRenderer.materials[0].color = _defaultMaterial.color;
+        _meshRenderer.materials[1].color = _borderMaterial.color;
+    }
 
     public void HighlightCell()
     {
-        particleSystem.Play();
+        //particleSystem.Play();
         _meshRenderer.materials[0].color = _defaultMaterial.color;
         _meshRenderer.materials[1].color = _highlightMaterial.color;
     }
     
     public void UnhighlightCell()
     { 
-        particleSystem.Stop();
+        //particleSystem.Stop();
         
         _meshRenderer.materials[0].color = _defaultMaterial.color;
         _meshRenderer.materials[1].color = _borderMaterial.color;

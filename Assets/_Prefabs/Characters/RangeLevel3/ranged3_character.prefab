@@ -1250,6 +1250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c12ecee3fb85f4e49b3cdd3b2237aeb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpUnder0: 0
 --- !u!114 &4541199444459498278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1264,7 +1265,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gridMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 512
 --- !u!1 &4456786529006234839
 GameObject:
   m_ObjectHideFlags: 0

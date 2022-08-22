@@ -114,7 +114,7 @@ public class GameManager : MonoSingleton<GameManager>
                 for (int i = 0; i < saveGridSo.units.Length; i++)
                 {
                     if (GridSaveValue.unitID == saveGridSo.units[i].placedUnit.GetUnitID())
-                    {   Debug.Log("unitID: " + GridSaveValue.unitID);
+                    {   
                         PlacedUnit placedUnit = PlacedUnit.Create(
                             _grid.GetWorldPositionCenterOfGrid(GridSaveValue.x,GridSaveValue.z) + new Vector3(0, -0.91f, 0), new Vector2Int(GridSaveValue.x, GridSaveValue.z), saveGridSo.units[i].placedUnit.placedUnitSO);
                         _grid.GetGridObject(GridSaveValue.x,GridSaveValue.z).SetPlacedUnit(placedUnit);
@@ -132,41 +132,7 @@ public class GameManager : MonoSingleton<GameManager>
             
         }
 
-    /*public void InstantiatePreviousLevelUnits()
-    {
-        for (int x = 0;  x < _grid.GetWidth(); x++)
-        {
-            for (int z = 0; z < _grid.GetHeight(); z++)
-            {
-                foreach (var unitSO in _unitSO)
-                {
-                    if (unitSO.unitID == saveGridSO.findUnitIDbyXZ(x,z) )
-                    {   PlacedUnit _placedUnit = PlacedUnit.Create(_grid.GetWorldPositionCenterOfGrid(x, z) + new Vector3(0, -0.91f, 0),new Vector2Int(x,z),
-                            unitSO);
-                        _grid.GetGridObject(x,z).SetPlacedUnit(unitSO.placedUnit);
-                    }
-                }
-
-                //grid.GetGridObject(x,z).SetPlacedUnit();
-            }
-                
-        }
-        GameManager.Instance.saveGridSO.removeAll();
-    }*/
-    /*public void saveLevelGridCellsandUnits()
-    {
-        for (int x = 0; x < _grid.GetHeight(); x++)
-        {
-            for (int z = 0; z < _grid.GetWidth(); z++)
-            {
-                if (!_grid.GetGridObject(x,z).isEmpthy())
-                {
-                    saveGridSO.addGridSaveValues(new GridSaveValues(x, z, _grid.GetGridObject(x, z).GetIDPlacedUnit()));
-                }
-                    
-            }
-        }
-    }*/
+   
     public void SavePlayer()
     {
         SaveSystem.SavePlayer(this);
@@ -346,3 +312,38 @@ public enum GameState
     GameOverScreen,
     GameWonScreen
 }
+/*public void InstantiatePreviousLevelUnits()
+   {
+       for (int x = 0;  x < _grid.GetWidth(); x++)
+       {
+           for (int z = 0; z < _grid.GetHeight(); z++)
+           {
+               foreach (var unitSO in _unitSO)
+               {
+                   if (unitSO.unitID == saveGridSO.findUnitIDbyXZ(x,z) )
+                   {   PlacedUnit _placedUnit = PlacedUnit.Create(_grid.GetWorldPositionCenterOfGrid(x, z) + new Vector3(0, -0.91f, 0),new Vector2Int(x,z),
+                           unitSO);
+                       _grid.GetGridObject(x,z).SetPlacedUnit(unitSO.placedUnit);
+                   }
+               }
+
+               //grid.GetGridObject(x,z).SetPlacedUnit();
+           }
+               
+       }
+       GameManager.Instance.saveGridSO.removeAll();
+   }*/
+/*public void saveLevelGridCellsandUnits()
+{
+    for (int x = 0; x < _grid.GetHeight(); x++)
+    {
+        for (int z = 0; z < _grid.GetWidth(); z++)
+        {
+            if (!_grid.GetGridObject(x,z).isEmpthy())
+            {
+                saveGridSO.addGridSaveValues(new GridSaveValues(x, z, _grid.GetGridObject(x, z).GetIDPlacedUnit()));
+            }
+                
+        }
+    }
+}*/
