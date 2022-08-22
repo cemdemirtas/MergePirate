@@ -126,7 +126,7 @@ public class GameManager : MonoSingleton<GameManager>
                     }
                     
                 }
-                    
+                
             }
             saveGridSo.removeAll();
             

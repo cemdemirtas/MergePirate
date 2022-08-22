@@ -37,7 +37,7 @@ public class GridXZ <TGridObject> // Generic class to create grid in XZ axis
             }
         }
 
-        bool showDebug = true; // if it is true, the grid will be drawn in the scene view
+        bool showDebug = false; // if it is true, the grid will be drawn in the scene view
         if (showDebug) {
             TextMesh[,] debugTextArray = new TextMesh[width, height]; // 2D array of TextMesh components to display grid units
 
