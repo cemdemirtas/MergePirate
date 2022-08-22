@@ -51,3 +51,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4dac620750ddd844e9f3cc2d9cb43e84, type: 2}
   - {fileID: 11400000, guid: f4d26dd38ebbd324ead0b795719ed46a, type: 2}
   - {fileID: 11400000, guid: 615c78042bd2ffe46b0177c38f12dd15, type: 2}
+  yAdjustment: -0.91

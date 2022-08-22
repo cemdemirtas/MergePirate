@@ -10,11 +10,12 @@ public class EnemyController : MonoBehaviour
     public int enemyLevel;
     Animator animator;
     Animation anim;
+    private ReportLevelEnemyCount _reportLevelEnemyCount;
 
     [SerializeField] UnitSO unitSO;
 
     Slider healthBar;
-
+    
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -22,13 +23,15 @@ public class EnemyController : MonoBehaviour
         healthBar = transform.GetChild(0).transform.GetChild(0).transform.gameObject.GetComponent<Slider>();
         healthBar.maxValue = _health;
         healthBar.value = _health;
-       
+        _reportLevelEnemyCount = GetComponent<ReportLevelEnemyCount>();
+
     }
 
     private void Update()
     {
         if (_health <= 0)
         {
+            _reportLevelEnemyCount.hpUnder0 = true;
             animator.SetBool("Die", true);
             animator.SetBool("Attack", false);
             animator.SetBool("Run", false);

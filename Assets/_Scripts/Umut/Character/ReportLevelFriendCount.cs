@@ -1,47 +1,42 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ReportLevelFriendCount : MonoBehaviour
 {
-    private float hp;
+    
     private bool diedOnce = false;
-    private void Awake()
+    public bool hpUnder0 = false;
+    private bool increasedOnce = false;
+    
+
+    
+    private void FixedUpdate()
     {
-        GameManager.OnGameStateChanged += GameManagerOnOnGameStateChanged;
-    }
-    private void OnDestroy()
-    {
-        GameManager.OnGameStateChanged -= GameManagerOnOnGameStateChanged;
-    }    
-    private void GameManagerOnOnGameStateChanged(GameState obj)
-    {
-        if (obj == GameState.FightScreen)
+        if (GameManager.Instance.CurrentGameState == GameState.FightScreen & !increasedOnce)
         {
+            increasedOnce = true;
             GameManager.Instance.increaseLevelFriendlyUnitCount();
         }
-    }
 
-    private void Update()
-    {
-        hp = gameObject.GetComponent<CharacterController>()._health;
-
-        if (hp<0 && !diedOnce)
+        if (hpUnder0 && !diedOnce)
         {
             diedOnce = true;
             GameManager.Instance.decreaseLevelFriendlyUnitCount();
-
-            if (GameManager.Instance.getLevelEnemyCount() == 0 ||
-                GameManager.Instance.getLevelFriendlyUnitCount() == 0) 
-            {
-                if (GameManager.Instance.getLevelFriendlyUnitCount() == 0)
+            if (GameManager.Instance.getLevelEnemyCount() <= 0 ||
+                GameManager.Instance.getLevelFriendlyUnitCount() <= 0) 
+            {   
+                if (GameManager.Instance.getLevelFriendlyUnitCount() <= 0)
                 {
                     GameManager.Instance.UpdateGameState(GameState.GameOverScreen);
+                    this.gameObject.GetComponent<ReportLevelFriendCount>().enabled = false;
                 }
 
-                if (GameManager.Instance.getLevelEnemyCount() == 0)
+                if (GameManager.Instance.getLevelEnemyCount() <= 0)
                 {
                     GameManager.Instance.UpdateGameState(GameState.GameWonScreen);
+                    this.gameObject.GetComponent<ReportLevelFriendCount>().enabled = false;
                 }
             }
         }

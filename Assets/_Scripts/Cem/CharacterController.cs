@@ -9,6 +9,7 @@ public class CharacterController : MonoBehaviour
     Animator animator;
     [SerializeField] int _characterLevel;
     [SerializeField] UnitSO unitSO;
+    private ReportLevelFriendCount _reportLevelFriendCount;
 
     Slider healthBar;
     
@@ -20,7 +21,9 @@ public class CharacterController : MonoBehaviour
     }
     private void Awake()
     {
+        _reportLevelFriendCount = GetComponent<ReportLevelFriendCount>();
         animator = GetComponent<Animator>();
+        
     }
     private void OnEnable()
     {
@@ -47,6 +50,7 @@ public class CharacterController : MonoBehaviour
         healthBar.value = _health;
         if (_health <= 0)
         {
+            _reportLevelFriendCount.hpUnder0 = true;
             animator.SetBool("Die", true);
             animator.SetBool("Attack", false);
             animator.SetBool("Run", false);

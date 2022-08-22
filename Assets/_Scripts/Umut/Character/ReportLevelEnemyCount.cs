@@ -5,49 +5,44 @@ using UnityEngine;
 
 public class ReportLevelEnemyCount : MonoBehaviour
 {
-    private float hp;
-
+    
     [SerializeField] private int
         goldValue;
 
     private bool diedOnce = false;
-    private void Awake()
+    public bool hpUnder0 = false;
+    private bool increasedOnce = false;
+    
+
+    private void FixedUpdate()
     {
-        GameManager.OnGameStateChanged += GameManagerOnOnGameStateChanged;
-    }
-    private void OnDestroy()
-    {
-        GameManager.OnGameStateChanged -= GameManagerOnOnGameStateChanged;
-    }    
-    private void GameManagerOnOnGameStateChanged(GameState obj)
-    {
-        if (obj == GameState.FightScreen)
-        {
+        
+        if (GameManager.Instance.CurrentGameState == GameState.FightScreen & !increasedOnce)
+        {   
+            increasedOnce = true;
+            
             GameManager.Instance.increaseLevelEnemyCount();
         }
-    }
 
-    private void Update()
-    {
-        hp = gameObject.GetComponent<EnemyController>()._health;
-
-        if (hp<0 && !diedOnce)
+        if (hpUnder0 && !diedOnce)
         {
             diedOnce = true;
             GameManager.Instance.decreaseLevelEnemyCount();
             GameManager.Instance.increaseGoldEarnings(goldValue);
 
-            if (GameManager.Instance.getLevelEnemyCount() == 0 ||
-                GameManager.Instance.getLevelFriendlyUnitCount() == 0) 
+            if (GameManager.Instance.getLevelEnemyCount() <= 0 ||
+                GameManager.Instance.getLevelFriendlyUnitCount() <= 0) 
             {
-                if (GameManager.Instance.getLevelFriendlyUnitCount() == 0)
+                if (GameManager.Instance.getLevelFriendlyUnitCount() <= 0)
                 {   
                     GameManager.Instance.UpdateGameState(GameState.GameOverScreen);
+                    this.gameObject.GetComponent<ReportLevelEnemyCount>().enabled = false;
                 }
 
-                if (GameManager.Instance.getLevelEnemyCount() == 0)
+                else if (GameManager.Instance.getLevelEnemyCount() <= 0)
                 {
                     GameManager.Instance.UpdateGameState(GameState.GameWonScreen);
+                    this.gameObject.GetComponent<ReportLevelEnemyCount>().enabled = false;
                 }
             }
         }

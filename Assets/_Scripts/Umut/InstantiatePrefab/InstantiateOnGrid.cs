@@ -71,8 +71,6 @@ public class InstantiateOnGrid : MonoBehaviour
             {
                 PlacedUnit _placedUnit = PlacedUnit.Create(gridObject.GetWorldPositionCenterOfGrid(x, z) + new Vector3(0, yAdjustment, 0),new Vector2Int(x,z),
                     placedUnit.placedUnitSO);
-                
-                
                 //Transform buildTransform = Instantiate(unitPrefab, gridObject.GetWorldPositionCenterOfGrid(x,z)  + new Vector3(0,1,0),Quaternion.identity);
                 gridObject.GetGridObject(x,z).SetPlacedUnit(_placedUnit);
                 _placedUnit.transform.SetParent(teammates.transform);

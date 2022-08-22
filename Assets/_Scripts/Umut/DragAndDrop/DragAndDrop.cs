@@ -14,6 +14,7 @@ public class DragAndDrop : MonoBehaviour
     [SerializeField] private float yAdjustment;
     public List<int> unitIdIndex = new List<int>();
     private GameObject teammates;
+    private bool allowToWork;
 
 
     [SerializeField] private LayerMask _unitLayerMask;
@@ -25,13 +26,26 @@ public class DragAndDrop : MonoBehaviour
         {
             unitIdIndex.Add(_units[i].unitID);
         }
-        
+        GameManager.OnGameStateChanged += OnGameStateChanged;
         
     }
 
-    private void Start()
+    private void OnGameStateChanged(GameState state)
     {
+        if (state != GameState.MergeScreen)
+        {
+            allowToWork = false;
+        }
+        else
+        {
+            allowToWork = true;
+        }
+    }
+
+    private void Start()
+    {   
         grid = GameObject.FindGameObjectWithTag("Grid").GetComponent<GridBuildingSystem>().grid;
+        OnGameStateChanged(GameManager.Instance.CurrentGameState);
         
     }
     
@@ -39,6 +53,12 @@ public class DragAndDrop : MonoBehaviour
 
     private void Update()
     {
+        if (allowToWork)
+        {
+            if (teammates == null)
+        {
+            teammates = GameObject.Find("TeamMates");
+        }
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         GridCell gridCell;
         bool unitHit = Physics.Raycast(ray, out RaycastHit hit, 100, _unitLayerMask);
@@ -134,7 +154,6 @@ public class DragAndDrop : MonoBehaviour
                             _pickedUpUnit.transform.position =
                                 grid.GetWorldPositionCenterOfGrid(gridCell.x, gridCell.z) + new Vector3(0, yAdjustment, 0);
                             gridCell.SetPlacedUnit(_pickedUpUnit);
-                            lookForTeamMates();
                             _pickedUpUnit.transform.SetParent(teammates.transform);
                             if (_lastPickedGrid != gridCell)
                             {
@@ -157,7 +176,8 @@ public class DragAndDrop : MonoBehaviour
                 }
                 _pickedUpUnit = null; 
             }
-        }
+        } }
+        
         
     }
 

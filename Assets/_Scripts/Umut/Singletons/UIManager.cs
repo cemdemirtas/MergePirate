@@ -271,9 +271,9 @@ public class UIManager : MonoSingleton<UIManager>
         //if scene index is 4, debug log "you won"
         if (SceneManager.GetActiveScene().buildIndex == 4)
         {
+            GameManager.Instance.UpdateGameState(GameState.MergeScreen);
             //load scene 0
             SceneManager.LoadScene(0);
-            GameManager.Instance.UpdateGameState(GameState.MainMenuScreen);
         }
         else
         {
@@ -285,9 +285,9 @@ public class UIManager : MonoSingleton<UIManager>
 
             _meleeBuyButton.interactable = true;
             _rangedBuyButton.interactable = true;
-
-            GameManager.Instance.UpdateGameState(GameState.MergeScreen);
             GameManager.Instance.NextScene();
+            GameManager.Instance.UpdateGameState(GameState.MergeScreen);
+            
         }
 
 
@@ -304,10 +304,10 @@ public class UIManager : MonoSingleton<UIManager>
 
         _meleeBuyButton.interactable = true;
         _rangedBuyButton.interactable = true;
-
+        GameManager.Instance.RestartScene();
         GameManager.Instance.UpdateGameState(GameState.MergeScreen);
 
-        GameManager.Instance.RestartScene(); //!Harcanan Gold geri gelmiyor veya asker geri gelmiyor!!
+         //!Harcanan Gold geri gelmiyor veya asker geri gelmiyor!!
     }
 
 

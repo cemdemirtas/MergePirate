@@ -46,4 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseColliderLayerMask:
     serializedVersion: 2
-    m_Bits: 2147483647
+    m_Bits: 224
