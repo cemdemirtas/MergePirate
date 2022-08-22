@@ -14,13 +14,13 @@ public class ReportLevelEnemyCount : MonoBehaviour
     private bool increasedOnce = false;
     
 
-    private void Update()
+    private void FixedUpdate()
     {
         
         if (GameManager.Instance.CurrentGameState == GameState.FightScreen & !increasedOnce)
         {   
             increasedOnce = true;
-            Debug.Log(increasedOnce);
+            
             GameManager.Instance.increaseLevelEnemyCount();
         }
 

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a796af1c12f68bc4ab87e1b11364153c, type: 3}
+  m_Name: GridSaveSO
+  m_EditorClassIdentifier: 
+  gridValues: []
+  units:
+  - {fileID: 11400000, guid: 0c5293fabc198624cad643e476c45f3d, type: 2}
+  - {fileID: 11400000, guid: f53c98b2aa38a354d9ab080d5a05676a, type: 2}
+  - {fileID: 11400000, guid: 384af945d504df649b43b4ab3ec6605b, type: 2}
+  - {fileID: 11400000, guid: 4dac620750ddd844e9f3cc2d9cb43e84, type: 2}
+  - {fileID: 11400000, guid: f4d26dd38ebbd324ead0b795719ed46a, type: 2}
+  - {fileID: 11400000, guid: 615c78042bd2ffe46b0177c38f12dd15, type: 2}

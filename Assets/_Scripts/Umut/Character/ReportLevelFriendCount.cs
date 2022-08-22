@@ -12,7 +12,7 @@ public class ReportLevelFriendCount : MonoBehaviour
     
 
     
-    private void Update()
+    private void FixedUpdate()
     {
         if (GameManager.Instance.CurrentGameState == GameState.FightScreen & !increasedOnce)
         {

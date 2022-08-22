@@ -10,6 +10,9 @@ public class GridBuildingSystem  : MonoSingleton<GridBuildingSystem>
     [SerializeField] private Transform originPosition;
     [SerializeField] private GameObject gridGroundPrefab;
     [SerializeField] private GameObject gridGroundPrefabEnemyBorderless;
+
+    [SerializeField] private UnitSO[] _unitSO;
+    [SerializeField] private SaveGridSO saveGridSO;
     private void Awake()
     {   GameManager.OnGameStateChanged += OnGameStateChanged;
         int gridWidth = 8;
@@ -17,14 +20,17 @@ public class GridBuildingSystem  : MonoSingleton<GridBuildingSystem>
         float cellSizeX = 1.4f;
         float cellSizeZ = 2.2f;
         //float gridCellSize = 10f;
-        if (GameManager.Instance.getGridObject() == null)
+        /*if (GameManager.Instance.getGridObject() == null)
         {
             grid = new GridXZ<GridCell>(gridWidth, gridHeight, cellSizeX,cellSizeZ, originPosition.position, (GridXZ<GridCell> grid, int x, int z) => new GridCell(grid, x, z));
         }
         else
         {
             grid = GameManager.Instance.getGridObject();
-        }
+        }*/
+        
+        grid = new GridXZ<GridCell>(gridWidth, gridHeight, cellSizeX,cellSizeZ, originPosition.position, (GridXZ<GridCell> grid, int x, int z) => new GridCell(grid, x, z));
+
         
         
         
@@ -49,26 +55,60 @@ public class GridBuildingSystem  : MonoSingleton<GridBuildingSystem>
                 spawnedTile.transform.SetParent(gridContainer.transform);
             }
         }
+        if (saveGridSO == null)
+        {
+            saveGridSO = Resources.Load<SaveGridSO>("ScriptableObjects\\GridSaveSO.asset");
+            
+        }
+        if (saveGridSO.getSize()>0)
+        {
+            GameManager.Instance.instantateUnit(saveGridSO,grid);
+        }
     }
 
     private void OnGameStateChanged(GameState state)
     {
         if (state == GameState.FightScreen)
-        {
-            for (int x = 0; x < grid.GetHeight(); x++)
+        {   //GameManager.Instance.saveGridSO.removeAll();
+            //GameManager.Instance.setGrid(grid);
+            for (int x = 0; x < grid.GetWidth(); x++)
             {
-                for (int z = 0; z < grid.GetWidth(); z++)
+                for (int z = 0; z < grid.GetHeight()/2; z++)
                 {
-                    GameManager.Instance.saveGridSO.addGridSaveValues(new GridSaveValues(x, z, grid.GetGridObject(x, z)));
+                    if (!grid.GetGridObject(x, z).isEmpthy())
+                    {
+                        GridSaveValues gridSaveValues = new GridSaveValues(x,z, grid.GetGridObject(x, z).GetIDPlacedUnit());
+                        saveGridSO.addGridSaveValues(gridSaveValues);
+                        
+                        //GameManager.Instance.saveGridSO.addGridSaveValues(new GridSaveValues(x, z, grid.GetGridObject(x, z).GetIDPlacedUnit()));
+                    }
+                    
                 }
             }
         }
 
-        if (state == GameState.MergeScreen)
+        /*if (state == GameState.MergeScreen)
         {
+            for (int x = 0;  x < grid.GetWidth(); x++)
+            {
+                for (int z = 0; z < grid.GetHeight(); z++)
+                {
+                    foreach (var unitSO in _unitSO)
+                    {
+                        if (unitSO.unitID == GameManager.Instance.saveGridSO.findUnitIDbyXZ(x,z) )
+                        {
+                            grid.GetGridObject(x,z).SetPlacedUnit(unitSO.placedUnit);
+                        }
+                    }
+
+                    //grid.GetGridObject(x,z).SetPlacedUnit();
+                }
+                
+            }
             GameManager.Instance.saveGridSO.removeAll();
-        }
+        }*/
     }
+    
 
 
     /*public void InstantiateGridObjectRandomly(Transform gridObjectPrefab)

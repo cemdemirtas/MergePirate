@@ -51,7 +51,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3816127429120136456}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -114,6 +114,14 @@ MonoBehaviour:
   originPosition: {fileID: 3816127430560063556}
   gridGroundPrefab: {fileID: 5612070719441096778, guid: ab8cf52a83e204341a4fed7145782c9a, type: 3}
   gridGroundPrefabEnemyBorderless: {fileID: 8032057009329097676, guid: 2a3e84f81bd97ab4781f01761a40aed9, type: 3}
+  _unitSO:
+  - {fileID: 11400000, guid: 0c5293fabc198624cad643e476c45f3d, type: 2}
+  - {fileID: 11400000, guid: f53c98b2aa38a354d9ab080d5a05676a, type: 2}
+  - {fileID: 11400000, guid: 384af945d504df649b43b4ab3ec6605b, type: 2}
+  - {fileID: 11400000, guid: 4dac620750ddd844e9f3cc2d9cb43e84, type: 2}
+  - {fileID: 11400000, guid: f4d26dd38ebbd324ead0b795719ed46a, type: 2}
+  - {fileID: 11400000, guid: 615c78042bd2ffe46b0177c38f12dd15, type: 2}
+  saveGridSO: {fileID: 11400000, guid: 8ae87787e89c1c140ac4fa735842dbe0, type: 2}
 --- !u!1 &3816127430560063559
 GameObject:
   m_ObjectHideFlags: 0

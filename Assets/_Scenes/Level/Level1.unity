@@ -1050,6 +1050,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameOn: 0
   CurrentGameState: 1
+  _unitSO:
+  - {fileID: 11400000, guid: 0c5293fabc198624cad643e476c45f3d, type: 2}
+  - {fileID: 11400000, guid: f53c98b2aa38a354d9ab080d5a05676a, type: 2}
+  - {fileID: 11400000, guid: 384af945d504df649b43b4ab3ec6605b, type: 2}
+  - {fileID: 11400000, guid: 4dac620750ddd844e9f3cc2d9cb43e84, type: 2}
+  - {fileID: 11400000, guid: f4d26dd38ebbd324ead0b795719ed46a, type: 2}
+  - {fileID: 11400000, guid: 615c78042bd2ffe46b0177c38f12dd15, type: 2}
   saveGridSO: {fileID: 11400000, guid: 8ae87787e89c1c140ac4fa735842dbe0, type: 2}
 --- !u!4 &2144716269
 Transform:
@@ -1237,10 +1244,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3816127429120136468, guid: 077b1eaf8b8cc2d4f95cc0fa0dd83103, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3816127429120136470, guid: 077b1eaf8b8cc2d4f95cc0fa0dd83103, type: 3}
-      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
